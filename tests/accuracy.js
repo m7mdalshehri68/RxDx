@@ -30,9 +30,9 @@ function score(){
 const s=score();
 const pct=x=>(x*100).toFixed(1)+'%';
 
-t('precision on the principal diagnosis is at least 60%',()=>s.P>=0.60||('got '+pct(s.P)));
+t('precision on the principal diagnosis is at least 70%',()=>s.P>=0.70||('got '+pct(s.P)));
 t('recall on the principal diagnosis is at least 75%',()=>s.R>=0.75||('got '+pct(s.R)));
-t('F1 is at least 68%',()=>s.F1>=0.68||('got '+pct(s.F1)));
+t('F1 is at least 73%',()=>s.F1>=0.73||('got '+pct(s.F1)));
 t('a denied finding is never coded — 100%, no exceptions',()=>s.neg===1||('got '+pct(s.neg)));
 t('the negation test is not vacuous',()=>s.negT>=50||('only '+s.negT+' real traps'));
 t('every drug in the corpus is found',()=>s.drug===1||('got '+pct(s.drug)));
@@ -70,6 +70,20 @@ t('the vocabulary covers at least 470 codes',()=>Object.keys(SYN).length>=470||(
 t('every vocabulary code exists in the ICD table',()=>{
  const bad=Object.keys(SYN).filter(c=>!ICD_MAP[c]);
  return bad.length===0||('not in the table: '+bad.slice(0,6).join());});
+
+/* one family, one code */
+t('a family is never coded twice',()=>{
+ const r=run('Impression: decompensated congestive heart failure.');
+ const roots=r.map(x=>String(x.code).split('.')[0]);
+ return roots.length===new Set(roots).size||('two members of: '+roots.join());});
+t('the specific member beats the unspecified one',()=>{
+ const r=run('Impression: chronic kidney disease stage 3.');
+ const n18=r.filter(x=>/^N18/.test(x.code));
+ return (n18.length===1&&n18[0].code!=='N18.9')||n18.map(x=>x.code).join();});
+t('collapsing never removes a different diagnosis',()=>{
+ const r=run('Impression: pneumonia and type 2 diabetes and essential hypertension.');
+ const c=r.map(x=>x.code);
+ return (c.some(x=>/^J18/.test(x))&&c.some(x=>/^E11/.test(x))&&c.some(x=>/^I10/.test(x)))||c.join();});
 
 console.log();
 console.log('  measured now:  precision '+pct(s.P)+' · recall '+pct(s.R)+' · F1 '+pct(s.F1)
