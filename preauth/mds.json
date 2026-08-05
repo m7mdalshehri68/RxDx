@@ -1,0 +1,15 @@
+[
+ {"k":"cc","q":"What is the chief complaint, in the patient's own words?","pay":["bupa","taw","art"],"f":"hx-input"},
+ {"k":"sx","q":"What are the symptoms and signs, with their duration?","pay":["taw","art"],"f":"hx-dur"},
+ {"k":"exam","q":"What did the clinical examination find?","pay":["taw","art"],"f":"hx-exam"},
+ {"k":"vitals","q":"What are the vital signs?","pay":["art"],"f":"hx-vitals",
+  "note":"Al Rajhi names vital signs explicitly alongside the examination. Tawuniya requires them for specific admissions."},
+ {"k":"icd","q":"Which ICD-10 code, and does it match the service requested?","pay":["bupa","taw","art"],"f":"hx-dx"},
+ {"k":"prov","q":"What is the clear provisional diagnosis, and what is the differential?","pay":["taw","art"],"f":"hx-dx"},
+ {"k":"pmh","q":"Has the patient been diagnosed with this same condition before — yes or no, and for how long?","pay":["taw","art"],"f":"hx-pmh"},
+ {"k":"adm","q":"Any admission in the last 12 months, at this facility or any other hospital — yes or no, with details?","pay":["taw","art"],"f":"hx-pmh"},
+ {"k":"rx","q":"What is the medication history?","pay":["taw","art"],"f":"hx-meds"},
+ {"k":"allergy","q":"What is the allergy history?","pay":["taw"],"f":"hx-allergy"},
+ {"k":"rad","q":"Is a radiology report needed to reach this diagnosis — if so, is the report attached?","pay":["taw","art"],"f":"hx-plan-ix"},
+ {"k":"lab","q":"Do the lab and investigation reports confirm the medical data you have given?","pay":["taw","art"],"f":"hx-plan-ix"}
+]

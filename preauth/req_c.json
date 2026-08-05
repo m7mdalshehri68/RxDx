@@ -1,0 +1,154 @@
+[
+{"t":"Antenatal care — first visit","sp":"Obstetrics","pay":["bupa","taw","art"],"cx":["Pregnancy"],"px":["Z34.90","O09.90","Z33.1"],
+ "q":[{"q":"Last menstrual period — in Gregorian date?","ev":"LMP|last menstrual"},
+      {"q":"Ultrasound report — attached?","ev":"ultrasound|US report|scan"},
+      {"q":"Is the pregnancy spontaneous or assisted? State which.","ev":"spontaneous|assisted|IVF|ICSI"},
+      {"q":"Does the ICD-10 code match the gestational age and the procedure requested?","ev":"weeks|gestation|trimester"}],
+ "no":["Al Rajhi requires LMP and the ultrasound report. Tawuniya adds the spontaneous-or-assisted statement and the ICD-to-gestational-age match. Bupa requires pre-auth for the first visit only, then the protocol schedule runs without it."]},
+
+{"t":"Endometriosis and fibroids — elective surgery","sp":"Obstetrics","pay":["taw"],"cx":["Pelvic pain","Heavy periods"],"px":["N80.9","D25.9","N92.0"],
+ "q":[{"q":"Transvaginal ultrasound, abdominal ultrasound, and advanced imaging reports where these are essential to diagnose the pathology?","ev":"transvaginal|abdominal ultrasound|MRI"},
+      {"q":"Complete blood picture — required if the main complaint is vaginal bleeding.","ev":"CBC|haemoglobin|hemoglobin|blood picture"},
+      {"q":"Histopathology report, if one was done and it affects the management decision?","ev":"histopatholog|biopsy"}]},
+
+{"t":"Pelvic organ prolapse","sp":"Obstetrics","pay":["taw"],"cx":["Pelvic pressure","Urinary incontinence"],"px":["N81.9","N81.2","N39.3"],
+ "q":[{"q":"Local examination WITH the grading?","ev":"grade|stage|POP-Q"},
+      {"q":"Urodynamic study — attached?","ev":"urodynamic"},
+      {"q":"Ultrasound report, if one was done?","ev":"ultrasound"}]},
+
+{"t":"Polycystic ovary syndrome","sp":"Obstetrics","pay":["taw"],"cx":["Irregular periods","Hirsutism","Infertility"],"px":["E28.2","N91.2"],
+ "q":[{"q":"Pelvic or transvaginal ultrasound — attached?","ev":"pelvic ultrasound|transvaginal"},
+      {"q":"For small simple cysts: serial ultrasound reports across 3 months?","ev":"serial|3 months|three months"}]},
+
+{"t":"Milk formula","sp":"Paediatrics","pay":["bupa","taw","art"],"cx":["Vomiting","Diarrhoea","Poor feeding"],"px":["K90.4","P92.9","E73.9","P07.3"],
+ "q":[{"q":"Cow's milk allergy or lactose intolerance: serum IgE report and skin test result?","ev":"IgE|skin test|skin prick"},
+      {"q":"Cow's milk allergy or lactose intolerance: detailed medical report with the full clinical criteria supporting the diagnosis, and the signs and symptoms?","ev":"symptom|sign|criteri"},
+      {"q":"Preterm infant: NICU report showing the birth weight?","ev":"NICU|birth weight|preterm"},
+      {"q":"Metabolic disease: enzyme assay?","ev":"enzyme"}],
+ "no":["Al Rajhi accepts only standard milk formula with no flavouring. Bupa requires pre-auth for all types."]},
+
+{"t":"Growth hormone","sp":"Paediatrics","pay":["bupa","taw","art"],"cx":["Short stature","Delayed puberty"],"px":["E23.0","E34.3","R62.52"],
+ "q":[{"q":"Saudi growth chart showing measurements over 6 months, so growth velocity can be seen?","ev":"growth chart|velocity|centile|percentile"},
+      {"q":"Mid-parental height?","ev":"mid[- ]parental|midparental"},
+      {"q":"Patient's height and age — both in the medical data?","ev":"height|cm"},
+      {"q":"Growth hormone stimulation test — done after authorisation, once the patient meets the clinical definition of short stature.","ev":"stimulation test"}]},
+
+{"t":"OFEV for idiopathic pulmonary fibrosis","sp":"Pulmonology","pay":["taw"],"cx":["Shortness of breath","Cough"],"px":["J84.112","J84.9"],
+ "q":[{"q":"Documented diagnosis of IPF AFTER exclusion of other causes of interstitial lung disease?","ev":"exclud|rule.? out|other causes"},
+      {"q":"High-resolution CT report revealing IPF?","ev":"HRCT|high resolution"},
+      {"q":"If a lung biopsy was done: histopathology report confirming IPF?","ev":"biopsy|histopatholog"},
+      {"q":"Is it prescribed by a pulmonologist? It must be.","ev":"pulmonolog|chest physician"}]},
+
+{"t":"COPD — admission","sp":"Pulmonology","pay":["taw"],"cx":["Shortness of breath","Cough","Wheeze"],"px":["J44.1","J44.0","J44.9"],
+ "q":[{"q":"Spirometry — attached?","ev":"spirometry|FEV1"},
+      {"q":"Plain chest radiology report — attached?","ev":"chest x-?ray|CXR|chest radiograph"},
+      {"q":"Arterial blood gases — attached?","ev":"blood gas|ABG"}]},
+
+{"t":"Sleep study","sp":"Pulmonology","pay":["bupa","taw"],"cx":["Snoring","Daytime sleepiness"],"px":["G47.33","G47.9","R06.83"],
+ "q":[{"q":"ENT evaluation report — attached?","ev":"ENT|otolaryngolog"},
+      {"q":"STOP-BANG score and/or Epworth Sleepiness Scale report?","ev":"STOP[- ]?BANG|Epworth|ESS"}]},
+
+{"t":"CPAP device","sp":"Pulmonology","pay":["bupa","taw"],"cx":["Snoring","Daytime sleepiness"],"px":["G47.33","Z99.89"],
+ "q":[{"q":"Polysomnography report — attached?","ev":"polysomnograph|PSG|sleep study"}]},
+
+{"t":"BiPAP device","sp":"Pulmonology","pay":["bupa","taw"],"cx":["Shortness of breath"],"px":["G47.33","J96.10","Z99.89"],
+ "q":[{"q":"Polysomnography report — attached?","ev":"polysomnograph|PSG|sleep study"},
+      {"q":"Blood gases report — attached? BiPAP needs this on top of the sleep study.","ev":"blood gas|ABG"}]},
+
+{"t":"Keratoconus","sp":"Ophthalmology","pay":["taw"],"cx":["Blurred vision"],"px":["H18.6","H18.611"],
+ "q":[{"q":"Belin-Ambrosio Pentacam — attached?","ev":"pentacam|Belin|Ambrosio"}]},
+
+{"t":"Retinal injection","sp":"Ophthalmology","pay":["taw"],"cx":["Vision loss","Blurred vision"],"px":["H35.32","E11.311","H34.83"],
+ "q":[{"q":"Optical coherence tomography — attached?","ev":"OCT|coherence tomograph"}]},
+
+{"t":"Cataract surgery","sp":"Ophthalmology","pay":["taw"],"cx":["Blurred vision","Vision loss"],"px":["H25.9","H26.9"],
+ "q":[{"q":"Uncorrected visual acuity?","ev":"UCVA|uncorrected"},
+      {"q":"Best-corrected visual acuity? Both are required — the pair is what shows the functional loss.","ev":"BCVA|best[- ]corrected"}]},
+
+{"t":"Glaucoma","sp":"Ophthalmology","pay":["taw"],"cx":["Eye pain","Vision loss"],"px":["H40.9","H40.11","H40.2"],
+ "q":[{"q":"What type of glaucoma, and what is the aetiology?","ev":"open angle|closed angle|angle[- ]closure|secondary|primary"},
+      {"q":"Intraocular pressure?","ev":"IOP|intraocular pressure|mmHg"}]},
+
+{"t":"Squint surgery","sp":"Ophthalmology","pay":["taw"],"cx":["Squint","Double vision"],"px":["H50.9","H50.00","H50.10"],
+ "q":[{"q":"What is the aetiology?","ev":"aetiolog|etiolog|cause|congenital|paralytic"},
+      {"q":"What is the functional benefit expected? This is what separates a covered procedure from a cosmetic one.","ev":"function|binocular|diplopia|amblyop"}]},
+
+{"t":"Refractive surgery","sp":"Ophthalmology","pay":["taw"],"cx":["Blurred vision"],"px":["H52.1","H52.2","H52.0"],
+ "q":[{"q":"Refraction test report — attached?","ev":"refraction|sphere|cylinder|diopt"}]},
+
+{"t":"Ptosis repair","sp":"Ophthalmology","pay":["taw"],"cx":["Drooping eyelid"],"px":["H02.4","H02.401"],
+ "q":[{"q":"Visual field — attached? This is what establishes the functional indication rather than a cosmetic one.","ev":"visual field|perimetry|Humphrey"}]},
+
+{"t":"Rheumatoid arthritis and biological therapy","sp":"Rheumatology","pay":["taw"],"cx":["Joint pain","Joint swelling"],"px":["M06.9","M05.79"],
+ "q":[{"q":"Diagnostic investigations — attached?","ev":"RF|anti[- ]?CCP|ESR|CRP"},
+      {"q":"History of previous medication, with the duration of each?","ev":"methotrexate|duration|months|previous"},
+      {"q":"DAS score?","ev":"DAS|DAS28"}]},
+
+{"t":"Psoriasis and biological therapy","sp":"Rheumatology","pay":["taw"],"cx":["Rash","Joint pain"],"px":["L40.0","L40.50","M07.3"],
+ "q":[{"q":"History of previous medication, with the duration of each?","ev":"duration|months|previous|methotrexate"},
+      {"q":"PASI score?","ev":"PASI"}]},
+
+{"t":"Axial spondyloarthritis","sp":"Rheumatology","pay":["taw"],"cx":["Back pain"],"px":["M45.9","M46.1"],
+ "q":[{"q":"MRI of the sacroiliac joint — attached?","ev":"sacroiliac|MRI SI|MRI"},
+      {"q":"History of previous medication, with the duration of each?","ev":"duration|months|previous|NSAID"}]},
+
+{"t":"Osteoporosis","sp":"Rheumatology","pay":["taw"],"cx":["Back pain","Fracture"],"px":["M81.0","M80.00"],
+ "q":[{"q":"What is the aetiology?","ev":"aetiolog|etiolog|postmenopaus|steroid|secondary"},
+      {"q":"DEXA bone mineral density report?","ev":"DEXA|DXA|T[- ]score|bone (mineral )?density"},
+      {"q":"FRAX score, if it was done?","ev":"FRAX"}]},
+
+{"t":"Chronic lymphocytic leukaemia","sp":"Oncology","pay":["taw"],"cx":["Fatigue","Lymphadenopathy"],"px":["C91.10","C91.1"],
+ "q":[{"q":"Full blood count — attached?","ev":"CBC|full blood count|complete blood"},
+      {"q":"Peripheral blood smear?","ev":"smear|peripheral blood"},
+      {"q":"Flow cytometry?","ev":"flow cytometry"},
+      {"q":"Bone marrow biopsy?","ev":"bone marrow"}]},
+
+{"t":"Tumours and related therapy","sp":"Oncology","pay":["bupa","taw"],"cx":["Weight loss","Mass","Lymphadenopathy"],"px":["C80.1","C50.9","C18.9","C34.90"],
+ "q":[{"q":"Histopathology report — required for a first-time diagnosis.","ev":"histopatholog|biopsy|pathology"},
+      {"q":"Radiology — attached?","ev":"CT|MRI|PET|radiolog"},
+      {"q":"TNM staging?","ev":"TNM|stage|T\\d N\\d M\\d"},
+      {"q":"How many chemotherapy cycles are planned, and over what duration?","ev":"cycle|duration|weeks|months"}]},
+
+{"t":"Blood pressure device","sp":"Devices","pay":["bupa","taw"],"px":["I10","Z46.89"],
+ "q":[{"q":"Blood pressure chart — required if this is a first-time diagnosis.","ev":"BP chart|blood pressure chart|readings"}]},
+
+{"t":"Glucometer","sp":"Devices","pay":["bupa","taw","art"],"px":["E11.9","E10.9","Z46.89"],
+ "q":[{"q":"HbA1c report — attached?","ev":"HbA1c|A1c"}]},
+
+{"t":"Nebuliser","sp":"Devices","pay":["bupa","taw","art"],"cx":["Wheeze","Shortness of breath"],"px":["J45.909","J44.9"],
+ "q":[{"q":"Detailed history of the asthma — not just the diagnosis?","ev":"asthma|exacerbation|inhaler|attack"}]},
+
+{"t":"Hearing aid","sp":"Devices","pay":["bupa","taw","art"],"cx":["Hearing loss"],"px":["H91.90","H90.3"],
+ "q":[{"q":"Audiogram — attached?","ev":"audiogram|audiometry"}]},
+
+{"t":"Non-elective admission — primary request","sp":"Admissions","pay":["taw"],"px":["J18.0","J18.9"],
+ "q":[{"q":"Valid clinical diagnosis, with the admission criteria that go with it per clinical guidelines?","ev":"criteri|guideline|admission"},
+      {"q":"Supportive clinical data and investigations?","ev":"investigation|lab|result"},
+      {"q":"Management plan — stated?","ev":"plan|treat|manage"},
+      {"q":"Goal of in-hospital management, and the discharge plan?","ev":"discharge|goal"},
+      {"q":"For pneumonia: CURB-65 score, interpreted alongside clinical judgement. A score of 0 or 1 is low risk of death and suitable for home treatment — which is exactly why an admission on that score will be questioned.","ev":"CURB|CURB[- ]?65"},
+      {"q":"For pneumonia: respiratory rate, oxygen saturation on room air, baseline saturation, and blood pressure — the saturation on room air is mandatory on admission as part of the discharge criteria.","ev":"room air|respiratory rate|SpO2|saturation"},
+      {"q":"For pneumonia: blood gases, plain radiology report, and serum urea?","ev":"blood gas|urea|chest x-?ray"}]},
+
+{"t":"Admission extension","sp":"Admissions","pay":["bupa","taw","art"],
+ "q":[{"q":"Have you avoided resubmitting the original admission presentation? The extension is judged on what has changed.","ev":"progress|today|day \\d"},
+      {"q":"Detailed clinical evaluation in the daily progress notes?","ev":"progress note|daily"},
+      {"q":"Lab work that actually bears on the management plan?","ev":"lab|result|repeat"},
+      {"q":"Is the extension linked to the original admission reference number? A new approval number is needed only on the first day of a new month.","ev":"reference|approval"}]},
+
+{"t":"Dental services","sp":"Dental","pay":["bupa","taw","art"],"px":["K02.9","K04.7","K08.1"],
+ "q":[{"q":"Tooth number — stated?","ev":"tooth|#\\d|number \\d"},
+      {"q":"Radiograph — attached where indicated?","ev":"radiograph|x-?ray|OPG|periapical"},
+      {"q":"Relevant clinical information?","ev":"pain|caries|mobility|swelling|percussion"},
+      {"q":"Does the ICD-10 match the requested service, and does the coding follow the ADA and SBS circular guide?","ev":"ICD|K0"},
+      {"q":"Are you requesting only the treatment that can be delivered at THIS appointment? Requesting later stages in advance is refused.","ev":"visit|today|session"}]},
+
+{"t":"Optical benefit","sp":"Optical","pay":["bupa","taw","art"],"px":["H52.1","H52.0","H52.4"],
+ "q":[{"q":"Optical prescription — uploaded as a supporting document, whether the refraction was done in the optical shop or by an outside ophthalmology clinic?","ev":"prescription|sphere|cylinder"},
+      {"q":"Is the prescription clear, and does it carry the examiner's stamp?","ev":"stamp|examiner"},
+      {"q":"Is the sphere power above 0.25 dioptre, or the cylinder above 0.25 DC? Anything at or below both is not to be dispensed.","ev":"diopt|DS|DC|sphere|cylinder"},
+      {"q":"For contact lenses: is the contact lens prescription attached?","ev":"contact lens|CL prescription"}],
+ "no":["Not covered, in all three protocols: sunglasses frames — dispensing one and swapping in medical lenses is recorded as FRAUD; tinted or coloured lenses; photochromic, polarised or transition lenses; ready-made reading glasses; and tinted cosmetic contact lenses even when they carry power.",
+       "Normal lenses must already include blue light reduction, UV protection, anti-reflective and scratch-resistant coatings at no extra cost.",
+       "Al Rajhi allows the patient to add uncovered extras on a cash basis; Tawuniya does not allow it even on cash."]}
+]

@@ -1,0 +1,14 @@
+{
+  "name": "RxDx — Clinical Reference & Documentation",
+  "short_name": "RxDx",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#0D6E6E",
+  "description": "Clinical documentation, coding and pre-authorisation support. Patient data never leaves the device.",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

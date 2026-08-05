@@ -1,0 +1,567 @@
+[
+ {
+  "id": "N01",
+  "setting": "ED",
+  "note": "38 y male, 3 days of productive cough with green sputum, fever and right-sided pleuritic chest pain. No haemoptysis. No recent travel. Temp 38.9, HR 104, RR 24, BP 118/72, SpO2 93% on room air. Right lower zone crackles and bronchial breathing. CXR: right lower lobe consolidation. CURB-65 = 1. Impression: community-acquired pneumonia. Started on amoxicillin and clarithromycin.",
+  "codes": [
+   "J18.9"
+  ],
+  "concepts": [
+   "community-acquired pneumonia"
+  ],
+  "must_not_code": [
+   "haemoptysis"
+  ],
+  "drugs": [
+   "amoxicillin",
+   "clarithromycin"
+  ]
+ },
+ {
+  "id": "N02",
+  "setting": "ED",
+  "note": "55 y male with 2 hours of central crushing chest pain radiating to the left arm, with sweating and nausea. Known hypertension and dyslipidaemia. Smoker 30 pack-years. BP 148/92, HR 96. ECG: ST elevation in II, III and aVF. Troponin I elevated. Impression: inferior STEMI. Aspirin 300 mg and clopidogrel 600 mg given, referred for primary PCI.",
+  "codes": [
+   "I21.1",
+   "I10"
+  ],
+  "concepts": [
+   "acute inferior STEMI",
+   "essential hypertension"
+  ],
+  "must_not_code": [],
+  "drugs": [
+   "aspirin",
+   "clopidogrel"
+  ]
+ },
+ {
+  "id": "N03",
+  "setting": "Clinic",
+  "note": "52 y female for diabetes follow-up. Type 2 diabetes for 8 years on metformin 1 g twice daily. HbA1c today 8.4%, up from 7.6%. No polyuria, no polydipsia, no visual blurring. Feet examined: no ulcers, monofilament intact. BP 132/84. Plan: add empagliflozin, dietitian referral.",
+  "codes": [
+   "E11.9"
+  ],
+  "concepts": [
+   "type 2 diabetes mellitus"
+  ],
+  "must_not_code": [
+   "polyuria",
+   "polydipsia",
+   "ulcer"
+  ],
+  "drugs": [
+   "metformin",
+   "empagliflozin"
+  ]
+ },
+ {
+  "id": "N04",
+  "setting": "ED",
+  "note": "29 y female, sudden severe headache while at rest, described as the worst of her life, peaked within a minute. Photophobia and one episode of vomiting. No neck stiffness. No focal weakness. GCS 15. CT head non-contrast: no haemorrhage seen. Plan: lumbar puncture to exclude subarachnoid haemorrhage.",
+  "codes": [
+   "R51"
+  ],
+  "concepts": [
+   "severe headache, thunderclap"
+  ],
+  "must_not_code": [
+   "subarachnoid haemorrhage",
+   "neck stiffness",
+   "weakness"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N05",
+  "setting": "Clinic",
+  "note": "64 y male, ex-smoker, breathless on climbing one flight of stairs for the past year, with a chronic morning cough. No orthopnoea and no ankle swelling. Spirometry: FEV1/FVC 0.58, FEV1 61% predicted, not reversible. Impression: chronic obstructive pulmonary disease, GOLD 2. Started tiotropium.",
+  "codes": [
+   "J44.9"
+  ],
+  "concepts": [
+   "COPD"
+  ],
+  "must_not_code": [
+   "orthopnoea",
+   "ankle swelling",
+   "heart failure"
+  ],
+  "drugs": [
+   "tiotropium"
+  ]
+ },
+ {
+  "id": "N06",
+  "setting": "ED",
+  "note": "24 y female with burning on passing urine and increased frequency for 2 days. No fever, no flank pain, no vomiting. Not pregnant, urine pregnancy test negative. Urine dipstick: leucocytes and nitrites positive. Impression: uncomplicated lower urinary tract infection. Nitrofurantoin 100 mg twice daily for 5 days.",
+  "codes": [
+   "N39.0"
+  ],
+  "concepts": [
+   "urinary tract infection"
+  ],
+  "must_not_code": [
+   "fever",
+   "flank pain",
+   "pyelonephritis",
+   "pregnancy"
+  ],
+  "drugs": [
+   "nitrofurantoin"
+  ]
+ },
+ {
+  "id": "N07",
+  "setting": "Clinic",
+  "note": "41 y male with lower back pain for 6 weeks, worse on sitting, no radiation below the knee. No red flags: no weight loss, no night pain, no fever, no bladder or bowel disturbance, no saddle anaesthesia. Straight leg raise negative bilaterally. Impression: mechanical low back pain. Physiotherapy and simple analgesia.",
+  "codes": [
+   "M54.5"
+  ],
+  "concepts": [
+   "mechanical low back pain"
+  ],
+  "must_not_code": [
+   "weight loss",
+   "night pain",
+   "fever",
+   "cauda equina",
+   "sciatica"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N08",
+  "setting": "ED",
+  "note": "6 y boy brought with wheeze and cough since last night, worse after playing. Known asthmatic on salbutamol as needed. Not cyanosed, speaking in full sentences. RR 28, SpO2 95%. Widespread expiratory wheeze. Impression: acute asthma exacerbation, moderate. Salbutamol nebuliser and oral prednisolone.",
+  "codes": [
+   "J45.9"
+  ],
+  "concepts": [
+   "asthma exacerbation"
+  ],
+  "must_not_code": [
+   "cyanosis"
+  ],
+  "drugs": [
+   "salbutamol",
+   "prednisolone"
+  ]
+ },
+ {
+  "id": "N09",
+  "setting": "Clinic",
+  "note": "58 y female with pain and stiffness in both knees for 2 years, worse at the end of the day and on stairs. Morning stiffness lasts about 10 minutes. No joint swelling, no redness, no small joint involvement. X-ray: medial joint space narrowing and osteophytes bilaterally. Impression: osteoarthritis of the knees.",
+  "codes": [
+   "M17.0"
+  ],
+  "concepts": [
+   "bilateral primary knee osteoarthritis"
+  ],
+  "must_not_code": [
+   "rheumatoid arthritis",
+   "joint swelling",
+   "redness"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N10",
+  "setting": "ED",
+  "note": "70 y male, known atrial fibrillation on warfarin, presents after a mechanical fall at home onto the right hip. No head injury and no loss of consciousness. Unable to weight bear. Right leg shortened and externally rotated. X-ray pelvis: right intracapsular neck of femur fracture. Referred to orthopaedics.",
+  "codes": [
+   "S72.01",
+   "I48.9"
+  ],
+  "concepts": [
+   "fractured neck of femur",
+   "atrial fibrillation"
+  ],
+  "must_not_code": [
+   "head injury",
+   "loss of consciousness"
+  ],
+  "drugs": [
+   "warfarin"
+  ]
+ },
+ {
+  "id": "N11",
+  "setting": "Clinic",
+  "note": "46 y male for a routine check. He denies chest pain, denies shortness of breath and denies palpitations. Father had a myocardial infarction at 51. Mother has type 2 diabetes. Brother has asthma. Examination normal. BP 126/78. Impression: healthy, cardiovascular risk assessment done.",
+  "codes": [],
+  "concepts": [
+   "well person, family history only"
+  ],
+  "must_not_code": [
+   "chest pain",
+   "shortness of breath",
+   "palpitations",
+   "myocardial infarction",
+   "diabetes",
+   "asthma"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N12",
+  "setting": "ED",
+  "note": "33 y female with right iliac fossa pain for 18 hours, anorexia and one vomit. Afebrile. No dysuria. Pregnancy test negative. Rebound tenderness in the right iliac fossa. Alvarado score 7. Impression: suspected acute appendicitis. Surgical review requested, ultrasound to exclude ovarian pathology.",
+  "codes": [
+   "R10.3"
+  ],
+  "concepts": [
+   "right iliac fossa pain, appendicitis suspected not confirmed"
+  ],
+  "must_not_code": [
+   "fever",
+   "dysuria",
+   "pregnancy",
+   "ovarian"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N13",
+  "setting": "ED",
+  "note": "61 y male with 3 days of worsening breathlessness and leg swelling. Orthopnoea, sleeps on three pillows. Known ischaemic heart disease. No chest pain today and no cough. JVP raised, bibasal crackles, pitting oedema to mid-shin. BNP raised. CXR: upper lobe diversion. Impression: decompensated heart failure. IV furosemide started.",
+  "codes": [
+   "I50.0",
+   "I25.9"
+  ],
+  "concepts": [
+   "decompensated heart failure",
+   "ischaemic heart disease"
+  ],
+  "must_not_code": [
+   "chest pain",
+   "cough",
+   "pneumonia"
+  ],
+  "drugs": [
+   "furosemide"
+  ]
+ },
+ {
+  "id": "N14",
+  "setting": "Clinic",
+  "note": "27 y female with low mood, poor sleep and loss of interest for 3 months, affecting her work. No suicidal ideation, no self-harm, no psychotic features. Appetite reduced. PHQ-9 score 16. Impression: moderate depressive episode. Started sertraline 50 mg, follow-up in 2 weeks.",
+  "codes": [
+   "F32.10"
+  ],
+  "concepts": [
+   "moderate depressive episode"
+  ],
+  "must_not_code": [
+   "suicidal ideation",
+   "self harm",
+   "psychosis"
+  ],
+  "drugs": [
+   "sertraline"
+  ]
+ },
+ {
+  "id": "N15",
+  "setting": "ED",
+  "note": "48 y male with severe left loin pain radiating to the groin, colicky, with vomiting. Restless and unable to lie still. No fever and no dysuria. Urine dipstick: blood 3+. CT KUB: 5 mm stone at the left vesicoureteric junction, no hydronephrosis. Impression: left ureteric colic. Diclofenac given, tamsulosin prescribed.",
+  "codes": [
+   "N23"
+  ],
+  "concepts": [
+   "ureteric colic"
+  ],
+  "must_not_code": [
+   "fever",
+   "dysuria",
+   "hydronephrosis"
+  ],
+  "drugs": [
+   "diclofenac",
+   "tamsulosin"
+  ]
+ },
+ {
+  "id": "N16",
+  "setting": "Clinic",
+  "note": "35 y female, 28 weeks pregnant, for routine antenatal review. Fetal movements normal. No headache, no visual disturbance, no epigastric pain, no vaginal bleeding. BP 112/68, urine dipstick clear. Symphysio-fundal height 28 cm. Impression: uncomplicated pregnancy at 28 weeks. Glucose tolerance test booked.",
+  "codes": [
+   "Z34.9"
+  ],
+  "concepts": [
+   "supervision of normal pregnancy"
+  ],
+  "must_not_code": [
+   "headache",
+   "pre-eclampsia",
+   "vaginal bleeding",
+   "epigastric pain"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N17",
+  "setting": "ED",
+  "note": "19 y male, alleged assault, struck to the face with a fist. No loss of consciousness, no vomiting, no amnesia. Swelling and tenderness over the left zygoma, no step deformity. Eye movements full, no diplopia. CT facial bones: undisplaced left zygomatic arch fracture. Maxillofacial referral, conservative management.",
+  "codes": [
+   "S02.4"
+  ],
+  "concepts": [
+   "zygomatic fracture"
+  ],
+  "must_not_code": [
+   "loss of consciousness",
+   "vomiting",
+   "amnesia",
+   "diplopia",
+   "head injury"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N18",
+  "setting": "Clinic",
+  "note": "72 y male with type 2 diabetes and hypertension attends for review. Creatinine 168, eGFR 38. Previous eGFR 41 one year ago. Urine ACR 12. No haematuria and no oedema. Impression: chronic kidney disease stage 3b, likely diabetic. Ramipril continued, nephrology referral made.",
+  "codes": [
+   "N18.3",
+   "E11.9",
+   "I10"
+  ],
+  "concepts": [
+   "CKD stage 3b",
+   "type 2 diabetes",
+   "hypertension"
+  ],
+  "must_not_code": [
+   "haematuria",
+   "oedema"
+  ],
+  "drugs": [
+   "ramipril"
+  ]
+ },
+ {
+  "id": "N19",
+  "setting": "ED",
+  "note": "3 y girl with fever for 2 days and reduced oral intake. Temp 39.1. No rash, no neck stiffness, no photophobia. Alert and playful after paracetamol. Ears: right tympanic membrane red and bulging. Chest clear. Impression: acute otitis media. Amoxicillin prescribed, safety-net advice given.",
+  "codes": [
+   "H66.9"
+  ],
+  "concepts": [
+   "acute otitis media"
+  ],
+  "must_not_code": [
+   "rash",
+   "neck stiffness",
+   "photophobia",
+   "meningitis"
+  ],
+  "drugs": [
+   "paracetamol",
+   "amoxicillin"
+  ]
+ },
+ {
+  "id": "N20",
+  "setting": "ED",
+  "note": "66 y female with sudden right-sided weakness and slurred speech starting 90 minutes ago. Face droop on the right, arm and leg power 2/5. No headache and no seizure. BP 176/94. Glucose 6.8. CT head: no haemorrhage. Impression: acute ischaemic stroke, within thrombolysis window. Stroke team activated.",
+  "codes": [
+   "I63.9"
+  ],
+  "concepts": [
+   "acute ischaemic stroke"
+  ],
+  "must_not_code": [
+   "headache",
+   "seizure",
+   "haemorrhage"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N21",
+  "setting": "Clinic",
+  "note": "59 y male, known hypertension, attends with no new complaints. Ramipril 10 mg daily and amlodipine 5 mg daily. Home readings average 128/78. No chest pain, no breathlessness, no ankle swelling. Bloods: normal renal function. Impression: essential hypertension, controlled. Continue same treatment.",
+  "codes": [
+   "I10"
+  ],
+  "concepts": [
+   "essential hypertension"
+  ],
+  "must_not_code": [
+   "chest pain",
+   "breathlessness",
+   "ankle swelling"
+  ],
+  "drugs": [
+   "ramipril",
+   "amlodipine"
+  ]
+ },
+ {
+  "id": "N22",
+  "setting": "ED",
+  "note": "44 y female with epigastric burning worse at night and after meals, for 3 months. Takes ibuprofen frequently for headaches. No haematemesis, no melaena, no weight loss, no dysphagia. Epigastric tenderness only. Impression: dyspepsia, likely NSAID related. Stop ibuprofen, start omeprazole, test for Helicobacter pylori.",
+  "codes": [
+   "K30"
+  ],
+  "concepts": [
+   "dyspepsia"
+  ],
+  "must_not_code": [
+   "haematemesis",
+   "melaena",
+   "weight loss",
+   "dysphagia",
+   "gastrointestinal bleeding"
+  ],
+  "drugs": [
+   "ibuprofen",
+   "omeprazole"
+  ]
+ },
+ {
+  "id": "N23",
+  "setting": "Clinic",
+  "note": "31 y male with itchy, scaly plaques on both elbows and knees for a year, with nail pitting. No joint pain and no joint swelling. Scalp involved behind the ears. Impression: chronic plaque psoriasis. Topical calcipotriol with betamethasone started, dermatology referral if no response.",
+  "codes": [
+   "L40.0"
+  ],
+  "concepts": [
+   "plaque psoriasis"
+  ],
+  "must_not_code": [
+   "psoriatic arthritis",
+   "joint pain",
+   "joint swelling"
+  ],
+  "drugs": [
+   "calcipotriol",
+   "betamethasone"
+  ]
+ },
+ {
+  "id": "N24",
+  "setting": "ED",
+  "note": "52 y male brought in confused. Known alcohol use. GCS 13. Glucose 2.1 mmol/L. No focal neurology, no head injury, no seizure witnessed. Given IV glucose with rapid recovery to GCS 15. Impression: hypoglycaemia. Observed 4 hours, ate a meal, discharged with advice.",
+  "codes": [
+   "E16.2"
+  ],
+  "concepts": [
+   "hypoglycaemia"
+  ],
+  "must_not_code": [
+   "head injury",
+   "seizure",
+   "stroke"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N25",
+  "setting": "Clinic",
+  "note": "68 y female with tiredness for 3 months. No bleeding, no black stools, no weight loss. Haemoglobin 9.2, MCV 71, ferritin 6. Impression: iron deficiency anaemia. Ferrous sulphate started. Given her age, urgent lower gastrointestinal investigation arranged to exclude malignancy.",
+  "codes": [
+   "D50.9"
+  ],
+  "concepts": [
+   "iron deficiency anaemia"
+  ],
+  "must_not_code": [
+   "bleeding",
+   "melaena",
+   "weight loss",
+   "malignancy",
+   "colorectal cancer"
+  ],
+  "drugs": [
+   "ferrous sulphate"
+  ]
+ },
+ {
+  "id": "N26",
+  "setting": "ED",
+  "note": "25 y male with a swollen, painful right ankle after inverting it playing football 2 hours ago. Able to weight bear four steps. No bony tenderness at the malleoli or the base of the fifth metatarsal. Ottawa ankle rules negative, so no X-ray indicated. Impression: lateral ligament sprain. RICE advice, ibuprofen.",
+  "codes": [
+   "S93.40"
+  ],
+  "concepts": [
+   "ankle sprain"
+  ],
+  "must_not_code": [
+   "fracture"
+  ],
+  "drugs": [
+   "ibuprofen"
+  ]
+ },
+ {
+  "id": "N27",
+  "setting": "Clinic",
+  "note": "49 y female with hot flushes, night sweats and irregular periods for 8 months. No postcoital bleeding, no intermenstrual bleeding, no pelvic pain. Last smear normal 1 year ago. FSH raised. Impression: perimenopausal symptoms. Discussed hormone replacement therapy; she will consider.",
+  "codes": [
+   "N95.1"
+  ],
+  "concepts": [
+   "menopausal symptoms"
+  ],
+  "must_not_code": [
+   "postcoital bleeding",
+   "intermenstrual bleeding",
+   "pelvic pain"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N28",
+  "setting": "ED",
+  "note": "77 y male with fever, dysuria and new confusion for 1 day. Temp 38.6, HR 112, BP 96/58, RR 24. Loin tenderness on the left. Urine dipstick positive. Lactate 3.1. Blood cultures taken. Impression: urosepsis. IV fluids and IV ceftriaxone given within the first hour. Admitted.",
+  "codes": [
+   "N39.0",
+   "A41.9"
+  ],
+  "concepts": [
+   "urinary tract infection",
+   "sepsis"
+  ],
+  "must_not_code": [],
+  "drugs": [
+   "ceftriaxone"
+  ]
+ },
+ {
+  "id": "N29",
+  "setting": "Clinic",
+  "note": "14 y boy for review of attention difficulties reported by school. No history of seizures and no head injury. Concentration poor across settings, impulsive, fidgety since early childhood. Conners questionnaires from home and school both elevated. Impression: attention deficit hyperactivity disorder. Referred to child psychiatry before starting medication.",
+  "codes": [
+   "F90.0"
+  ],
+  "concepts": [
+   "ADHD"
+  ],
+  "must_not_code": [
+   "seizure",
+   "head injury"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N30",
+  "setting": "ED",
+  "note": "39 y female with sudden pleuritic chest pain and breathlessness. Returned from a 9-hour flight 3 days ago. On the combined oral contraceptive pill. No haemoptysis, no leg swelling. HR 108, SpO2 94%, BP 122/76. Wells score 4.5, D-dimer raised. CTPA: segmental pulmonary embolus. Started on apixaban.",
+  "codes": [
+   "I26.9"
+  ],
+  "concepts": [
+   "pulmonary embolism"
+  ],
+  "must_not_code": [
+   "haemoptysis",
+   "leg swelling",
+   "deep vein thrombosis"
+  ],
+  "drugs": [
+   "apixaban"
+  ]
+ }
+]

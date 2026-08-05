@@ -1,0 +1,94 @@
+[
+{"t":"Physiotherapy","sp":"Orthopaedics","pay":["taw","art"],"cx":["Back pain","Neck pain","Knee pain","Shoulder pain"],"px":["M54.5","M54.2","M17.9","M25.51"],
+ "q":[{"q":"How long has the complaint lasted, and are there yellow flags or red flag signs?","ev":"week|month|red flag|yellow flag"},
+      {"q":"Documented failure of medical therapy AND of self-managed home exercise, for at least 4 to 6 weeks?","ev":"4[- ]6 weeks|four to six|fail"},
+      {"q":"Attendance sheet stating the patient's compliance with the programme, and the response, using a recognised severity scale — required at every follow-up.","ev":"attendance|complian|scale"},
+      {"q":"Radiology report showing the angle degrees or the grade of disease severity for this diagnosis?","ev":"degree|grade|angle"},
+      {"q":"For cervical or low back pain: how long has it lasted, and is there associated radiculopathy?","ev":"radiculopath|weeks|months"},
+      {"q":"Are the physiotherapy modalities you are requesting the ones that match this diagnosis in the clinical guidelines?","ev":"modalit|exercise|traction|TENS"}],
+ "no":["Al Rajhi requires the same 4-6 week documented failure, and the attendance sheet with the response at every follow-up."]},
+
+{"t":"Osteoarthritis and joint injections","sp":"Orthopaedics","pay":["taw","art"],"cx":["Knee pain","Hip pain","Joint pain"],"px":["M17.9","M16.9","M19.90"],
+ "q":[{"q":"Radiology report — attached?","ev":"x-?ray|radiograph|radiolog"},
+      {"q":"What is the DEGREE of osteoarthritis? Both payers require the grade, not just the diagnosis.","ev":"grade|degree|Kellgren|KL\\s*[1-4]"}]},
+
+{"t":"Scoliosis surgery","sp":"Orthopaedics","pay":["taw"],"cx":["Back pain","Spinal deformity"],"px":["M41.9","M41.20"],
+ "q":[{"q":"Long-film X-ray showing the Cobb angle?","ev":"Cobb"}]},
+
+{"t":"Disc prolapse surgery","sp":"Orthopaedics","pay":["taw"],"cx":["Back pain","Leg pain"],"px":["M51.1","M51.26"],
+ "q":[{"q":"MRI report — attached?","ev":"MRI"}]},
+
+{"t":"Fracture","sp":"Orthopaedics","pay":["taw"],"cx":["Trauma","Bone pain"],"px":["S82.9","S52.9","S72.9"],
+ "q":[{"q":"X-ray report, and/or CT report?","ev":"x-?ray|CT"}]},
+
+{"t":"Arthroscopic procedures","sp":"Orthopaedics","pay":["taw"],"cx":["Knee pain","Shoulder pain"],"px":["M23.9","M75.1","M23.2"],
+ "q":[{"q":"MRI report — attached?","ev":"MRI"},
+      {"q":"What conservative measures were tried before this?","ev":"conservative|physio|NSAID|inject"}]},
+
+{"t":"Deformity correction","sp":"Orthopaedics","pay":["taw"],"px":["M21.9","M20.1","Q68.8"],
+ "q":[{"q":"What is the aetiology of the deformity?","ev":"aetiolog|etiolog|cause"},
+      {"q":"Radiology — a CT scanogram with the angles and lengths, where those change the plan of management?","ev":"scanogram|CT|angle|length"}]},
+
+{"t":"Arthroplasty","sp":"Orthopaedics","pay":["taw"],"cx":["Knee pain","Hip pain"],"px":["M17.0","M16.0","M17.11"],
+ "q":[{"q":"X-ray report showing the DEGREE of osteoarthritis?","ev":"degree|grade|x-?ray"}]},
+
+{"t":"Trauma — any","sp":"Orthopaedics","pay":["taw","art"],"cx":["Trauma","Injury"],"px":["S00-T88","T14.90"],
+ "q":[{"q":"What were the circumstances of the trauma — how did it happen?","ev":"fell|fall|accident|struck|hit|collision|twisted"},
+      {"q":"When did it happen?","ev":"today|yesterday|hours ago|days ago|ago"},
+      {"q":"Where did it happen?","ev":"at home|at work|road|street|school|gym|workplace"},
+      {"q":"Is it work related — yes or no?","ev":"work[- ]related|occupational|at work|not work"},
+      {"q":"If sport related: is the patient a professional player or not?","ev":"professional|amateur|recreational"}],
+ "no":["Al Rajhi words this as: trauma cases require specifying how, when and where, and whether it is work related."]},
+
+{"t":"Road traffic accident","sp":"Orthopaedics","pay":["taw","art"],"cx":["Trauma"],"px":["V89.2","T14.90"],
+ "q":[{"q":"Police report showing where responsibility lies — attached?","ev":"police report"},
+      {"q":"Guarantee letter signed by the patient — attached? Tawuniya requires it when the patient is not 100 percent responsible; Al Rajhi requires it filled out by the member in every RTA case.","ev":"guarantee letter"}]},
+
+{"t":"Nasal surgery for chronic sinusitis","sp":"ENT","pay":["taw","art"],"cx":["Nasal congestion","Facial pain","Headache"],"px":["J32.9","J33.9","J34.2"],
+ "q":[{"q":"Past medication history with the duration of each — documented failure of appropriate medical therapy for at least 6 to 12 weeks?","ev":"6[- ]12 weeks|six to twelve|weeks"},
+      {"q":"The DOSES used, and the response to them?","ev":"mg|dose|respons"},
+      {"q":"Radiology report — attached?","ev":"CT|radiolog|x-?ray"}]},
+
+{"t":"Migraine headache","sp":"Neurology","pay":["taw"],"cx":["Headache"],"px":["G43.9","G43.0","G43.1"],
+ "q":[{"q":"How many attacks per month?","ev":"attack|per month|/month|monthly"},
+      {"q":"Current and past medication history, with the duration of each?","ev":"duration|months|weeks"},
+      {"q":"Documented failure of first-line medical therapy for at least 8 weeks within the last 3 months?","ev":"8 weeks|eight weeks|fail"},
+      {"q":"The doses used, the dose adjustments made, and the response to them?","ev":"dose|adjust|titrat|respons"}]},
+
+{"t":"Multiple sclerosis","sp":"Neurology","pay":["taw"],"cx":["Numbness","Weakness","Visual disturbance"],"px":["G35"],
+ "q":[{"q":"Brain MRI report — attached?","ev":"MRI"},
+      {"q":"Previous medication history?","ev":"previous|prior|history"}]},
+
+{"t":"Cholecystectomy","sp":"Surgery","pay":["taw"],"cx":["Abdominal pain"],"px":["K80.20","K81.0","K80.00"],
+ "q":[{"q":"Abdominal ultrasound — attached?","ev":"abdominal ultrasound|abdominal US|ultrasound"}]},
+
+{"t":"Perianal fistula","sp":"Surgery","pay":["taw"],"cx":["Anal pain","Discharge"],"px":["K60.3","K60.5"],
+ "q":[{"q":"MRI fistulogram — attached?","ev":"fistulogram|MRI"}]},
+
+{"t":"Warts","sp":"Surgery","pay":["taw"],"cx":["Skin lesion"],"px":["B07.9","A63.0"],
+ "q":[{"q":"Site of the warts?","ev":"site|hand|foot|face|genital|plantar"},
+      {"q":"Size?","ev":"mm|cm|size"},
+      {"q":"Number?","ev":"number|single|multiple|\\d+ wart"}]},
+
+{"t":"Chronic peripheral ischaemia and endovascular surgery","sp":"Surgery","pay":["taw"],"cx":["Leg pain","Claudication"],"px":["I70.2","I73.9","I70.25"],
+ "q":[{"q":"Doppler, duplex, or CT angiography report — attached?","ev":"doppler|duplex|CT angio|angiograph"},
+      {"q":"Local clinical evaluation — documented?","ev":"pulse|capillary|ulcer|examination"}]},
+
+{"t":"Varicose veins","sp":"Surgery","pay":["taw"],"cx":["Leg swelling","Leg pain"],"px":["I83.9","I83.10"],
+ "q":[{"q":"Duplex ultrasound report — attached?","ev":"duplex"}]},
+
+{"t":"Varicocelectomy","sp":"Surgery","pay":["taw"],"cx":["Testicular pain","Infertility"],"px":["I86.1","N46.9"],
+ "q":[{"q":"Colour Doppler ultrasound report showing the DEGREE?","ev":"doppler|grade|degree"},
+      {"q":"Semen analysis — required in patients above 20 years old.","ev":"semen"},
+      {"q":"Is this related to infertility or not? State it explicitly.","ev":"infertil|fertil"}]},
+
+{"t":"Bariatric surgery","sp":"Surgery","pay":["taw","art"],"cx":["Weight gain"],"px":["E66.01","E66.9","Z68.41"],
+ "q":[{"q":"Official electronic InBody report showing the BMI — attached? Both payers name the InBody report specifically.","ev":"inbody|BMI"}]},
+
+{"t":"Benign prostatic hyperplasia","sp":"Surgery","pay":["taw"],"cx":["Urinary frequency","Difficulty passing urine"],"px":["N40.0","N40.1"],
+ "q":[{"q":"International Prostate Symptom Score — the disease severity score, measured in response to medical therapy?","ev":"IPSS|prostate symptom score"},
+      {"q":"Prostate ultrasound — attached?","ev":"ultrasound|prostate US"},
+      {"q":"Digital rectal examination — documented?","ev":"digital rectal|DRE|per rectum"},
+      {"q":"Uroflowmetry — attached?","ev":"uroflow"},
+      {"q":"PSA blood test?","ev":"PSA"}]}
+]

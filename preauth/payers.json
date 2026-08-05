@@ -1,0 +1,8 @@
+[
+ {"id":"bupa","n":"Bupa Arabia","v":"effective 01 June 2025",
+  "note":"This version supersedes all previous versions. Aramco and SABIC accounts continue to follow their own protocols and are not covered by it."},
+ {"id":"taw","n":"Tawuniya","v":"November 2024",
+  "note":"Carries the fullest Minimum Data Set — requirements written out for 20 specialties. Where a condition appears here, its data set is the strictest of the three."},
+ {"id":"art","n":"Al Rajhi Takaful","v":"November 2025, version 2",
+  "note":"Adds rules the others do not state: services sent with uncontracted codes are rejected outright, and new service codes must be submitted three months in advance."}
+]

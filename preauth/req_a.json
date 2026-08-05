@@ -1,0 +1,96 @@
+[
+{"t":"Acute chest pain","sp":"Cardiology","pay":["taw"],"cx":["Chest pain"],"px":["R07.4","I20","I21","I24"],
+ "q":[{"q":"Is this cardiogenic or non-cardiogenic chest pain? State which, per AHA guidance.","ev":"cardiogenic|non-?cardiogenic|noncardiac"},
+      {"q":"What is the HEART score? A risk stratification tool must be included.","ev":"HEART score|HEART\\s*[:=]?\\s*\\d"},
+      {"q":"Serial ECG — done and reported?","ev":"serial ECG|ECG.*repeat|repeat ECG"},
+      {"q":"Serial high-sensitivity troponin I — done and reported?","ev":"troponin"},
+      {"q":"Chest X-ray — done and reported?","ev":"chest x-?ray|CXR"}],
+ "no":["Do not request cardiac investigations for pain you have documented as non-cardiogenic. Only the investigations indicated for cardiogenic chest pain are accepted."]},
+
+{"t":"Chronic coronary syndrome","sp":"Cardiology","pay":["taw"],"cx":["Chest pain"],"px":["I25.1","I25.10","I20.8"],
+ "q":[{"q":"ECG — attached?","ev":"ECG"},
+      {"q":"Echocardiogram report — attached?","ev":"echocardiogram|echo report|ECHO"},
+      {"q":"Current medication, its duration, and the patient's compliance — all three stated?","ev":"complian|adheren"},
+      {"q":"Plus at least one of: stress ECG with TDS score, non-invasive testing such as CT coronary angiography or stress echo, or a previous coronary angiography report.","ev":"stress ECG|TDS|CTCA|CT coronary|stress echo|coronary angiograph"}]},
+
+{"t":"Coronary artery bypass graft","sp":"Cardiology","pay":["taw"],"cx":["Chest pain"],"px":["I25.10","Z95.1"],
+ "q":[{"q":"Coronary angiography report — attached?","ev":"coronary angiograph|CAG"}]},
+
+{"t":"Valve replacement, congenital heart disease, CRT device","sp":"Cardiology","pay":["taw"],"px":["I35","I34","Q24.9","I50.2"],
+ "q":[{"q":"Detailed medical report stating the NYHA class?","ev":"NYHA"},
+      {"q":"Echocardiogram report — attached?","ev":"echocardiogram|echo report"}]},
+
+{"t":"Decompensated heart failure — admission","sp":"Cardiology","pay":["taw"],"cx":["Shortness of breath","Leg swelling"],"px":["I50.9","I50.21","I50.41"],
+ "q":[{"q":"Detailed clinical data: vital signs, oxygen saturation on room air, and chest auscultation findings?","ev":"room air|SpO2|saturation"},
+      {"q":"Echocardiogram — attached?","ev":"echocardiogram|echo"},
+      {"q":"Arterial blood gases — attached?","ev":"blood gas|ABG"}]},
+
+{"t":"EPS, pacemaker, ICD device","sp":"Cardiology","pay":["taw"],"cx":["Palpitations","Syncope"],"px":["I49.9","I44.2","I47.2","Z95.0"],
+ "q":[{"q":"Documented episodes of arrhythmia — EMR visit reports with the ECGs?","ev":"arrhythmi"},
+      {"q":"ECG — attached?","ev":"ECG"},
+      {"q":"Echocardiogram report — attached?","ev":"echocardiogram|echo report"},
+      {"q":"Holter — full length report, not a summary?","ev":"holter"},
+      {"q":"Current medications with doses, duration, and the patient's compliance?","ev":"complian|adheren"},
+      {"q":"Recent coronary assessment — attached?","ev":"coronary"}]},
+
+{"t":"Hypertension","sp":"Internal medicine","pay":["taw"],"cx":["High blood pressure","Headache"],"px":["I10","I15","I13"],
+ "q":[{"q":"Blood pressure chart from when the patient was first diagnosed?","ev":"BP chart|blood pressure chart"},
+      {"q":"Ambulatory blood pressure monitoring showing fluctuating readings?","ev":"ambulatory|ABPM"},
+      {"q":"Documented episodes of hypotension?","ev":"hypotension"},
+      {"q":"Documented uncontrolled readings despite medical therapy?","ev":"uncontrolled|despite"}]},
+
+{"t":"Diabetes — general","sp":"Internal medicine","pay":["taw"],"cx":["Polyuria","Weight loss"],"px":["E11","E10","E11.9"],
+ "q":[{"q":"HbA1c result, together with the therapeutic target set for this patient?","ev":"HbA1c|A1c"}]},
+
+{"t":"GLP-1 agonist — first dispense","sp":"Internal medicine","pay":["bupa","taw","art"],"cx":["Polyuria","Weight gain"],"px":["E11","E11.9","E66.9"],
+ "q":[{"q":"Documented first-line oral therapy for 3 months, with failure to reach the therapeutic target for the patient's comorbidities?","ev":"3 months|three months|first[- ]line|oral"},
+      {"q":"Recent HbA1c confirming the oral therapies failed?","ev":"HbA1c|A1c"}]},
+
+{"t":"Tirzepatide (Mounjaro) — first dispense","sp":"Internal medicine","pay":["taw"],"cx":["Polyuria","Weight gain"],"px":["E11","E11.9"],
+ "q":[{"q":"Is the diagnosis type 2 diabetes? Mounjaro is approved on that diagnosis.","ev":"type 2|T2DM|E11"},
+      {"q":"Documented inadequate glycaemic control on at least 1 mg of semaglutide (Ozempic), plus two or more other glucose-lowering drugs — metformin, empagliflozin, insulin, pioglitazone or a sulfonylurea — for at least 6 months?","ev":"semaglutide|Ozempic"},
+      {"q":"HbA1c at the start of GLP-1 treatment?","ev":"HbA1c|A1c"},
+      {"q":"Recent HbA1c at the start of Mounjaro?","ev":"HbA1c|A1c"}],
+ "no":["Adopted from the CHI clinical guideline for insurance coverage of Mounjaro. A request without the 6-month semaglutide-plus-two-drugs history will not meet the criterion."]},
+
+{"t":"Insulin pump","sp":"Internal medicine","pay":["bupa","taw"],"px":["E10.9","E10.65","Z96.41"],
+ "q":[{"q":"Full detailed medical report signed by an endocrinology consultant, defining all CHI key components of high-quality insulin pump therapy?","ev":"endocrinolog"},
+      {"q":"Under 12 years: daily insulin dose, duration of treatment, and HbA1c reports?","ev":"HbA1c|A1c|insulin dose"},
+      {"q":"Over 12 years: all of the above, plus admission history for hypoglycaemia or diabetic ketoacidosis?","ev":"hypoglyc|ketoacidosis|DKA"}]},
+
+{"t":"Hyperlipidaemia","sp":"Internal medicine","pay":["taw"],"px":["E78.0","E78.5","E78.2"],
+ "q":[{"q":"Lipid profile — attached?","ev":"lipid|LDL|cholesterol"},
+      {"q":"If the patient is statin-intolerant: liver function tests and a creatine phosphokinase report?","ev":"CPK|creatine (phospho)?kinase|liver function|LFT"}]},
+
+{"t":"PCSK9 inhibitor — Leqvio, Repatha, Praluent","sp":"Internal medicine","pay":["bupa","taw","art"],"px":["E78.0","E78.01","I25.10"],
+ "q":[{"q":"Recent LDL level?","ev":"LDL"},
+      {"q":"Documented failure on oral lipid-lowering therapy at the maximum tolerated dose, for at least 12 weeks within the last 6 months?","ev":"12 weeks|twelve weeks|maximum tolerated"},
+      {"q":"Electronic visit reports with prescription copies, and follow-up notes stating the patient's compliance with the oral therapy?","ev":"complian|adheren|prescription"},
+      {"q":"Risk stratification of the patient, with the therapeutic target that goes with it?","ev":"risk|target"}]},
+
+{"t":"Pancreatitis","sp":"Internal medicine","pay":["taw"],"cx":["Abdominal pain","Vomiting"],"px":["K85.9","K86.1"],
+ "q":[{"q":"Serum lipase level?","ev":"lipase"},
+      {"q":"Radiology report — attached?","ev":"ultrasound|CT|radiolog"},
+      {"q":"History of GLP-1 drugs, and of alcohol use, if any?","ev":"GLP|alcohol"}]},
+
+{"t":"Chronic kidney disease","sp":"Internal medicine","pay":["taw"],"px":["N18.9","N18.3","N18.4"],
+ "q":[{"q":"Serum creatinine?","ev":"creatinine"},
+      {"q":"Glomerular filtration rate?","ev":"GFR|eGFR"},
+      {"q":"Renal ultrasound — attached?","ev":"renal ultrasound|kidney ultrasound|renal US"}]},
+
+{"t":"Crohn's disease and ulcerative colitis","sp":"Internal medicine","pay":["taw"],"cx":["Diarrhoea","Abdominal pain"],"px":["K50.90","K51.90"],
+ "q":[{"q":"Colonoscopy with biopsy reports — attached?","ev":"colonoscopy|biopsy"},
+      {"q":"Stool tests and blood tests, including CRP and ESR?","ev":"CRP|ESR|stool"}]},
+
+{"t":"Fibroscan","sp":"Internal medicine","pay":["taw"],"px":["K76.0","K74.60","B18.2"],
+ "q":[{"q":"Liver function test results?","ev":"liver function|LFT|ALT|AST"},
+      {"q":"Abdominal ultrasound — attached?","ev":"abdominal ultrasound|abdominal US"}]},
+
+{"t":"Allergy biologics — Dupixent, Xolair","sp":"Internal medicine","pay":["bupa","taw","art"],"cx":["Itching","Rash","Wheeze"],"px":["L20.9","J45.909","J30.9","L50.9"],
+ "q":[{"q":"Documented failure of first-line therapies, both local and systemic?","ev":"fail|first[- ]line"},
+      {"q":"Prescriptions showing the doses and the dose adjustments made?","ev":"dose"},
+      {"q":"EMR reports of the consultations and follow-ups, showing the disease scoring scale used and the degrees recorded?","ev":"score|scale|EASI|SCORAD|ACT"},
+      {"q":"Full blood count with eosinophil count, if it matters to the diagnosis?","ev":"eosinophil|CBC"},
+      {"q":"IgE report, for IgE-mediated diagnoses?","ev":"IgE"}],
+ "no":["Al Rajhi asks for documented failure of stepwise therapy plus the IgE report. Tawuniya asks in addition for the scoring scale degrees at each follow-up."]}
+]

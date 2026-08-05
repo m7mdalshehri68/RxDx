@@ -1,0 +1,43 @@
+name: Deploy RxDx to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Run the clinical test suite
+        run: |
+          cd tests
+          fail=0
+          for f in core negation clin preauth who merge accuracy coder; do
+            echo "── $f"
+            node "$f.js" | tail -3
+            node "$f.js" | tail -1 | grep -q ", 0 failed" || fail=1
+          done
+          if [ $fail -ne 0 ]; then echo "::error::a clinical test failed — not deploying"; exit 1; fi
+  deploy:
+    needs: test
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - id: deployment
+        uses: actions/deploy-pages@v4

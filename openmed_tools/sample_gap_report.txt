@@ -1,0 +1,64 @@
+RxDx — documentation gap analysis
+Generated 2026-07-27 07:43   ·   source: sample150.csv
+
+This measures the hospital's EXISTING notes. Nothing here depends on RxDx being
+deployed — it is the baseline against which any improvement will be judged.
+
+1. WHAT WAS READ
+   150 encounters analysed in 16.8 seconds.
+   487 disease mentions found in the notes (116 of them explicitly negated and ignored).
+   146 ICD codes were submitted across those encounters.
+
+2. THE GAP
+   Conditions written in the note but never coded: 213
+   Encounters with at least one such condition:    136  (91%)
+   Encounters carrying an unspecified code:        46  (31%)
+   Encounters with a code the note does not support: 0  (0%)
+   Encounters with disease text but no code at all:  12
+
+3. MOST FREQUENTLY MISSED CONDITIONS
+   R50.9     Fever, unspecified                                         23 encounters
+   I10       Essential (primary) hypertension                           23 encounters
+   R52.9     Pain, unspecified                                          21 encounters
+   E66.90    Obesity, not elsewhere classified, body mass index [BMI] n 13 encounters
+   R05       Cough                                                      12 encounters
+   J44.9     Chronic obstructive pulmonary disease, unspecified         12 encounters
+   R35       Polyuria                                                   12 encounters
+   J02.9     Acute pharyngitis, unspecified                             11 encounters
+   I50.9     Heart failure, unspecified                                 11 encounters
+   R07.4     Chest pain, unspecified                                    11 encounters
+   E86       Volume depletion                                           9 encounters
+   R51       Headache                                                   8 encounters
+   R56.0     Febrile convulsions                                        8 encounters
+   J30.4     Allergic rhinitis, unspecified                             8 encounters
+   E11.8     Type 2 diabetes mellitus with unspecified complication     6 encounters
+
+4. UNSPECIFIED CODES IN HEAVIEST USE
+   J18.9     Pneumonia, unspecified                                     11 encounters
+   I21.9     Acute myocardial infarction, unspecified                   10 encounters
+   S52.50    Fracture of lower end of radius, unspecified               10 encounters
+   E78.5     Hyperlipidaemia, unspecified                               8 encounters
+   H66.9     Otitis media, unspecified                                  7 encounters
+
+5. BY CLINIC
+   Clinic                          Notes     Missed Unspecified
+   Emergency                          41         78         31
+   Internal Medicine                  40         64          8
+   Family Medicine                    25         38          0
+   Paediatrics                        17         18          7
+   Surgery                            11         13          0
+   Obstetrics                         16          2          0
+
+6. HOW TO READ THIS
+   'Missed' means the clinician documented the condition and the coder never
+   captured it. That is revenue the hospital earned and did not claim, and it is
+   the gap RxDx closes at the point of care rather than weeks later.
+
+   'Unsupported' is the opposite risk: a code with nothing in the note behind it.
+   Those are the encounters an auditor recovers money on.
+
+   Matching is automated and approximate. Before any figure goes to a board,
+   have a coder review a random sample of the rows in gap_findings.csv.
+
+7. DATA HANDLING
+   Note text was read in memory only. No clinical text appears in any output file.

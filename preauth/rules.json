@@ -1,0 +1,20 @@
+[
+ {"r":"In a follow-up submission, any service you remove is treated as cancelled. Keep every service on the approval so it can be processed at claim level.","pay":["art"],"c":"Submission"},
+ {"r":"Services sent with uncontracted codes are rejected. Follow the network protocol and submit new service codes three months in advance for analysis and feedback.","pay":["art"],"c":"Submission"},
+ {"r":"Emergency: no pre-authorisation before admitting the member — but the request must reach the payer within 24 hours of the patient's arrival in the emergency department.","pay":["bupa","taw","art"],"c":"Emergency"},
+ {"r":"If the eligibility response says no pre-authorisation is required, outpatient services are exempt regardless of cost or type — but inpatient admissions and every sub-limit benefit still need it: optical, dental, hearing aids, dialysis, autism, psychiatry, Alzheimer, circumcision, ear piercing, and maternity under the antenatal protocol.","pay":["bupa","taw"],"c":"Eligibility"},
+ {"r":"The pre-authorisation threshold is shown in the eligibility response and is calculated on gross service prices per visit, excluding the consultation fee. Medication carries a separate sub-limit.","pay":["bupa","taw","art"],"c":"Eligibility"},
+ {"r":"Inpatient extensions stay under the same approval reference. On the first day of a new month, submit a new approval number.","pay":["bupa","taw","art"],"c":"Inpatient"},
+ {"r":"Daily progress notes are required for inpatient extensions.","pay":["art"],"c":"Inpatient"},
+ {"r":"Dental: request only the treatment that can be delivered in one appointment. Do not request the later stages in advance.","pay":["bupa","taw","art"],"c":"Dental"},
+ {"r":"Dental: tooth number, attachments and radiographs are what allow an automated approval.","pay":["taw"],"c":"Dental"},
+ {"r":"Dispensing a sunglasses frame and swapping the lenses for medical ones is recorded as fraud.","pay":["bupa","taw","art"],"c":"Optical"},
+ {"r":"Chronic medication is submitted for 3 months, or up to the policy expiry date, whichever comes first.","pay":["art"],"c":"Medication"},
+ {"r":"Only standard devices with standard agreed pricing may be submitted.","pay":["art"],"c":"Medication"},
+ {"r":"Visit visa requests: the correct EMR form is required, the passport number or identifier must be entered in capitals, and every service needs prior authorisation.","pay":["art"],"c":"Special plan"},
+ {"r":"Domestic helper requests: every service needs prior authorisation.","pay":["art"],"c":"Special plan"},
+ {"r":"Post-assisted-pregnancy and IVF care is covered for CHI policies.","pay":["bupa","taw"],"c":"Maternity"},
+ {"r":"Normal delivery and caesarean section are covered where the caesarean is medically justified.","pay":["taw"],"c":"Maternity"},
+ {"r":"Once a pregnancy is complicated, every visit needs its own pre-authorisation — the protocol exemption no longer applies.","pay":["bupa","taw","art"],"c":"Maternity"},
+ {"r":"Aramco and SABIC accounts follow their own protocols; the Bupa protocol does not apply to them.","pay":["bupa"],"c":"Scope"}
+]
