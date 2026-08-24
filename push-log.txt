@@ -1,20 +1,6 @@
 ============================================================
   RxDx  -  publishing to github.com/m7mdalshehri68/rxdx
-  Mon 08/24/2026 19:51:17.70
+  Mon 08/24/2026 20:22:17.18
 ============================================================
 
 --- looking for git ---
-C:\Program Files\Git\cmd\git.exe
-git version 2.55.0.windows.3
-
---- [1/6] repository ---
-already initialised
-
---- [2/6] remote ---
-origin	https://github.com/m7mdalshehri68/rxdx.git (fetch)
-origin	https://github.com/m7mdalshehri68/rxdx.git (push)
-
---- [3/6] fetching what is already on GitHub ---
-From https://github.com/m7mdalshehri68/rxdx
- * branch            main       -> FETCH_HEAD
- * [new branch]      main       -> origin/main

@@ -23,7 +23,9 @@
   "note": "55 y male with 2 hours of central crushing chest pain radiating to the left arm, with sweating and nausea. Known hypertension and dyslipidaemia. Smoker 30 pack-years. BP 148/92, HR 96. ECG: ST elevation in II, III and aVF. Troponin I elevated. Impression: inferior STEMI. Aspirin 300 mg and clopidogrel 600 mg given, referred for primary PCI.",
   "codes": [
    "I21.1",
-   "I10"
+   "I10",
+   "F17.2",
+   "E78.5"
   ],
   "concepts": [
    "acute inferior STEMI",
@@ -77,7 +79,8 @@
   "setting": "Clinic",
   "note": "64 y male, ex-smoker, breathless on climbing one flight of stairs for the past year, with a chronic morning cough. No orthopnoea and no ankle swelling. Spirometry: FEV1/FVC 0.58, FEV1 61% predicted, not reversible. Impression: chronic obstructive pulmonary disease, GOLD 2. Started tiotropium.",
   "codes": [
-   "J44.9"
+   "J44.9",
+   "F17.2"
   ],
   "concepts": [
    "COPD"
@@ -562,6 +565,569 @@
   ],
   "drugs": [
    "apixaban"
+  ]
+ },
+ {
+  "id": "N31",
+  "setting": "Clinic",
+  "note": "34 y female with sneezing, itchy eyes and clear nasal discharge every spring for 5 years. No fever, no purulent discharge, no facial pain. Nasal mucosa pale and boggy. Impression: seasonal allergic rhinitis. Started intranasal steroid and oral antihistamine.",
+  "codes": [
+   "J30.4"
+  ],
+  "concepts": [
+   "allergic rhinitis"
+  ],
+  "must_not_code": [
+   "fever",
+   "sinusitis",
+   "facial pain"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N32",
+  "setting": "ED",
+  "note": "61 y male, known type 2 diabetes and hypertension, brought with reduced consciousness. Blood glucose 31, ketones 4.2, pH 7.18, bicarbonate 11. Dehydrated, Kussmaul breathing. No focal infection found. Impression: diabetic ketoacidosis. IV fluids and insulin infusion started.",
+  "codes": [
+   "E11.11",
+   "I10"
+  ],
+  "concepts": [
+   "diabetic ketoacidosis"
+  ],
+  "must_not_code": [
+   "infection"
+  ],
+  "drugs": [
+   "insulin"
+  ]
+ },
+ {
+  "id": "N33",
+  "setting": "Clinic",
+  "note": "55 y male with burning pain in both feet at night for 2 years, worse in bed. Known type 2 diabetes for 12 years, HbA1c 9.1%. Reduced pinprick and vibration to mid-calf. No ulcer, no ischaemia, pedal pulses present. Impression: diabetic peripheral neuropathy. Started pregabalin.",
+  "codes": [
+   "E11.40",
+   "E11.9"
+  ],
+  "concepts": [
+   "diabetic neuropathy"
+  ],
+  "must_not_code": [
+   "ulcer",
+   "ischaemia"
+  ],
+  "drugs": [
+   "pregabalin"
+  ]
+ },
+ {
+  "id": "N34",
+  "setting": "ED",
+  "note": "78 y female from a nursing home with fever and cough. Temp 38.4, RR 26, SpO2 88% on air, BP 104/62. Confused, AMTS 6 out of 10. CXR: bilateral lower zone shadowing. CURB-65 = 4. Impression: severe community acquired pneumonia with type 1 respiratory failure. Admitted, IV co-amoxiclav.",
+  "codes": [
+   "J18.9",
+   "J96.00"
+  ],
+  "concepts": [
+   "severe pneumonia",
+   "respiratory failure"
+  ],
+  "must_not_code": [],
+  "drugs": [
+   "co-amoxiclav"
+  ]
+ },
+ {
+  "id": "N35",
+  "setting": "Clinic",
+  "note": "43 y female with tiredness, cold intolerance, constipation and 6 kg weight gain over a year. No neck lump, no dysphagia, no hoarseness. TSH 14.2, free T4 low. Impression: primary hypothyroidism. Started levothyroxine 50 micrograms.",
+  "codes": [
+   "E03.9"
+  ],
+  "concepts": [
+   "hypothyroidism"
+  ],
+  "must_not_code": [
+   "goitre",
+   "dysphagia",
+   "hoarseness"
+  ],
+  "drugs": [
+   "levothyroxine"
+  ]
+ },
+ {
+  "id": "N36",
+  "setting": "ED",
+  "note": "29 y male with severe throbbing right sided headache, photophobia and vomiting for 6 hours. Similar attacks monthly since his twenties, preceded by zigzag visual disturbance. No fever, no neck stiffness, no focal deficit, no papilloedema. Impression: migraine with aura. Given metoclopramide and sumatriptan.",
+  "codes": [
+   "G43.1"
+  ],
+  "concepts": [
+   "migraine with aura"
+  ],
+  "must_not_code": [
+   "fever",
+   "neck stiffness",
+   "meningitis",
+   "papilloedema"
+  ],
+  "drugs": [
+   "metoclopramide",
+   "sumatriptan"
+  ]
+ },
+ {
+  "id": "N37",
+  "setting": "Clinic",
+  "note": "67 y male with pain in both calves after walking 200 metres, relieved by rest, for a year. Smoker. Absent posterior tibial pulses, ABPI 0.6. No rest pain, no ulcer, no gangrene. Impression: peripheral arterial disease with intermittent claudication. Started a statin and antiplatelet.",
+  "codes": [
+   "I70.20",
+   "F17.2"
+  ],
+  "concepts": [
+   "peripheral arterial disease"
+  ],
+  "must_not_code": [
+   "rest pain",
+   "ulcer",
+   "gangrene",
+   "critical ischaemia"
+  ],
+  "drugs": [
+   "aspirin"
+  ]
+ },
+ {
+  "id": "N38",
+  "setting": "ED",
+  "note": "22 y female with sudden shortness of breath and pleuritic left chest pain. Tall and thin, smoker. Trachea central, reduced breath sounds on the left, hyper-resonant. CXR: 3 cm left apical pneumothorax, no mediastinal shift. Impression: primary spontaneous pneumothorax. Observed, high flow oxygen.",
+  "codes": [
+   "J93.9",
+   "F17.2"
+  ],
+  "concepts": [
+   "spontaneous pneumothorax"
+  ],
+  "must_not_code": [
+   "tension pneumothorax",
+   "mediastinal shift"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N39",
+  "setting": "Clinic",
+  "note": "48 y female with a burning rash of grouped vesicles across the left T6 dermatome for 3 days, preceded by pain. Does not cross the midline. No eye involvement, not immunosuppressed. Impression: herpes zoster. Started aciclovir within 72 hours of onset.",
+  "codes": [
+   "B02.9"
+  ],
+  "concepts": [
+   "shingles"
+  ],
+  "must_not_code": [
+   "ophthalmic involvement",
+   "immunosuppression",
+   "disseminated"
+  ],
+  "drugs": [
+   "aciclovir"
+  ]
+ },
+ {
+  "id": "N40",
+  "setting": "ED",
+  "note": "70 y male with painless frank haematuria for 3 days. Ex-smoker of 40 years. No dysuria, no fever, no flank pain, no trauma. Abdomen soft. Urine culture negative. Impression: painless visible haematuria — urgent urology referral for suspected urothelial malignancy.",
+  "codes": [
+   "F17.2"
+  ],
+  "concepts": [
+   "visible haematuria under investigation"
+  ],
+  "must_not_code": [
+   "dysuria",
+   "fever",
+   "urinary tract infection",
+   "bladder cancer"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N41",
+  "setting": "Clinic",
+  "note": "31 y female with fatigue, joint pains and a red rash across both cheeks worse in sunlight. Mouth ulcers, hair thinning. No renal symptoms, no chest pain, no seizures. ANA positive 1:640, anti-dsDNA raised, C3 low. Impression: systemic lupus erythematosus. Started hydroxychloroquine, rheumatology referral.",
+  "codes": [
+   "M32.9"
+  ],
+  "concepts": [
+   "systemic lupus erythematosus"
+  ],
+  "must_not_code": [
+   "lupus nephritis",
+   "seizure",
+   "chest pain",
+   "renal involvement"
+  ],
+  "drugs": [
+   "hydroxychloroquine"
+  ]
+ },
+ {
+  "id": "N42",
+  "setting": "ED",
+  "note": "6 month old boy with cough, coryza and wheeze for 3 days, feeding at half his usual volume. RR 58, SpO2 93%, subcostal recession, widespread fine crackles and wheeze. Temp 37.6. No apnoea, no cyanosis, no dehydration. Impression: acute bronchiolitis. Admitted for observation and feeding support.",
+  "codes": [
+   "J21.0"
+  ],
+  "concepts": [
+   "bronchiolitis"
+  ],
+  "must_not_code": [
+   "apnoea",
+   "cyanosis",
+   "dehydration",
+   "pneumonia"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N43",
+  "setting": "Clinic",
+  "note": "58 y male with morning stiffness and pain in the shoulders and hips for 6 weeks, unable to lift his arms to comb his hair. ESR 78, CRP 61. No jaw claudication, no visual symptoms, no temporal tenderness. Impression: polymyalgia rheumatica. Started prednisolone 15 mg with rapid response expected.",
+  "codes": [
+   "M35.3"
+  ],
+  "concepts": [
+   "polymyalgia rheumatica"
+  ],
+  "must_not_code": [
+   "giant cell arteritis",
+   "jaw claudication",
+   "visual loss",
+   "temporal tenderness"
+  ],
+  "drugs": [
+   "prednisolone"
+  ]
+ },
+ {
+  "id": "N44",
+  "setting": "ED",
+  "note": "52 y male with epigastric pain radiating to the back, vomiting, unable to lie flat. Heavy alcohol intake. Lipase 1240. Temp 37.8, HR 108, BP 118/70. No jaundice, no gallstones on ultrasound. Impression: acute pancreatitis, alcohol related. Kept nil by mouth, IV fluids, analgesia.",
+  "codes": [
+   "K85.9"
+  ],
+  "concepts": [
+   "acute pancreatitis"
+  ],
+  "must_not_code": [
+   "jaundice",
+   "gallstones",
+   "cholangitis"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N45",
+  "setting": "Clinic",
+  "note": "64 y female with a painful red swollen right great toe for 2 days, unable to bear the bedsheet. On a thiazide diuretic. Urate 520. No fever, no trauma, no other joint involved, no tophi. Impression: acute gout of the first metatarsophalangeal joint. Started colchicine.",
+  "codes": [
+   "M10.07"
+  ],
+  "concepts": [
+   "acute gout"
+  ],
+  "must_not_code": [
+   "fever",
+   "septic arthritis",
+   "trauma",
+   "tophi"
+  ],
+  "drugs": [
+   "colchicine"
+  ]
+ },
+ {
+  "id": "N46",
+  "setting": "ED",
+  "note": "38 y male with sudden severe left flank pain radiating to the groin, unable to stay still, with vomiting. No fever, no dysuria, no previous stones. Urine dipstick blood 2+. CT KUB: 4 mm stone at the left vesicoureteric junction with mild hydronephrosis. Impression: obstructing left ureteric calculus. Analgesia and tamsulosin, urology follow up.",
+  "codes": [
+   "N20.1",
+   "N13.3"
+  ],
+  "concepts": [
+   "ureteric stone with hydronephrosis"
+  ],
+  "must_not_code": [
+   "fever",
+   "dysuria",
+   "infection",
+   "sepsis"
+  ],
+  "drugs": [
+   "tamsulosin"
+  ]
+ },
+ {
+  "id": "N47",
+  "setting": "Clinic",
+  "note": "45 y female with a painless lump in the right breast noticed 3 weeks ago. No nipple discharge, no skin change, no family history of breast cancer, no weight loss. Firm mobile 2 cm lump upper outer quadrant. Referred on the two week pathway; impression: breast lump for triple assessment.",
+  "codes": [
+   "N63"
+  ],
+  "concepts": [
+   "breast lump under investigation"
+  ],
+  "must_not_code": [
+   "breast cancer",
+   "nipple discharge",
+   "skin change",
+   "weight loss",
+   "family history"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N48",
+  "setting": "ED",
+  "note": "81 y female found on the floor at home, unable to get up for an unknown period. Two falls in the past year. On four regular medications including a sedative. No head injury, no loss of consciousness, no fracture on imaging. Postural drop 25 mmHg. Impression: mechanical fall with postural hypotension. Falls assessment arranged, sedative reviewed.",
+  "codes": [
+   "I95.10"
+  ],
+  "concepts": [
+   "postural hypotension after a fall"
+  ],
+  "must_not_code": [
+   "head injury",
+   "loss of consciousness",
+   "fracture",
+   "stroke"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N49",
+  "setting": "Clinic",
+  "note": "27 y male with three months of loose stools, urgency and blood mixed with stool, and 4 kg weight loss. No foreign travel, no antibiotic use. Colonoscopy: continuous inflammation from the rectum to the splenic flexure. Impression: ulcerative colitis, left sided. Started mesalazine.",
+  "codes": [
+   "K51.9"
+  ],
+  "concepts": [
+   "ulcerative colitis"
+  ],
+  "must_not_code": [
+   "Crohn",
+   "infective colitis",
+   "travel"
+  ],
+  "drugs": [
+   "mesalazine"
+  ]
+ },
+ {
+  "id": "N50",
+  "setting": "ED",
+  "note": "55 y male with fever, rigors and right upper quadrant pain, and yellow eyes for 2 days. Temp 39.2, BP 92/56, HR 118. Bilirubin 96, ALP 410. Ultrasound: dilated common bile duct with a stone. Impression: ascending cholangitis with Charcot triad. IV antibiotics, urgent ERCP arranged.",
+  "codes": [
+   "K83.0",
+   "K80.50"
+  ],
+  "concepts": [
+   "ascending cholangitis",
+   "CBD stone"
+  ],
+  "must_not_code": [],
+  "drugs": []
+ },
+ {
+  "id": "N51",
+  "setting": "ED",
+  "note": "24 y male with sudden severe left testicular pain and vomiting for 3 hours, waking him from sleep. No dysuria, no fever, no urethral discharge. Left testis high riding with absent cremasteric reflex. Impression: testicular torsion. Immediate surgical exploration.",
+  "codes": [
+   "N44"
+  ],
+  "concepts": [
+   "testicular torsion"
+  ],
+  "must_not_code": [
+   "epididymo-orchitis",
+   "fever",
+   "dysuria",
+   "urethral discharge"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N52",
+  "setting": "Clinic",
+  "note": "33 y female, 8 weeks pregnant by dates, with light vaginal bleeding and mild cramping. No passage of tissue, no fever, no shoulder tip pain, no dizziness. Cervical os closed. Ultrasound: single intrauterine pregnancy with fetal heartbeat. Impression: threatened miscarriage. Reassured, review if bleeding worsens.",
+  "codes": [
+   "O20.0"
+  ],
+  "concepts": [
+   "threatened miscarriage"
+  ],
+  "must_not_code": [
+   "ectopic pregnancy",
+   "complete miscarriage",
+   "fever"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N53",
+  "setting": "ED",
+  "note": "48 y male with severe central abdominal pain becoming generalised over 6 hours, now rigid abdomen. History of NSAID use for back pain. Board-like abdomen with guarding, absent bowel sounds. Erect chest X-ray: free gas under the right diaphragm. Impression: perforated peptic ulcer. Resuscitated and taken to theatre.",
+  "codes": [
+   "K27.9"
+  ],
+  "concepts": [
+   "perforated peptic ulcer"
+  ],
+  "must_not_code": [
+   "pancreatitis",
+   "appendicitis"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N54",
+  "setting": "Clinic",
+  "note": "19 y female with low mood, poor sleep and loss of interest for 4 months, missing university. Denies suicidal thoughts, denies self harm, denies hallucinations. Appetite unchanged. PHQ-9 score 11. Impression: mild to moderate depressive episode. Talking therapy referral; medication discussed and deferred.",
+  "codes": [
+   "F32.00"
+  ],
+  "concepts": [
+   "mild depressive episode"
+  ],
+  "must_not_code": [
+   "suicidal ideation",
+   "self harm",
+   "psychosis"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N55",
+  "setting": "ED",
+  "note": "3 y girl with barking cough, hoarse voice and stridor at rest, worse at night. No drooling, no cyanosis, no toxic appearance, able to swallow. Temp 37.8, RR 32, SpO2 96%. Impression: moderate croup. Single dose of oral dexamethasone given, observed and improved.",
+  "codes": [
+   "J05.0"
+  ],
+  "concepts": [
+   "croup"
+  ],
+  "must_not_code": [
+   "epiglottitis",
+   "drooling",
+   "cyanosis",
+   "foreign body"
+  ],
+  "drugs": [
+   "dexamethasone"
+  ]
+ },
+ {
+  "id": "N56",
+  "setting": "Clinic",
+  "note": "56 y male attends for review. No chest pain, no breathlessness, no palpitations, no ankle swelling, no claudication. Known hypertension on ramipril, blood pressure today 128/76. Cholesterol 4.4. Impression: essential hypertension, well controlled. Continue current treatment.",
+  "codes": [
+   "I10"
+  ],
+  "concepts": [
+   "controlled hypertension"
+  ],
+  "must_not_code": [
+   "chest pain",
+   "breathlessness",
+   "palpitations",
+   "ankle swelling",
+   "claudication"
+  ],
+  "drugs": [
+   "ramipril"
+  ]
+ },
+ {
+  "id": "N57",
+  "setting": "ED",
+  "note": "66 y female with sudden painless loss of vision in the right eye, like a curtain coming down, lasting 10 minutes and fully resolved. No headache, no weakness, no speech disturbance. Carotid bruit heard on the right. Impression: transient monocular visual loss — transient ischaemic attack. Started antiplatelet, urgent carotid imaging.",
+  "codes": [
+   "G45.9"
+  ],
+  "concepts": [
+   "transient ischaemic attack"
+  ],
+  "must_not_code": [
+   "stroke",
+   "headache",
+   "weakness",
+   "speech disturbance"
+  ],
+  "drugs": [
+   "aspirin"
+  ]
+ },
+ {
+  "id": "N58",
+  "setting": "Clinic",
+  "note": "29 y female with a 6 month history of heavy periods soaking through protection, with tiredness. No intermenstrual bleeding, no postcoital bleeding, no pelvic pain. Haemoglobin 9.8, ferritin 8. Ultrasound: normal uterus. Impression: heavy menstrual bleeding with iron deficiency anaemia. Started ferrous sulphate and tranexamic acid.",
+  "codes": [
+   "N93.8",
+   "D50.9"
+  ],
+  "concepts": [
+   "menorrhagia with iron deficiency anaemia"
+  ],
+  "must_not_code": [
+   "intermenstrual bleeding",
+   "postcoital bleeding",
+   "pelvic pain",
+   "fibroid"
+  ],
+  "drugs": [
+   "ferrous sulphate",
+   "tranexamic acid"
+  ]
+ },
+ {
+  "id": "N59",
+  "setting": "ED",
+  "note": "44 y male brought after a road traffic collision, restrained driver, low speed. Neck pain but able to rotate 45 degrees each way, no midline tenderness, no paraesthesia, fully alert, not intoxicated, no distracting injury. Canadian C-spine rule: no imaging indicated. Impression: whiplash-associated neck sprain. Analgesia and early mobilisation advised.",
+  "codes": [
+   "S13.4"
+  ],
+  "concepts": [
+   "whiplash neck sprain"
+  ],
+  "must_not_code": [
+   "cervical fracture",
+   "paraesthesia",
+   "head injury",
+   "intoxication"
+  ],
+  "drugs": []
+ },
+ {
+  "id": "N60",
+  "setting": "Clinic",
+  "note": "72 y male with a 12 month history of poor urinary stream, hesitancy, nocturia three times and incomplete emptying. IPSS 18. No haematuria, no dysuria, no weight loss, no bone pain. Prostate smoothly enlarged, PSA 3.2. Impression: benign prostatic hyperplasia with moderate symptoms. Started tamsulosin.",
+  "codes": [
+   "N40"
+  ],
+  "concepts": [
+   "benign prostatic hyperplasia"
+  ],
+  "must_not_code": [
+   "haematuria",
+   "dysuria",
+   "weight loss",
+   "bone pain",
+   "prostate cancer"
+  ],
+  "drugs": [
+   "tamsulosin"
   ]
  }
 ]

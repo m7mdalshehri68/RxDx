@@ -22,10 +22,13 @@ const reachable=new Set(idx.probTerms.map(t=>t.code));
 
 /* does the tool have any way at all to reach this concept from free text? */
 function conceptCode(phrase){
+ /* A trap only counts when the tool has a term for that exact concept. Matching
+    "lupus nephritis" onto the term "lupus" measures my matcher, not the tool,
+    and turns a correct code into a false alarm. */
  const p=phrase.toLowerCase().trim();
  if(termToCode[p])return termToCode[p];
  let best=null;
- for(const t in termToCode){ if(t===p||t.includes(p)||p.includes(t)){ if(!best||t.length>best.length)best=t; } }
+ for(const t in termToCode){ if(t.includes(p)&&t.length>=p.length){ if(!best||t.length<best.length)best=t; } }
  return best?termToCode[best]:null;
 }
 const cat=c=>String(c).split('.')[0];
