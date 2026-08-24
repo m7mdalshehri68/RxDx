@@ -467,7 +467,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
     <div class="note-wrap">
       <textarea id="note-input" class="note-textarea" onkeydown="handleNoteKey(event)" placeholder="Paste a clinical note here, then click Analyze.&#10;RxDx will detect the problems and suggest ICD-10 codes from its own list — e.g. 'Patient with type 2 diabetes and hypertension.'"></textarea>
       <div class="note-actions">
-        <button class="note-btn" onclick="analyzeNote()">⚕ Analyze note</button><button class="note-btn-ghost" title="Dictate" onclick="rxDictate('note-input',this)">🎤</button>
+        <button class="note-btn" onclick="analyzeNote()">⚕ Analyze note</button><button class="note-btn-ghost" title="Dictate" onclick="rxDictate('note-input',this)">🎤</button><select class="note-btn-ghost" title="Dictation language" style="padding:7px 8px" onchange="rxDictSetLang(this.value)"><option value="en-SA">EN</option><option value="ar-SA">عربي</option></select>
         <button class="note-btn-ghost" onclick="document.getElementById('note-input').value='';document.getElementById('note-out').innerHTML=noteEmpty();">Clear</button>
         <span class="note-hint">Ctrl/⌘ + Enter to analyze · everything runs locally in your browser</span><label style="font-size:12px;color:#64748b;display:flex;align-items:center;gap:5px"><input type="checkbox" id="note-ai" onchange="aiToggle(this)"> Also use the clinical model</label><span id="note-ai-note" class="note-hint" style="display:none"></span>
       </div>
@@ -541,7 +541,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
 <div class="hx-sec"><div class="hx-step"><span class="hx-stepn">4</span><span class="hx-stept">Background & risk</span><span class="hx-note">persists across complaints</span></div><div class="hx-sub"><div class="hx-h">Family history — hereditary risk <span class="hx-note">(click affected conditions)</span></div><div class="hx-chips" id="hx-fam"></div><div id="hx-fam-who"></div><div id="hx-fam-prompts" style="margin-top:9px"></div></div><div class="hx-sub" style="margin-bottom:14px"><div class="hx-h">Quick negatives <span class="hx-note">(click = documented normal / absent)</span></div><div class="hx-chips" id="hx-neg"></div></div>
       <div class="hx-row"><label class="hx-lbl">Past medical history</label><input class="hx-inp" id="hx-pmh" placeholder="e.g. HTN, T2DM, asthma"></div>
       <div class="hx-row"><label class="hx-lbl">Drug history</label><input class="hx-inp" id="hx-dhx" placeholder="current medications & doses"></div>
-      <div class="hx-row"><label class="hx-lbl">Allergies</label><input class="hx-inp" id="hx-allergy" placeholder="drug + reaction, or NKDA"></div>
+      <div class="hx-row"><label class="hx-lbl">Allergies</label><input class="hx-inp" id="hx-allergy" oninput="try{hxSafetyCheck()}catch(_){}" placeholder="drug + reaction, or NKDA"></div>
       <div class="hx-row"><label class="hx-lbl">Family history</label><input class="hx-inp" id="hx-fhx" placeholder="relevant FHx"></div>
       <div class="hx-row"><label class="hx-lbl">Social history</label><input class="hx-inp" id="hx-shx" placeholder="smoking, alcohol, occupation, function"></div>
       <div class="hx-row"><label class="hx-lbl">Ideas / concerns / expectations</label><input class="hx-inp" id="hx-ice" placeholder="patient ICE"></div>
@@ -567,7 +567,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
       <div id="hx-plan-guide"></div>
       <div id="hx-plan-quick"></div>
       <div class="hx-row"><label class="hx-lbl">Investigations</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-ix" placeholder="what you are ordering" style="width:100%"><div class="hx-chips" style="margin-top:5px" id="hx-plan-ix-q"></div></div></div>
-      <div class="hx-row"><label class="hx-lbl">Treatment</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-rx" placeholder="medication / dose / advice" style="width:100%"><div class="hx-chips" style="margin-top:5px" id="hx-plan-rx-q"></div></div></div>
+      <div class="hx-row"><label class="hx-lbl">Treatment</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-rx" placeholder="medication / dose / advice" style="width:100%" oninput="try{hxSafetyCheck()}catch(_){}"><div class="hx-chips" style="margin-top:5px" id="hx-plan-rx-q"></div><div id="hx-safety"></div></div></div>
       <div class="hx-row"><label class="hx-lbl">Referral / disposition</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-ref" placeholder="admit / refer / discharge" style="width:100%"><div class="hx-chips" style="margin-top:5px" id="hx-plan-ref-q"></div></div></div>
       <div class="hx-row"><label class="hx-lbl">Follow-up</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-fu" placeholder="when to review" style="width:100%"><div class="hx-chips" style="margin-top:5px" id="hx-plan-fu-q"></div></div></div>
       <div class="hx-row"><label class="hx-lbl">Advice given</label><div style="flex:1;min-width:0"><input class="hx-inp" id="hx-plan-adv" placeholder="what you told the patient" style="width:100%"><div class="hx-chips" style="margin-top:5px" id="hx-plan-adv-q"></div></div></div>
@@ -1108,6 +1108,23 @@ body.rxdark .itc-code,body.rxdark .itc-pill{background:#0f172a;color:#cbd5e1;bor
 .creg-tbl{width:100%;border-collapse:collapse;font-size:12px}
 .creg-tbl th{text-align:left;background:var(--line,#f3f4f6);padding:5px 7px}
 .creg-tbl td{padding:4px 7px;border-top:1px solid var(--line,#e5e7eb);vertical-align:top}
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.pl-f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--text2)}
+.pl-f span{font-weight:600}
+.pl-t{width:100%;border-collapse:collapse;font-size:13px}
+.pl-t th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+ color:var(--text3);padding:6px 8px;border-bottom:1px solid var(--border)}
+.pl-t td{padding:8px;border-bottom:1px solid var(--border)}
+.pl-n{text-align:right;font-variant-numeric:tabular-nums;font-weight:650}
+.pl-good{color:var(--success)}.pl-bad{color:var(--danger)}
+.pl-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hx-chip.pl-ok{border-color:var(--success);color:var(--success);font-weight:700}
+.hx-chip.pl-no{border-color:var(--danger);color:var(--danger);font-weight:700}
+.pl-why{font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}
+.pl-why b{display:inline-block;min-width:26px;color:var(--danger);font-variant-numeric:tabular-nums}
+.rx-soft{margin-top:8px;padding:9px 12px;border-radius:10px;font-size:12.5px;line-height:1.6;
+ background:rgba(180,83,9,.09);border:1px solid rgba(180,83,9,.28);color:var(--gold)}
+.rx-lim{display:block;margin-top:7px;font-size:11.5px;line-height:1.55}
 </style>
   <div id="panel-calc" class="panel">
     <textarea id="calc-input" class="st-ta" placeholder="Paste a note with vitals/labs — e.g. '72F, confused. RR 28, SpO2 90% on oxygen, BP 88/54, HR 120, Temp 38.5. Urea 9.2.'"></textarea>
@@ -1156,7 +1173,13 @@ body.rxdark .itc-code,body.rxdark .itc-pill{background:#0f172a;color:#cbd5e1;bor
       <div id="clin-out"></div>
     </div>
 
-  <div id="panel-gov" class="panel">
+  <div id="panel-pilot" class="panel">
+ <div class="rx-head"><h2>Pilot measurement</h2>
+  <p class="rx-sub">What the department looked like before this tool, what it looks like now, and what the payer actually did with the claims. Held on this device; no patient details.</p></div>
+ <div style="margin-bottom:10px"><button class="hx-chip" onclick="plCsv()">Export claim outcomes (CSV)</button></div>
+ <div id="pl-out"></div>
+</div>
+<div id="panel-gov" class="panel">
  <div class="rx-head"><h2>Content register &amp; audit</h2>
   <p class="rx-sub">Where every clinical rule came from, which version, and who approved it — plus a record of what was changed in this tool and when.</p></div>
  <div class="hx-sec"><div class="hx-h">Clinical content — source, version, approval</div><div id="creg-out"></div></div>
@@ -2661,6 +2684,353 @@ function auditExport(){
   URL.revokeObjectURL(u);}catch(_){}
 }
 
+
+/* ══════════════════════════════════════════════════════════════════════
+   PILOT MEASUREMENT
+   A tool that cannot show whether it helped is a tool nobody renews. Two
+   things are needed and neither existed: the department's numbers BEFORE the
+   trial, and what the payer actually did with each claim afterwards. Both are
+   entered by a person — the tool does not invent a baseline for itself. */
+
+/* ══════════════════════════════════════════════════════════════════════
+   MEDICATION SAFETY — one engine, every module
+   The allergy check lived only in Emergency. A clinic prescription is no safer
+   for being written slowly, so it moves here and both modules call it.
+
+   What this checks, because it has the data:
+     · allergy cross-reactivity, from a curated class map
+     · the drug against the age and sex on this encounter, from the formulary's
+       own approved-indication restrictions
+   What it does NOT check, because the formulary carries none of it:
+     · drug-drug interactions
+     · renal or hepatic dose adjustment
+     · pregnancy and breastfeeding
+   That boundary is printed next to every result. A safety panel that stays
+   silent about its blind spots is more dangerous than no panel. */
+/* the map is defined further down the file, so resolve it when the check runs,
+   not while this script is still being parsed */
+function _rxAllergyMap(){try{return (typeof ED_ALLERGY_MAP!=='undefined')?ED_ALLERGY_MAP:{};}catch(_){return {};}}
+function _rxDrugsIn(txt){
+ var low=' '+String(txt||'').toLowerCase().replace(/\s+/g,' ')+' ',found=[];
+ if(low.length<4)return found;
+ for(var i=0;i<IDF.length;i++){
+  var d=IDF[i],names=[String(d.sn||'').toLowerCase()];
+  (d.tn||[]).forEach(function(n){names.push(String(n||'').toLowerCase().split(/\s+/)[0]);});
+  for(var j=0;j<names.length;j++){
+   var n=names[j];
+   if(n.length<5)continue;
+   if(low.indexOf(' '+n)>=0){found.push(d);break;}
+  }
+  if(found.length>=25)break;
+ }
+ return found;
+}
+/* the narrowest age band the formulary attaches to this drug */
+function _rxDrugAge(d){
+ var lo=null,hi=null;
+ (d.entries||[]).forEach(function(e){(e.codes||[]).forEach(function(c){
+  if(!c.age)return; var b=_icdBand(c.age); if(!b)return;
+  if(lo===null||b.lo<lo)lo=b.lo; if(hi===null||b.hi>hi)hi=b.hi;});});
+ return (lo===null)?null:{lo:lo,hi:hi};
+}
+function _rxDrugSex(d){
+ var s={};
+ (d.entries||[]).forEach(function(e){(e.codes||[]).forEach(function(c){ if(c.sex)s[c.sex]=1;});});
+ var k=Object.keys(s);
+ return k.length===1?k[0]:null;
+}
+function rxSafety(allergyTxt,drugTxt){
+ var out=[],alg=String(allergyTxt||'').toLowerCase();
+ var noneKnown=/nkda|no known|none known|nil known/i.test(alg);
+ /* 1 — allergy cross-reactivity */
+ if(alg&&!noneKnown&&drugTxt){
+  var low=' '+String(drugTxt).toLowerCase()+' ',MAP=_rxAllergyMap();
+  for(var k in MAP){
+   if(alg.indexOf(k)<0)continue;
+   MAP[k].concat([k]).forEach(function(dd){
+    if(dd&&low.indexOf(dd)>=0&&!out.some(function(x){return x.drug===dd;}))
+     out.push({kind:'allergy',hard:true,drug:dd,
+      m:dd+' clashes with the recorded allergy to '+k});});
+  }
+ }
+ /* 2 — the drug against who this patient is */
+ var y=(typeof whoYears==='function')?whoYears():null;
+ var sx=(typeof whoSex==='function')?whoSex():'';
+ if(drugTxt&&(y!==null||sx)){
+  _rxDrugsIn(drugTxt).forEach(function(d){
+   if(y!==null){
+    var b=_rxDrugAge(d);
+    if(b&&(y<b.lo-0.001||y>b.hi+0.001))
+     out.push({kind:'age',hard:false,drug:d.sn,
+      m:d.sn+' is licensed in this formulary for '+_rxAgeTxt(b)+', and this encounter says '+_rxYrs(y)});
+   }
+   if(sx){
+    var ds=_rxDrugSex(d);
+    if(ds&&ds.charAt(0)!==sx.charAt(0))
+     out.push({kind:'sex',hard:false,drug:d.sn,
+      m:d.sn+' is approved here only for '+ds.toLowerCase()+' patients'});
+   }
+  });
+ }
+ return out;
+}
+function _rxAgeTxt(b){
+ var f=function(v){ if(v<1)return Math.round(v*12)+' months';
+  return Math.round(v)+' years'; };
+ return f(b.lo)+' to '+f(b.hi);
+}
+function _rxYrs(y){ return y<1?(Math.round(y*12)+' months'):(Math.round(y)+' years'); }
+var RX_SAFETY_LIMITS='Not checked: drug-drug interactions, renal or hepatic dose adjustment, '
+ +'pregnancy and breastfeeding. The formulary supplied carries none of those, so this panel '
+ +'cannot see them.';
+function rxSafetyHtml(allergyTxt,drugTxt){
+ var f=rxSafety(allergyTxt,drugTxt);
+ if(!String(drugTxt||'').trim())return '';
+ var hard=f.filter(function(x){return x.hard;}),soft=f.filter(function(x){return !x.hard;});
+ var h='';
+ if(hard.length)h+='<div class="ed-alert red">ALLERGY CONFLICT — '
+   +hard.map(function(x){return _e(x.m);}).join(' · ')+'. Confirm before administering.</div>';
+ if(soft.length)h+='<div class="rx-soft">'+soft.map(function(x){
+   return '<div>'+_e(x.m)+'</div>';}).join('')+'</div>';
+ h+='<div class="hx-note rx-lim">'+_e(RX_SAFETY_LIMITS)+'</div>';
+ return h;
+}
+/* clinic prescriptions get the same check the emergency room gets */
+function hxSafetyCheck(){
+ var box=document.getElementById('hx-safety');if(!box)return;
+ box.innerHTML=rxSafetyHtml(_hv('hx-allergy'),_hv('hx-plan-rx'));
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   FHIR R4 EXPORT
+   A hospital system will not read our note format. FHIR is what it reads.
+   Four resources are produced, and only from what the doctor actually entered:
+   Condition, AllergyIntolerance, Procedure, DocumentReference.
+   No patient identifier is created. The Patient reference is left for the
+   sending system to fill, because inventing one would be inventing a patient. */
+function _fhirId(){ return 'rxdx-'+Math.random().toString(36).slice(2,10); }
+function _fhirNow(){ return new Date().toISOString(); }
+function _fhirCoding(code){
+ var r=(typeof ICD_MAP!=='undefined')?ICD_MAP[String(code).toUpperCase()]:null;
+ return {system:'http://hl7.org/fhir/sid/icd-10-am',code:String(code),
+         display:(r&&r.ascii_desc)||undefined};
+}
+function fhirBundle(mod){
+ var isED=(mod==='ed');
+ var dx=((isED?window._edDx:window._hxDx)||[]).map(function(x){return x.code;}).filter(Boolean);
+ var allergy=_hv(isED?'ed-allergy':'hx-allergy');
+ var note='';try{note=isED?edNoteText():hxNoteText();}catch(_){ }
+ if(!note){try{note=_hv('hx-out')||_hv('ed-out');}catch(_){ } }
+ var entries=[];
+ /* Condition — one per coded diagnosis */
+ dx.forEach(function(c){
+  entries.push({fullUrl:'urn:uuid:'+_fhirId(),resource:{
+   resourceType:'Condition',
+   clinicalStatus:{coding:[{system:'http://terminology.hl7.org/CodeSystem/condition-clinical',code:'active'}]},
+   verificationStatus:{coding:[{system:'http://terminology.hl7.org/CodeSystem/condition-ver-status',code:'confirmed'}]},
+   code:{coding:[_fhirCoding(c)]},
+   subject:{display:'Patient — reference to be supplied by the sending system'},
+   recordedDate:_fhirNow()
+  },request:{method:'POST',url:'Condition'}});
+ });
+ /* AllergyIntolerance — only when the doctor wrote something other than "none" */
+ if(allergy&&!/nkda|no known|none known|nil known/i.test(allergy)){
+  entries.push({fullUrl:'urn:uuid:'+_fhirId(),resource:{
+   resourceType:'AllergyIntolerance',
+   clinicalStatus:{coding:[{system:'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',code:'active'}]},
+   code:{text:allergy},
+   patient:{display:'Patient — reference to be supplied by the sending system'},
+   recordedDate:_fhirNow()
+  },request:{method:'POST',url:'AllergyIntolerance'}});
+ }
+ /* Procedure — emergency procedures the doctor ticked */
+ try{
+  var procs=[];for(var k in (window._edProc||{}))if(window._edProc[k])procs.push(k);
+  procs.forEach(function(p){
+   entries.push({fullUrl:'urn:uuid:'+_fhirId(),resource:{
+    resourceType:'Procedure',status:'completed',
+    code:{text:String(p)},
+    subject:{display:'Patient — reference to be supplied by the sending system'},
+    performedDateTime:_fhirNow()
+   },request:{method:'POST',url:'Procedure'}});});
+ }catch(_){ }
+ /* DocumentReference — the note itself, base64 as FHIR requires */
+ if(note){
+  var b64='';try{b64=btoa(unescape(encodeURIComponent(note)));}catch(_){ }
+  entries.push({fullUrl:'urn:uuid:'+_fhirId(),resource:{
+   resourceType:'DocumentReference',status:'current',
+   type:{text:isED?'Emergency department note':'Clinical note'},
+   subject:{display:'Patient — reference to be supplied by the sending system'},
+   date:_fhirNow(),
+   content:[{attachment:{contentType:'text/plain',language:'en',data:b64}}]
+  },request:{method:'POST',url:'DocumentReference'}});
+ }
+ return {resourceType:'Bundle',type:'transaction',timestamp:_fhirNow(),entry:entries};
+}
+function fhirText(mod){ return JSON.stringify(fhirBundle(mod),null,1); }
+function fhirCopy(mod){
+ var t=fhirText(mod);
+ try{ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t);return;} }catch(_){ }
+ try{var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;left:-9999px';
+  document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);}catch(_){ }
+}
+function fhirDownload(mod){
+ try{var b=new Blob([fhirText(mod)],{type:'application/fhir+json'}),u=URL.createObjectURL(b),l=document.createElement('a');
+  l.href=u;l.download='rxdx-fhir-'+new Date().toISOString().slice(0,10)+'.json';l.click();URL.revokeObjectURL(u);}catch(_){ }
+ try{auditLog('export','FHIR bundle','');}catch(_){ }
+}
+function fhirRender(mod){
+ var b=fhirBundle(mod||'hx');
+ var by={};b.entry.forEach(function(e){var t=e.resource.resourceType;by[t]=(by[t]||0)+1;});
+ var keys=Object.keys(by);
+ if(!keys.length)return '<div class="hx-note">Nothing to export yet — no coded diagnosis, allergy, procedure or note on this encounter.</div>';
+ return '<div class="hx-note" style="display:block;margin-bottom:8px">'
+  +keys.map(function(k){return by[k]+' × '+k;}).join(' · ')
+  +'</div><div class="hx-note" style="display:block;margin-bottom:9px">No patient identifier is created. '
+  +'The subject reference is left for the sending system to fill.</div>'
+  +'<button class="hx-chip" onclick="fhirCopy(\''+(mod||'hx')+'\')">Copy the bundle</button> '
+  +'<button class="hx-chip" onclick="fhirDownload(\''+(mod||'hx')+'\')">Download .json</button>';
+}
+
+/* ---------- DICTATION: Arabic and English in the same note ----------
+   A Saudi doctor dictates a mix. Locking the recogniser to en-US drops every
+   Arabic word silently, which is worse than refusing to listen. */
+var RX_DICT_LANGS=[['en-SA','English'],['ar-SA','العربية']];
+function rxDictLang(){ try{return localStorage.getItem('rxdx_dict_lang')||'en-SA';}catch(_){return 'en-SA';} }
+function rxDictSetLang(v){ try{localStorage.setItem('rxdx_dict_lang',v);}catch(_){}
+ try{if(window._rxRec){window._rxRec.stop();window._rxRec=null;}}catch(_){ } }
+
+function plLoad(){try{return JSON.parse(localStorage.getItem('rxdx_pilot_v1')||'{}');}catch(_){return {};}}
+function plSave(o){try{localStorage.setItem('rxdx_pilot_v1',JSON.stringify(o));}catch(_){}}
+function plBase(){return plLoad().base||null;}
+function plSetBase(f,v){
+ var o=plLoad();o.base=o.base||{};
+ if(f==='by'||f==='dept'||f==='from')o.base[f]=String(v||'').slice(0,80);
+ else{var n=parseFloat(v);o.base[f]=isFinite(n)?n:null;}
+ o.base.t=o.base.t||Date.now();
+ plSave(o);try{auditLog('pilot','set baseline',f+'='+v);}catch(_){}
+ plRender();
+}
+function plClearBase(){var o=plLoad();delete o.base;plSave(o);
+ try{auditLog('pilot','cleared baseline','');}catch(_){}plRender();}
+
+/* ---- what the payer did with a claim ---- */
+var PL_REASONS=['Missing documentation','Unspecified diagnosis','Service not covered',
+ 'No pre-authorisation','Diagnosis does not justify the service','Duplicate','Other'];
+function plOutcomes(){return plLoad().out||[];}
+function plRecord(res,reason,cc){
+ var o=plLoad();o.out=o.out||[];
+ o.out.unshift({t:Date.now(),r:res,why:reason||'',cc:String(cc||'').slice(0,60)});
+ o.out=o.out.slice(0,4000);plSave(o);
+ try{auditLog('pilot','claim '+res,reason||'');}catch(_){}
+ plRender();
+}
+function plUndo(){var o=plLoad();if(o.out&&o.out.length)o.out.shift();plSave(o);plRender();}
+
+/* ---- what the tool can measure on its own ---- */
+function plNow(){
+ var E=[];try{E=encList()||[];}catch(_){}
+ var n=E.length,sec=0,secN=0,dx=0,un=0,ct=0,cf=0;
+ E.forEach(function(r){ if(r.sec){sec+=r.sec;secN++;}
+  dx+=(r.dx||[]).length;un+=(r.un||0);ct+=(r.ct||0);cf+=(r.cf||0);});
+ var O=plOutcomes(),rej=O.filter(function(x){return x.r==='rejected';}).length;
+ return {
+  n:n,
+  mins: secN?(sec/secN/60):null,
+  unspec: dx?(un/dx*100):null,
+  complete: ct?(cf/ct*100):null,
+  claims:O.length,
+  rejected: O.length?(rej/O.length*100):null
+ };
+}
+function _plRow(label,base,now,unit,lowerBetter){
+ var fmt=function(v){return v===null||v===undefined?'—':(Math.round(v*10)/10)+unit;};
+ var delta='',cls='';
+ if(base!==null&&base!==undefined&&now!==null&&now!==undefined){
+  var d=now-base;
+  if(Math.abs(d)<0.05)delta='no change';
+  else{ var good=lowerBetter?d<0:d>0;
+   cls=good?'pl-good':'pl-bad';
+   delta=(d>0?'+':'')+(Math.round(d*10)/10)+unit; }
+ }
+ return '<tr><td>'+_e(label)+'</td><td class="pl-n">'+fmt(base)+'</td><td class="pl-n">'+fmt(now)
+  +'</td><td class="pl-n '+cls+'">'+delta+'</td></tr>';
+}
+function plRender(){
+ var box=document.getElementById('pl-out');if(!box)return;
+ var b=plBase()||{},s=plNow(),O=plOutcomes();
+ var h='';
+ /* 1 — the baseline */
+ h+='<div class="hx-sec"><div class="hx-h">Before the pilot'
+  +'<span class="hx-note">measured by the department, not by this tool</span></div>';
+ if(!b.t){h+='<div class="hx-note" style="margin-bottom:10px">Nothing recorded yet. Without a baseline there is no honest claim of improvement — only a number with nothing to compare it to.</div>';}
+ h+='<div class="pl-grid">'
+  +_plF('Department','dept','text',b.dept||'')
+  +_plF('Recorded by','by','text',b.by||'')
+  +_plF('Period covered','from','text',b.from||'')
+  +_plF('Claim rejection rate %','rej','num',b.rej)
+  +_plF('Minutes per note','mins','num',b.mins)
+  +_plF('Unspecified diagnoses %','unspec','num',b.unspec)
+  +_plF('Note completeness %','complete','num',b.complete)
+  +'</div>';
+ if(b.t)h+='<div class="hx-note" style="margin-top:8px">Recorded '+new Date(b.t).toLocaleDateString('en-GB')
+   +(b.by?(' by '+_e(b.by)):'')+' <button class="hx-chip" onclick="plClearBase()">clear</button></div>';
+ h+='</div>';
+ /* 2 — the comparison */
+ h+='<div class="hx-sec"><div class="hx-h">Before and now</div>';
+ /* a coder may record what the payer did without ever opening the note builder,
+    so the comparison must appear on claim outcomes alone, not only on encounters */
+ if(!s.n&&!s.claims){h+='<div class="hx-note">Nothing recorded on this device yet — no encounters and no claim outcomes.</div>';}
+ else{
+  h+='<table class="pl-t"><tr><th>Measure</th><th>Before</th><th>Now</th><th>Change</th></tr>'
+   +_plRow('Claim rejection rate',b.rej,s.rejected,'%',true)
+   +_plRow('Minutes per note',b.mins,s.mins,'',true)
+   +_plRow('Unspecified diagnoses',b.unspec,s.unspec,'%',true)
+   +_plRow('Note completeness',b.complete,s.complete,'%',false)
+   +'</table>'
+   +'<div class="hx-note" style="margin-top:9px">Based on '+s.n+' encounter'+(s.n===1?'':'s')
+   +' and '+s.claims+' recorded claim outcome'+(s.claims===1?'':'s')+' on this device. '
+   +((s.n<30||s.claims<30)?'Fewer than 30 of either — read this as a direction, not a result.':'')
+   +'</div>';
+ }
+ h+='</div>';
+ /* 3 — claim outcomes */
+ h+='<div class="hx-sec"><div class="hx-h">What the payer did'
+  +'<span class="hx-note">enter one line per claim you hear back about</span></div>'
+  +'<div class="pl-row"><input class="hx-inp" id="pl-cc" placeholder="complaint or service (no patient details)" style="flex:2 1 240px">'
+  +'<select class="hx-inp" id="pl-why" style="flex:1 1 200px"><option value="">reason, if refused…</option>'
+  +PL_REASONS.map(function(r){return '<option>'+_e(r)+'</option>';}).join('')+'</select>'
+  +'<button class="hx-chip pl-ok" onclick="plRecord(\'accepted\',\'\',_hv(\'pl-cc\'))">Accepted</button>'
+  +'<button class="hx-chip pl-no" onclick="plRecord(\'rejected\',_hv(\'pl-why\'),_hv(\'pl-cc\'))">Refused</button>'
+  +'</div>';
+ if(O.length){
+  var by={};O.forEach(function(x){if(x.r==='rejected'&&x.why)by[x.why]=(by[x.why]||0)+1;});
+  var top=Object.keys(by).sort(function(p,q){return by[q]-by[p];});
+  h+='<div class="hx-note" style="display:block;margin-top:10px">'+O.length+' recorded · '
+   +O.filter(function(x){return x.r==='rejected';}).length+' refused'
+   +' <button class="hx-chip" onclick="plUndo()">undo the last one</button></div>';
+  if(top.length){h+='<div class="flab" style="margin-top:10px">Why claims were refused</div>';
+   top.forEach(function(k){h+='<div class="pl-why"><b>'+by[k]+'</b> '+_e(k)+'</div>';});}
+ }
+ h+='</div>';
+ box.innerHTML=h;
+}
+function _plF(label,f,type,v){
+ return '<label class="pl-f"><span>'+_e(label)+'</span>'
+  +'<input class="hx-inp" value="'+_e(v==null?'':v)+'" '
+  +(type==='num'?'inputmode="decimal" ':'')+'onchange="plSetBase(\''+f+'\',this.value)"></label>';
+}
+function plCsv(){
+ var O=plOutcomes();
+ var csv='when,result,reason,complaint\n'+O.map(function(x){
+  return [new Date(x.t).toISOString(),x.r,'"'+String(x.why).replace(/"/g,'""')+'"',
+          '"'+String(x.cc).replace(/"/g,'""')+'"'].join(',');}).join('\n');
+ try{var b=new Blob([csv],{type:'text/csv'}),u=URL.createObjectURL(b),l=document.createElement('a');
+  l.href=u;l.download='rxdx-claim-outcomes-'+new Date().toISOString().slice(0,10)+'.csv';l.click();
+  URL.revokeObjectURL(u);}catch(_){}
+}
+
 function cdrLoad(){try{return JSON.parse(localStorage.getItem('rxdx_coder_v1')||'{}');}catch(_){return {};}}
 function cdrSave(o){try{localStorage.setItem('rxdx_coder_v1',JSON.stringify(o));}catch(_){}}
 function cdrDone(key){var o=cdrLoad();return !!(o.done||{})[key];}
@@ -2929,7 +3299,7 @@ function calcCompute(){
 
 
 /* ===== voice input, print/export, learned synonyms ===== */
-function rxDictate(targetId,btn){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;var el=document.getElementById(targetId);if(!el)return;if(!SR){alert('Voice input is not supported in this browser.');return;}if(window._rxRec){try{window._rxRec.stop();}catch(_){}window._rxRec=null;if(btn)btn.textContent='🎤';return;}var r=new SR();r.lang='en-US';r.interimResults=false;r.continuous=true;window._rxRec=r;if(btn)btn.textContent='⏹';r.onresult=function(ev){var t='';for(var i=ev.resultIndex;i<ev.results.length;i++){t+=ev.results[i][0].transcript;}el.value=(el.value?el.value+' ':'')+t.trim();};r.onerror=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.onend=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.start();}
+function rxDictate(targetId,btn){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;var el=document.getElementById(targetId);if(!el)return;if(!SR){alert('Voice input is not supported in this browser.');return;}if(window._rxRec){try{window._rxRec.stop();}catch(_){}window._rxRec=null;if(btn)btn.textContent='🎤';return;}var r=new SR();r.lang=(typeof rxDictLang==='function')?rxDictLang():'en-SA';r.interimResults=false;r.continuous=true;window._rxRec=r;if(btn)btn.textContent='⏹';r.onresult=function(ev){var t='';for(var i=ev.resultIndex;i<ev.results.length;i++){t+=ev.results[i][0].transcript;}el.value=(el.value?el.value+' ':'')+t.trim();};r.onerror=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.onend=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.start();}
 function loadSynonyms(){if(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/synonyms').then(function(r){return r.json();}).then(function(arr){var m={};(arr||[]).forEach(function(x){if(x&&x.phrase&&!m[x.phrase])m[x.phrase]=x.code;});window._learnedSyn=m;}).catch(function(){});}catch(_){}}}
 function noteTeach(){var pe=document.getElementById('note-teach-p'),ce=document.getElementById('note-teach-c');if(!pe||!ce)return;var ph=(pe.value||'').trim().toLowerCase(),cd=(ce.value||'').trim().toUpperCase();if(!ph||!cd)return;window._learnedSyn=window._learnedSyn||{};window._learnedSyn[ph]=cd;if(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/synonym',{method:'POST',headers:rxHeaders(),body:JSON.stringify(rxWithCtx({phrase:ph,code:cd}))}).catch(function(){});}catch(_){}}analyzeNote();}
 try{loadSynonyms();}catch(_){}
@@ -3372,9 +3742,9 @@ function justifyCheck(){var q=((document.getElementById('just-input')||{}).value
 /* ===== v3 shell: icons, sidebar nav, unified search, toast, big text ===== */
 var RX_ICONS={preauth:"M9 12l2 2 4-4 M12 3l7 4v5c0 4.4-3 8.4-7 9.5C8 20.4 5 16.4 5 12V7l7-4Z",uni:"M21 21l-4.3-4.3 M17 10.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z",idf:"m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z M8.5 8.5l7 7",icd:"M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1Z M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2 M9 11h6 M9 15h6",note:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 13h6 M9 17h6",ed:"M13 2 3 14h9l-1 8 10-12h-9l1-8Z",hx:"M4 6h2 M4 12h2 M4 18h2 M10 6h10 M10 12h10 M10 18h10",struct:"M8 3c-2 0-3 1-3 3v2c0 1.5-.5 2.5-2 3 1.5.5 2 1.5 2 3v2c0 2 1 3 3 3 M16 3c2 0 3 1 3 3v2c0 1.5.5 2.5 2 3-1.5.5-2 1.5-2 3v2c0 2-1 3-3 3",calc:"M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z M9 6.5h6 M9 11.5h.01 M12 11.5h.01 M15 11.5h.01 M9 15h.01 M12 15h.01 M15 15h.01 M9 18.5h.01 M12 18.5h.01 M15 18.5h.01",justify:"m9 12 2 2 4-4 M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",exec:"M3 3v18h18 M8 17v-6 M13 17V7 M18 17v-4",dash:"M3 3v18h18 M8 17v-6 M13 17V7 M18 17v-4",itreview:"M12 3c2.5 1.7 5.2 2.7 8 3 0 6-3 10.5-8 13C7 16.5 4 12 4 6c2.8-.3 5.5-1.3 8-3Z M9 11.5l2 2 4-4",clins:"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",config:"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z",clin:"M4 19.5A2.5 2.5 0 0 1 6.5 17H20 M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z",help:"M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z M9.2 9a2.8 2.8 0 0 1 5.6.5c0 1.8-2.8 2.3-2.8 3.7 M12 17h.01"};
 function rxIcon(id){return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+(RX_ICONS[id]||RX_ICONS.note)+'"/></svg>';}
-var RX_LABELS={uni:"Search",idf:"Drug Formulary",icd:"ICD-10 Diagnosis",note:"Note → Codes",ed:"Emergency",hx:"History Builder",struct:"Structured",calc:"Calculators",dash:"Insights",itreview:"Learning review",clins:"Clinicians",clin:"Clinical indications",preauth:"Pre-authorisation",exec:"Executive dashboard",config:"Control Centre",coder:"Coder review",gov:"Content register",help:"Help"};
-var RX_EXTRA={clin:"clinRender('clin-out','hx');",preauth:"paRender('pa-out');",exec:"exRender();",ed:"edRender();",dash:"dashLoad();",itreview:"itLoad();",clins:"clinsLoad();ovrRender();",config:"itcRender();",coder:"cdrRender();",gov:"cregRender();auditRender();"};
-var RX_NAV={doctor:[["Find",["uni","idf","icd"]],["Documentation",["note","ed","hx"]],["Reference",["clin","preauth"]],["Review",["coder"]],["More tools",["struct","calc"]],["Support",["help"]]],admin:[["Executive",["exec"]],["Analytics",["dash"]],["Coding",["coder"]],["Governance",["clins","gov"]],["Support",["help"]]],it:[["Analytics",["dash"]],["Coding",["coder"]],["Administration",["itreview","clins","config","gov"]],["Support",["help"]]]};
+var RX_LABELS={uni:"Search",idf:"Drug Formulary",icd:"ICD-10 Diagnosis",note:"Note → Codes",ed:"Emergency",hx:"History Builder",struct:"Structured",calc:"Calculators",dash:"Insights",itreview:"Learning review",clins:"Clinicians",clin:"Clinical indications",preauth:"Pre-authorisation",exec:"Executive dashboard",config:"Control Centre",coder:"Coder review",gov:"Content register",pilot:"Pilot measurement",help:"Help"};
+var RX_EXTRA={clin:"clinRender('clin-out','hx');",preauth:"paRender('pa-out');",exec:"exRender();",ed:"edRender();",dash:"dashLoad();",itreview:"itLoad();",clins:"clinsLoad();ovrRender();",config:"itcRender();",coder:"cdrRender();",gov:"cregRender();auditRender();",pilot:"plRender();"};
+var RX_NAV={doctor:[["Find",["uni","idf","icd"]],["Documentation",["note","ed","hx"]],["Reference",["clin","preauth"]],["Review",["coder"]],["More tools",["struct","calc"]],["Support",["help"]]],admin:[["Executive",["exec"]],["Analytics",["dash"]],["Coding",["coder"]],["Governance",["clins","gov"]],["Pilot",["pilot"]],["Support",["help"]]],it:[["Analytics",["dash"]],["Coding",["coder"]],["Administration",["itreview","clins","config","gov","pilot"]],["Support",["help"]]]};
 function rxBuildNav(role){
  var nav=document.getElementById('rx-nav');if(!nav)return;
  var groups=RX_NAV[role]||[];var html='';
@@ -5468,7 +5838,7 @@ var TOOLS=[
  q:[['Do you make yourself sick because you feel uncomfortably full?'],['Do you worry you have lost control over how much you eat?'],['Have you recently lost more than 6 kg in three months?'],['Do you believe yourself to be fat when others say you are too thin?'],['Would you say that food dominates your life?']],
  band:function(s){return s>=2?'possible eating disorder — assess further':'screen negative';}},
 {id:'dn4',name:'DN4 interview — neuropathic pain',cx:['Numbness / tingling'],px:['G62','G63','M79'],max:7,
- note:'4 or more of 10 (interview portion shown) suggests neuropathic pain',
+ note:'4 or more suggests neuropathic pain. Only the 7 interview items are here; the full instrument adds 3 examination items, so a score under 4 does not exclude it without the bedside test',
  scale:[['No',0],['Yes',1]],
  q:[['Burning'],['Painful cold'],['Electric shocks'],['Tingling'],['Pins and needles'],['Numbness'],['Itching']],
  band:function(s){return s>=4?'suggests neuropathic pain':'neuropathic pain less likely';}},
@@ -6007,17 +6377,10 @@ var ED_ALLERGY_MAP={penicillin:['amoxicillin','ampicillin','augmentin','co-amoxi
  contrast:['contrast','iodinated'],latex:[]};
 function edAllergyCheck(){
  var box=document.getElementById('ed-allergy-warn');if(!box)return;
- var alg=((document.getElementById('ed-allergy')||{}).value||'').toLowerCase();
- var drugs=((document.getElementById('ed-drugs')||{}).value||'').toLowerCase();
- if(!alg||!drugs||/nkda|no known/i.test(alg)){box.innerHTML='';window._edAllergyClash=false;return;}
- var hits=[];
- for(var k in ED_ALLERGY_MAP){
-  if(alg.indexOf(k)<0)continue;
-  ED_ALLERGY_MAP[k].concat([k]).forEach(function(d){
-   if(d&&drugs.indexOf(d)>=0&&hits.indexOf(d)<0)hits.push(d+' (allergy: '+k+')');});
- }
- window._edAllergyClash=hits.length>0;
- box.innerHTML=hits.length?('<div class="ed-alert red">🚫 ALLERGY CONFLICT — '+hits.join(' · ')+'. Confirm before administering.</div>'):'';
+ var alg=_hv('ed-allergy'),drugs=_hv('ed-drugs');
+ var f=rxSafety(alg,drugs);
+ window._edAllergyClash=f.some(function(x){return x.hard;});
+ box.innerHTML=rxSafetyHtml(alg,drugs);
 }
 var ED_RETURN_Q=['Worsening or new severe pain','Breathlessness','Fever or feeling worse','Fainting or dizziness','Vomiting and unable to keep fluids down','New weakness, numbness or speech change','Bleeding','Wound redness, swelling or discharge','Any new concern'];
 function edReturnQuick(){
@@ -7552,7 +7915,7 @@ function _edQLines(id,posLbl,negLbl){
    All three are built from what the doctor already entered; nothing is
    asked twice, and each one is copied or printed on its own.
    ══════════════════════════════════════════════════════════════════════ */
-var HX_DOCS=[['note','Clinical note'],['just','Justification check'],['pa','Pre-authorisation'],['nat','National protocol'],['clin','Clinical indications'],['ref','Referral letter'],['pt','Patient instructions'],['req','Investigation requests']];
+var HX_DOCS=[['note','Clinical note'],['just','Justification check'],['pa','Pre-authorisation'],['fhir','Send to the hospital system'],['nat','National protocol'],['clin','Clinical indications'],['ref','Referral letter'],['pt','Patient instructions'],['req','Investigation requests']];
 /* the doctor answers a question in the step; the pre-authorisation pane and the
    tab badges must stop asking for it in the same keystroke, or they teach distrust */
 function paWarnRefresh(){
@@ -7728,6 +8091,7 @@ function hxDocsRender(){
   return '<button class="itc-tab'+(d[0]===cur?' on':'')+'" onclick="hxDoc(\''+d[0]+'\')">'+d[1]+badge+'</button>';}).join('');
  if(cur==='note'){box.innerHTML='<div class="hx-note" style="margin:0">The clinical note is in the box below.</div>';return;}
  if(cur==='just'){box.innerHTML='<div id="hx-just-out"></div>';justRender('hx-just-out');return;}
+ if(cur==='fhir'){box.innerHTML=fhirRender('hx');return;}
  if(cur==='pa'){
   var w=icdEditWarn()+paNoteWarn('hx');
   var due=scrRender();
