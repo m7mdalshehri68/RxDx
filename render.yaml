@@ -1,0 +1,34 @@
+# Deploy the RxDx Coding API on Render.
+#
+# In the Render dashboard: New → Blueprint → connect m7mdalshehri68/RxDx.
+# Render reads this file, builds the image from api/Dockerfile with the
+# repository root as the build context, and gives back a public URL.
+#
+# The free plan sleeps after fifteen idle minutes; the first request afterwards
+# waits a few seconds for the container to wake. That is fine for a demonstration
+# and not fine for a ward, which is what the hospital deployment is for.
+services:
+  - type: web
+    name: rxdx-coding-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /v1/health
+    autoDeploy: true
+    envVars:
+      # The GitHub Pages copy of RxDx is allowed to call this service.
+      # Add more origins, comma separated, as needed. Use "*" only for a demo.
+      - key: RXDX_ALLOW_ORIGINS
+        value: "https://m7mdalshehri68.github.io"
+      # Marks this instance as the public demonstration, which makes the
+      # documentation page warn against pasting real patient text.
+      - key: RXDX_PUBLIC_DEMO
+        value: "1"
+      - key: RXDX_RATE_LIMIT
+        value: "120"
+      # Set a value here to require an X-API-Key header. Leave unset for an
+      # open demonstration instance.
+      - key: RXDX_API_KEY
+        sync: false
