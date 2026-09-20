@@ -337,6 +337,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
 .ed-trend.same{background:var(--surf2);color:var(--text2);}
 </style>
 <style id="ed-ul-css">.ed-ul{margin:0 0 4px;padding-inline-start:18px;font-size:12.5px;color:var(--text2);line-height:1.6}</style>
+<link rel="stylesheet" href="./upgrade.css">
 </head>
 <body>
 
@@ -344,7 +345,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
   <div class="rxg-wrap">
     <div class="rxg-tile">Rx</div>
     <div class="rxg-h">RxDx</div>
-    <div class="rxg-sub">Clinical reference & documentation workspace — sign in with your access code</div>
+    <div class="rxg-sub">Clinical reference &amp; documentation workspace — choose a workspace (this is not a sign-in)</div>
     <div class="rxg-cards">
       <div class="rxg-card" onclick="rxEnter('doctor')">
         <div class="rxg-ic" style="background:linear-gradient(135deg,#14B8A6,#0F766E);box-shadow:0 8px 20px rgba(15,118,110,.35)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
@@ -362,7 +363,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
         <div class="rxg-d">Learning review queue — approve or reject what the tool learns before it reflects for everyone.</div>
       </div>
     </div>
-    <div class="rxg-note" style="font-size:12.5px">Choose your workspace to continue</div>
+    <div class="rxg-note" style="font-size:12.5px">Workspace switching changes the tools shown. It does not authenticate you or grant access.</div>
   </div>
 </div>
 <div id="rx-shell">
@@ -380,7 +381,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
   <button class="rxt-btn" onclick="rxTheme()" title="Theme">🌓</button>
   <span id="rx-clin" style="display:none;font-size:11.5px;font-weight:700;color:var(--text2);background:var(--surf2);border:1px solid var(--border);border-radius:16px;padding:6px 12px"></span>
   <span id="rx-rolechip">—</span>
-  <a class="rxt-out" href="#" onclick="rxLogout();return false">Logout</a>
+  <a class="rxt-out" href="#" onclick="rxLogout();return false">Switch workspace</a>
 </div>
 <div class="main">
   <div id="panel-uni" class="panel">
@@ -401,7 +402,7 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
       <div style="font-size:13.5px;line-height:1.9;color:var(--text2)">
       <b style="color:var(--text)">Search</b> — one box across 16,953 diagnoses and 1,548 drugs; lay terms like “htn” or “sugar” work. Click any code to copy.<br>
       <b style="color:var(--text)">Drug Formulary</b> — SFDA drugs with verified indications and their ICD-10 codes.<br>
-      <b style="color:var(--text)">ICD-10 Diagnosis</b> — full diagnosis search with validity, sex/age and PDx acceptance badges.<br>
+      <b style="color:var(--text)">ICD-10 Diagnosis</b> — full diagnosis search with validity, sex/age and PDx guidance badges (not a guarantee of payer acceptance).<br>
       <b style="color:var(--text)">Note → Codes</b> — paste or dictate a note; codes appear live with confidence and CDI prompts.<br>
       <b style="color:var(--text)">History Builder</b> — guided clerking with red flags, examination, chronic-disease CHI documentation and claim readiness.<br>
       <b style="color:var(--text)">Structured</b> — pulls problems, medications, vitals and labs out of free text.<br>
@@ -489,13 +490,15 @@ body.rxdark #panel-hx .hx-sec{box-shadow:none;}
         <span class="note-hint">Ctrl/⌘ + Enter to analyze · everything runs locally in your browser</span><label style="font-size:12px;color:#64748b;display:flex;align-items:center;gap:5px"><input type="checkbox" id="note-ai" onchange="aiToggle(this)"> Also use the clinical model</label><span id="note-ai-note" class="note-hint" style="display:none"></span>
       </div>
       <div class="note-api">
-        <label class="note-api-t"><input type="checkbox" id="napi-on" onchange="napiToggle(this)"> Code through the online service instead</label>
+        <label class="note-api-t"><input type="checkbox" id="napi-on" onchange="napiToggle(this)"> Configure an external coding service</label>
         <input type="text" id="napi-url" class="napi-url" placeholder="https://your-coding-service" oninput="napiSave()" style="display:none">
+        <label id="napi-consent-wrap" class="note-api-t" style="display:none"><input type="checkbox" id="napi-consent" onchange="napiConsent(this)"> I consent to send note text to this service for this browser session</label>
+        <button id="napi-send" class="note-btn-ghost" type="button" onclick="napiSendCurrent()" style="display:none">Send this note for external coding</button>
         <span id="napi-state" class="note-hint"></span>
         <div id="napi-warn" class="napi-warn" style="display:none">
-          <b>This sends the note off this device.</b> The service holds it in memory for one request and never writes it down —
-          but on a public address it still crosses the internet. Use invented text there. For real patients, point this at a
-          service running inside the hospital, or leave this box unticked: the offline engine codes just as well, right here in the browser.
+          <b>External coding sends the full note off this device.</b> RxDx cannot verify what another service logs or retains.
+          Only HTTPS addresses are accepted. Consent lasts for this browser session, and a note is sent only when you press
+          “Send this note for external coding”. Leave this off to use the local engine.
         </div>
       </div>
     </div>
@@ -1300,7 +1303,7 @@ body.rxdark .itc-code,body.rxdark .itc-pill{background:#0f172a;color:#cbd5e1;bor
 </div>
 <div id="panel-pilot" class="panel">
  <div class="rx-head"><h2>Pilot measurement</h2>
-  <p class="rx-sub">What the department looked like before this tool, what it looks like now, and what the payer actually did with the claims. Held on this device; no patient details.</p></div>
+  <p class="rx-sub">What the department looked like before this tool, what it looks like now, and what the payer actually did with the claims. Held on this device; complaint/service and claim-outcome telemetry is recorded, without direct patient identifiers.</p></div>
  <div style="margin-bottom:10px"><button class="hx-chip" onclick="plCsv()">Export claim outcomes (CSV)</button></div>
  <div id="pl-out"></div>
 </div>
@@ -1313,7 +1316,7 @@ body.rxdark .itc-code,body.rxdark .itc-pill{background:#0f172a;color:#cbd5e1;bor
 </div>
 <div id="panel-coder" class="panel">
  <div class="rx-head"><h2>Coder review queue</h2>
-  <p class="rx-sub">Seven things a coder or a clinical documentation specialist has to catch before a claim goes out. Everything here is computed on this device from encounters recorded on this device. No patient identifiers are held anywhere in the tool.</p></div>
+  <p class="rx-sub">Seven things a coder or a clinical documentation specialist has to catch before a claim goes out. Everything here is computed on this device from local encounter data. Do not enter direct patient identifiers in free-text fields.</p></div>
  <div id="cdr-sum" class="hx-chips" style="margin:10px 0 14px"></div>
  <div id="cdr-out"></div>
 </div>
@@ -1432,7 +1435,7 @@ body.rxdark .itc-code,body.rxdark .itc-pill{background:#0f172a;color:#cbd5e1;bor
 <div class="app-footer">
   <span class="disc-title">⚠ Clinical disclaimer</span>
   RxDx is a reference aid to support ICD-10 coding. Always verify each code against the patient's clinical documentation and current payer rules — it does not replace clinical judgment.
-  <br>Medication data from <strong>SFDA</strong>; ICD-10 codes &amp; clinical edits from <strong>SEHA – Clinical Edits</strong>; insurance acceptance per <strong>Council of Health Insurance (CHI)</strong>. Invalid, inactive and non-billable codes removed.
+  <br>Medication data from <strong>SFDA</strong>; ICD-10 codes &amp; clinical edits from <strong>SEHA – Clinical Edits</strong>; payer guidance references <strong>Council of Health Insurance (CHI)</strong> rules. Actual acceptance depends on the payer, contract and encounter. Invalid, inactive and non-billable codes removed.
   <br>Personal initiative by <strong>Mohammed Alshehri</strong> · <a href="mailto:m7md.alshehri68@gmail.com" style="color:var(--teal-d);text-decoration:none">m7md.alshehri68@gmail.com</a> · <a href="https://www.linkedin.com/in/mh-sh68/" target="_blank" rel="noopener" style="color:var(--teal-d);text-decoration:none">LinkedIn</a> · v1.5 · July 2026 · may contain errors — corrections welcome.
 </div>
 </div></div>
@@ -1997,32 +2000,47 @@ function napiCfg(){
 }
 function napiSave(){
   var url=(document.getElementById('napi-url')||{}).value||'';
-  try{ localStorage.setItem('rxdx.codingApi',JSON.stringify({on:!!(document.getElementById('napi-on')||{}).checked,url:url.trim()})); }catch(_){ }
+  try{ localStorage.setItem('rxdx.codingApi',JSON.stringify({url:url.trim()})); }catch(_){ }
 }
 function napiToggle(el){
-  var u=document.getElementById('napi-url'),w=document.getElementById('napi-warn');
+  var u=document.getElementById('napi-url'),w=document.getElementById('napi-warn'),cw=document.getElementById('napi-consent-wrap'),send=document.getElementById('napi-send');
   if(u)u.style.display=el.checked?'':'none';
   if(w)w.style.display=el.checked?'':'none';
+  if(cw)cw.style.display=el.checked?'':'none';
+  if(send)send.style.display=el.checked?'':'none';
   napiSave();
-  if(el.checked)napiPing();
-  else napiState('');
+  if(!el.checked){var c=document.getElementById('napi-consent');if(c)c.checked=false;try{sessionStorage.removeItem('rxdx.codingApiConsent');}catch(_){}napiState('');}
 }
+function napiConsent(el){try{if(el.checked)sessionStorage.setItem('rxdx.codingApiConsent','1');else sessionStorage.removeItem('rxdx.codingApiConsent');}catch(_){}}
 function napiState(msg){var s=document.getElementById('napi-state');if(s)s.textContent=msg||'';}
 function napiBase(){
   var u=((document.getElementById('napi-url')||{}).value||'').trim().replace(/\/+$/,'');
   return u;
 }
+function napiSecure(){
+  var b=napiBase();
+  if(!/^https:\/\//i.test(b)){napiState('HTTPS is required; the note was not sent');return false;}
+  return true;
+}
 function napiPing(){
   var b=napiBase(); if(!b){napiState('enter the address of the service');return;}
+  if(!napiSecure())return;
   napiState('checking…');
   fetch(b+'/v1/health',{method:'GET'}).then(function(r){return r.json();}).then(function(h){
     napiState(h&&h.ok?('connected · '+h.icdCodes.toLocaleString()+' codes · '+h.contentVersion):'the service answered, but not as expected');
-    if(h&&h.publicDemo===false){var w=document.getElementById('napi-warn');if(w)w.style.display='none';}
   }).catch(function(){ napiState('could not reach that address — the offline engine will be used'); });
 }
 function napiOn(){
   var c=document.getElementById('napi-on');
-  return !!(c&&c.checked&&napiBase());
+  var ok=false;try{ok=sessionStorage.getItem('rxdx.codingApiConsent')==='1';}catch(_){}
+  return !!(c&&c.checked&&napiBase()&&ok);
+}
+function napiSendCurrent(){
+  var note=(document.getElementById('note-input')||{}).value||'',out=document.getElementById('note-out');
+  if(note.trim().length<3){if(out)out.innerHTML=noteEmpty();return;}
+  if(!napiOn()){napiState('tick the per-session consent box before sending');return;}
+  if(!napiSecure())return;
+  analyzeNoteOnline(note,out);
 }
 /* Map the service answer onto the same shape the local engine produces, so one
    renderer draws both and they cannot look different by accident. */
@@ -2036,6 +2054,7 @@ function napiShape(j){
   return out;
 }
 function analyzeNoteOnline(note,out){
+  if(!napiOn()||!napiSecure()){napiState('external coding is not authorised for this session');return;}
   var b=napiBase();
   napiState('coding…');
   var t0=Date.now();
@@ -2071,7 +2090,6 @@ function analyzeNote(){if(typeof aiReady==='function'&&aiReady()&&document.getEl
   var note=(document.getElementById('note-input').value||'');
   var out=document.getElementById('note-out');
   if(note.trim().length<3){out.innerHTML=noteEmpty();return;}
-  if(napiOn())return analyzeNoteOnline(note,out);
   renderNote(out, noteProblems(note).slice(0,120));
 }
 /* the shape renderNote wants, from the engine the corpus measures */
@@ -2080,10 +2098,12 @@ function napiRestore(){
   var c=napiCfg(),box=document.getElementById('napi-on'),u=document.getElementById('napi-url');
   if(!box||!u)return;
   u.value=c.url||'';
-  box.checked=!!(c.on&&c.url);
-  u.style.display=box.checked?'':'none';
-  var w=document.getElementById('napi-warn'); if(w)w.style.display=box.checked?'':'none';
-  if(box.checked)napiPing();
+  box.checked=false;
+  u.style.display='none';
+  var w=document.getElementById('napi-warn');if(w)w.style.display='none';
+  var cw=document.getElementById('napi-consent-wrap');if(cw)cw.style.display='none';
+  var send=document.getElementById('napi-send');if(send)send.style.display='none';
+  try{sessionStorage.removeItem('rxdx.codingApiConsent');}catch(_){}
 }
 try{ if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('DOMContentLoaded',napiRestore); }catch(_){ }
 function noteProblems(note){
@@ -2689,7 +2709,7 @@ function loadLearn(){try{return JSON.parse(localStorage.getItem('rxdx_learn_v1')
 function saveLearn(o){try{localStorage.setItem('rxdx_learn_v1',JSON.stringify(o));}catch(_){}}
 function learnRecord(p,c){var o=loadLearn();o[p]=o[p]||{};o[p][c]=(o[p][c]||0)+1;saveLearn(o);syncPush(p,c);}
 function learnTop(p){var o=loadLearn();var m=o[p]||{};return Object.keys(m).sort(function(a,b){return m[b]-m[a];}).slice(0,6);}
-function syncPull(){if(!LEARN_CFG.syncUrl)return;try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/learn').then(function(r){return r.json();}).then(function(rem){var o=loadLearn();for(var p in rem){o[p]=o[p]||{};for(var c in rem[p]){o[p][c]=Math.max(o[p][c]||0,rem[p][c]);}}saveLearn(o);}).catch(function(){});}catch(_){}}
+function syncPull(){if(!LEARN_CFG.syncUrl)return;try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/learn',{headers:rxHeaders()}).then(function(r){return r.json();}).then(function(rem){var o=loadLearn();for(var p in rem){o[p]=o[p]||{};for(var c in rem[p]){o[p][c]=Math.max(o[p][c]||0,rem[p][c]);}}saveLearn(o);}).catch(function(){});}catch(_){}}
 function syncPush(p,c){if(!LEARN_CFG.syncUrl)return;try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/propose',{method:'POST',headers:rxHeaders(),body:JSON.stringify(rxWithCtx({presentation:p,code:c}))}).catch(function(){});}catch(_){}}
 /* ---- generate / actions ---- */
 function hxGenerate(stage){
@@ -2780,7 +2800,7 @@ function dashLoad(){
   var out=document.getElementById('dash-out'); if(out)out.innerHTML='<div class="empty"><div class="empty-icon">📊</div><h3>Loading…</h3></div>';
   function done(d,src){var s=document.getElementById('dash-src'); if(s)s.textContent=(src==='shared'?'Source: shared backend (all users)':'Source: this device (local)')+' · learns from usage'; dashRender(d);}
   if(typeof LEARN_CFG!=='undefined' && LEARN_CFG.syncUrl){
-    fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/insights').then(function(r){return r.json();}).then(function(d){done(d,'shared');}).catch(function(){done(_dashLocal(),'local');});
+    fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/insights',{headers:rxHeaders()}).then(function(r){return r.json();}).then(function(d){done(d,'shared');}).catch(function(){done(_dashLocal(),'local');});
   } else { done(_dashLocal(),'local'); }
 }
 function _dashLocal(){
@@ -2807,7 +2827,7 @@ function dashRender(d){
   '</div>';
   html+='<div class="hx-sec"><div class="hx-h">Top presenting complaints</div>'+_dashBars(tp,function(it){return it.presentation;},maxP)+'</div>';
   html+='<div class="hx-sec"><div class="hx-h">Top diagnoses (ICD-10)</div>'+_dashBars(tc,function(it){var r=(typeof ICD_MAP!=='undefined')?ICD_MAP[(it.code||'').toUpperCase()]:null;return it.code+(r?' · '+r.ascii_desc:'');},maxC)+'</div>';
-  html+=_dashExtra(d,tp,tc);html+='<div class="note-disc" style="margin-top:12px">Aggregated from working-diagnosis picks only (complaint → ICD code). No patient data. A usage / intelligence view, not a clinical recommendation.</div>';
+  html+=_dashExtra(d,tp,tc);html+='<div class="note-disc" style="margin-top:12px">Aggregated clinical telemetry from working-diagnosis picks (complaint → ICD code), without note content. A usage / intelligence view, not a clinical recommendation.</div>';
   out.innerHTML=html;
 }
 
@@ -2974,21 +2994,9 @@ function _stRank(list,note){
  hasDx=list.some(function(x){return !x.symptom;});
  list.forEach(function(x){ x.principal=x.named?true:(x.symptom&&hasDx?false:true); });
  list.forEach(function(x){ _stScore(x,note,hasDx); });
- /* ---------- ONE PRINCIPAL, EVEN WHEN NOTHING IS DIAGNOSED ----------
-    A thunderclap headache note with one episode of vomiting was returning
-    Headache AND Nausea and vomiting, both principal. When no diagnosis is
-    reached the symptom IS the diagnosis — but only one of them is, because a
-    claim carries a single principal. The strongest complaint keeps it and the
-    rest become the associated findings they already were. */
- if(!hasDx&&list.length>1){
-  var best=list[0];
-  list.forEach(function(x){
-   if(x.named&&!best.named){best=x;return;}
-   if(best.named&&!x.named)return;
-   if((x.conf||0)>(best.conf||0))best=x;
-  });
-  list.forEach(function(x){ x.principal=(x===best); });
- }
+ /* With no established diagnosis, every active symptom remains eligible as a
+    principal code. Do not invent a supporting relationship by choosing one
+    complaint from confidence alone; only a real diagnosis may demote symptoms. */
  list.sort(function(p,q){
   if(p.named!==q.named)return p.named?-1:1;
   if(p.principal!==q.principal)return p.principal?-1:1;
@@ -3212,8 +3220,8 @@ function cregRender(){
 }
 
 /* ---------- CENTRAL AUDIT TRAIL ----------
-   Who changed what, when. No patient data — an audit trail that carried patient
-   data would be the very leak it exists to prevent. */
+   Who changed what, when. Callers should pass configuration/event summaries,
+   never note content or patient identifiers. */
 function auditLog(area,action,detail){
  try{var a=JSON.parse(localStorage.getItem('rxdx_audit_v1')||'[]');
   a.unshift({t:Date.now(),a:area,ac:action,d:String(detail||'').slice(0,160),
@@ -3939,7 +3947,7 @@ function cdrBuckets(){
                ev:qs.join(' · '),act:'pa',ref:'pa'});}}catch(_){}
  var risky=enc.filter(function(r){return r.pt&&r.pf<r.pt;}).length;
  if(risky) add('risk',{t:risky+' earlier encounter'+(risky===1?'':'s')+' were finalised with pre-authorisation wording still missing',
-                       ev:'Recorded on this device. No patient data is held — counts only.',act:'dash',ref:'hist'});
+                       ev:'Recorded on this device: complaint-to-code counts, without note content.',act:'dash',ref:'hist'});
 
  /* 7 — only the doctor can answer these */
  by.conf2.items.filter(function(x){return !x.resolved;}).forEach(function(x){
@@ -4067,6 +4075,47 @@ function syncQuality(pres,pct,level){if(typeof LEARN_CFG!=='undefined'&&LEARN_CF
 /* ===== Clinical calculators (auto from extracted vitals/labs + checklists) ===== */
 function calcEmpty(){return '<div class="empty"><div class="empty-icon">🧮</div><h3>Clinical calculators</h3><p>Paste a note with vital signs and labs — NEWS2, qSOFA and CURB-65 compute automatically; CHA₂DS₂-VASc and Wells are interactive.</p></div>';}
 function _calcNum(v){var m=String(v).match(/[\d.]+/);return m?parseFloat(m[0]):null;}
+/* Calculator extraction deliberately keeps "not documented" separate from
+   "documented normal".  A missing boolean must never quietly become zero. */
+function _calcNegated(s,at,len){
+  var before=s.slice(Math.max(0,at-55),at).replace(/^.*[.;\n]/,'');
+  var after=s.slice(at+len,at+len+24).split(/[.;\n]/)[0];
+  return /\b(?:no|not|denies?|denied|without|negative for|free of|absence of)(?:\s+any)?\s*$/.test(before.trim())
+    ||/^\s*(?::|=)?\s*(?:is\s+)?(?:absent|negative|no)\b/.test(after);
+}
+function _calcConfusion(note){
+  var low=note.toLowerCase(),g,known=false;
+  var gr=/\bgcs\s*[:=]?\s*(\d{1,2})\b/g;
+  while((g=gr.exec(low))){known=true;if(+g[1]<15)return true;}
+  var re=/\b(?:confus(?:ed|ion)?|disorient(?:ed|ation)?|altered (?:mental (?:state|status)|mentation)|obtunded|unresponsive|new drowsiness)\b/g,m;
+  while((m=re.exec(low))){known=true;if(!_calcNegated(low,m.index,m[0].length))return true;}
+  if(known||/\b(?:alert and oriented|alert,?\s*oriented|oriented to (?:time|place|person)|normal mentation)\b/.test(low))return false;
+  return null;
+}
+function _calcOxygen(note){
+  var low=note.toLowerCase(),last=-1,state=null,m;
+  var no=/\b(?:room air|not on (?:supplemental )?(?:o2|oxygen)|no (?:supplemental )?(?:o2|oxygen)|without (?:supplemental )?(?:o2|oxygen)|oxygen\s*[:=]\s*no)\b/g;
+  while((m=no.exec(low)))if(m.index>=last){last=m.index;state=false;}
+  var yes=/\b(?:on (?:supplemental )?(?:o2|oxygen)|supplemental oxygen|oxygen therapy|(?:o2|oxygen)\s*(?:via|at|@|:)?\s*\d+(?:\.\d+)?\s*l(?:\/min)?|nasal cannula|venturi|non-?rebreath(?:er)?|nrb|face mask)\b/g;
+  while((m=yes.exec(low)))if(!_calcNegated(low,m.index,m[0].length)&&m.index>=last){last=m.index;state=true;}
+  return state;
+}
+function _calcTemp(note,fallback){
+  var m=note.match(/\b(?:temp|temperature)\s*[:=]?\s*(-?\d+(?:\.\d+)?)\s*(?:°\s*)?(c(?:elsius)?|f(?:ahrenheit)?|k(?:elvin)?)?\b/i);
+  if(!m)return fallback;
+  var v=parseFloat(m[1]),u=(m[2]||'').toLowerCase();
+  if(u.charAt(0)==='f')return (v-32)*5/9;
+  if(u.charAt(0)==='k')return null;
+  return v;
+}
+function _calcUrea(note,fallback){
+  var m=note.match(/\b(urea|bun)\s*[:=]?\s*(\d+(?:\.\d+)?)\s*([a-z]+(?:\s*\/\s*[a-z]+)?)?/i);
+  if(!m)return fallback;
+  var v=parseFloat(m[2]),name=m[1].toLowerCase(),u=(m[3]||'').toLowerCase().replace(/\s/g,'');
+  if(!u||u==='mmol/l'||u==='mmoll')return v;
+  if(u==='mg/dl'||u==='mgdl')return name==='bun'?v/2.801:v/6.006;
+  return null; /* an explicit unit we do not understand is not safe to score */
+}
 function _calcParse(note){
   var low=note.toLowerCase();
   var vit={}; _stVitals(note).forEach(function(x){vit[x[0]]=x[1];});
@@ -4076,34 +4125,38 @@ function _calcParse(note){
   if(age===null){var a2=low.match(/age[:=]?\s*(\d{1,3})/);if(a2)age=parseInt(a2[1],10);}
   return {sbp:bp?parseInt(bp[0],10):null,dbp:bp?parseInt(bp[1],10):null,
     hr:vit["Heart rate"]?_calcNum(vit["Heart rate"]):null,rr:vit["Resp rate"]?_calcNum(vit["Resp rate"]):null,
-    spo2:vit["SpO2"]?_calcNum(vit["SpO2"]):null,temp:vit["Temp"]?_calcNum(vit["Temp"]):null,
-    urea:lab["Urea"]!=null?lab["Urea"]:null,age:age,
-    confusion:/\b(confus|disorient|drowsy|gcs|altered mental|obtunded|unrespons)/.test(low),
-    oxygen:/\b(on o2|oxygen|nasal cannula|venturi|non-?rebreathe|nrb|\d+\s*l\/min)\b/.test(low)};
+    spo2:vit["SpO2"]?_calcNum(vit["SpO2"]):null,
+    temp:_calcTemp(note,vit["Temp"]?_calcNum(vit["Temp"]):null),
+    urea:_calcUrea(note,lab["Urea"]!=null?lab["Urea"]:null),age:age,
+    confusion:_calcConfusion(note),oxygen:_calcOxygen(note)};
 }
-function _news2(p){var s=0,miss=[];function pt(name,val,fn){if(val===null){miss.push(name);return;}s+=fn(val);}
+function _news2(p){var s=0,miss=[],single3=false;function pt(name,val,fn){if(val==null){miss.push(name);return;}var n=fn(val);s+=n;if(n===3)single3=true;}
   pt('RR',p.rr,function(v){return v<=8?3:v<=11?1:v<=20?0:v<=24?2:3;});
   pt('SpO2',p.spo2,function(v){return v>=96?0:v>=94?1:v>=92?2:3;});
-  s+=p.oxygen?2:0;
+  pt('supplemental oxygen',p.oxygen,function(v){return v?2:0;});
   pt('SBP',p.sbp,function(v){return v<=90?3:v<=100?2:v<=110?1:v<=219?0:3;});
   pt('HR',p.hr,function(v){return v<=40?3:v<=50?1:v<=90?0:v<=110?1:v<=130?2:3;});
-  s+=p.confusion?3:0;
+  pt('consciousness',p.confusion,function(v){return v?3:0;});
   pt('Temp',p.temp,function(v){return v<=35?3:v<=36?1:v<=38?0:v<=39?1:2;});
-  var band=s>=7?'HIGH — urgent/emergency response':s>=5?'Medium — urgent review':s>=1?'Low — ward response':'Routine';
-  return {score:s,band:band,miss:miss};}
-function _qsofa(p){var s=0,c=[];if(p.rr!==null&&p.rr>=22){s++;c.push('RR≥22');}if(p.sbp!==null&&p.sbp<=100){s++;c.push('SBP≤100');}if(p.confusion){s++;c.push('Altered mentation');}return {score:s,band:s>=2?'High risk — consider sepsis':'Low',c:c};}
-function _curb(p){var s=0,c=[];if(p.confusion){s++;c.push('Confusion');}if(p.urea!==null&&p.urea>7){s++;c.push('Urea>7');}if(p.rr!==null&&p.rr>=30){s++;c.push('RR≥30');}if((p.sbp!==null&&p.sbp<90)||(p.dbp!==null&&p.dbp<=60)){s++;c.push('Low BP');}if(p.age!==null&&p.age>=65){s++;c.push('Age≥65');}return {score:s,band:s>=3?'Severe — consider admission':s===2?'Moderate':'Low',c:c};}
+  var band=s>=7?'HIGH — urgent/emergency response':s>=5?'Medium — urgent review':single3?'Low-medium — single parameter scored 3':miss.length?'Incomplete — risk band withheld':s>=1?'Low — ward response':'Routine';
+  if(miss.length&&single3&&s<5)band='Escalation — single parameter scored 3 (incomplete inputs)';
+  else if(miss.length&&s>=5)band+=' (incomplete inputs)';
+  return {score:s,band:band,miss:miss,partial:miss.length>0,single3:single3};}
+function _qsofa(p){var s=0,c=[],miss=[];if(p.rr==null)miss.push('RR');else if(p.rr>=22){s++;c.push('RR≥22');}if(p.sbp==null)miss.push('SBP');else if(p.sbp<=100){s++;c.push('SBP≤100');}if(p.confusion==null)miss.push('mentation');else if(p.confusion){s++;c.push('Altered mentation');}return {score:s,band:s>=2?'High risk — consider sepsis'+(miss.length?' (incomplete inputs)':''):miss.length?'Incomplete — risk band withheld':'Low',c:c,miss:miss,partial:miss.length>0};}
+function _curb(p){var s=0,c=[],miss=[];if(p.confusion==null)miss.push('confusion');else if(p.confusion){s++;c.push('Confusion');}if(p.urea==null)miss.push('urea');else if(p.urea>7){s++;c.push('Urea>7 mmol/L');}if(p.rr==null)miss.push('RR');else if(p.rr>=30){s++;c.push('RR≥30');}var lowbp=(p.sbp!=null&&p.sbp<90)||(p.dbp!=null&&p.dbp<=60);if(lowbp){s++;c.push('Low BP');}else if(p.sbp==null||p.dbp==null)miss.push('BP');if(p.age==null)miss.push('age');else if(p.age>=65){s++;c.push('Age≥65');}return {score:s,band:s>=3?'Severe — consider admission'+(miss.length?' (incomplete inputs)':''):miss.length?'Incomplete — risk band withheld':s===2?'Moderate':'Low',c:c,miss:miss,partial:miss.length>0};}
 var CHADS=[["Congestive heart failure",1],["Hypertension",1],["Age ≥75",2],["Diabetes",1],["Stroke/TIA/thromboembolism",2],["Vascular disease",1],["Age 65–74",1],["Female",1]];
 var WELLS=[["Clinical signs of DVT",3],["PE is #1 diagnosis",3],["Heart rate >100",1.5],["Immobilisation/surgery ≤4wk",1.5],["Previous DVT/PE",1.5],["Haemoptysis",1],["Malignancy",1]];
 function _chadsI(t){return t>=2?'High stroke risk — consider anticoagulation':t===1?'Low-moderate':'Low';}
 function _wellsI(t){return t>4?'PE likely':'PE unlikely';}
-function _calcList(id,items){return '<div class="hx-chips" id="'+id+'">'+items.map(function(it){return '<span class="hx-neg" data-p="'+it[1]+'" onclick="calcTick(\''+id+'\',this)">'+it[0]+' (+'+it[1]+')</span>';}).join('')+'</div><div style="margin-top:8px;font-weight:700;color:var(--teal-d)">Score: <span id="'+id+'-t">0</span> — <span id="'+id+'-i">'+(id==='wells'?_wellsI(0):_chadsI(0))+'</span></div>';}
+function _calcList(id,items){return '<div class="hx-chips" id="'+id+'">'+items.map(function(it,i){var x=id==='chads'&&(i===2||i===6)?' data-exclusive="chads-age"':'';return '<span class="hx-neg" data-p="'+it[1]+'"'+x+' onclick="calcTick(\''+id+'\',this)">'+it[0]+' (+'+it[1]+')</span>';}).join('')+'</div><div style="margin-top:8px;font-weight:700;color:var(--teal-d)">Score: <span id="'+id+'-t">0</span> — <span id="'+id+'-i">'+(id==='wells'?_wellsI(0):_chadsI(0))+'</span></div>';}
 function calcTick(id,el){
  /* the implicit global `event` is a browser quirk — take the element explicitly */
  var n=el||(typeof event!=='undefined'&&event&&event.target);
  if(n&&n.classList)n.classList.toggle('hx-neg-on');
+  if(n&&n.classList&&n.classList.contains('hx-neg-on')&&n.getAttribute('data-exclusive')){
+   _each('#'+id+' [data-exclusive="'+n.getAttribute('data-exclusive')+'"]',function(c){if(c!==n)c.classList.remove('hx-neg-on');});}
  var t=0;_each('#'+id+' .hx-neg-on',function(c){t+=parseFloat(c.getAttribute('data-p'));});document.getElementById(id+'-t').textContent=t;document.getElementById(id+'-i').textContent=(id==='wells'?_wellsI(t):_chadsI(t));}
-function _calcCard(title,r){return '<div class="calc-card"><div class="calc-h">'+title+'</div><div class="calc-score">'+r.score+'</div><div class="calc-band">'+r.band+'</div>'+(r.c&&r.c.length?'<div class="calc-in">Positive: '+r.c.join(', ')+'</div>':'')+(r.miss&&r.miss.length?'<div class="calc-in calc-miss">Missing inputs (assumed normal): '+r.miss.join(', ')+'</div>':'')+'</div>';}
+function _calcCard(title,r){return '<div class="calc-card"><div class="calc-h">'+title+'</div><div class="calc-score">'+(r.partial?'Partial score: ':'')+r.score+'</div><div class="calc-band">'+r.band+'</div>'+(r.c&&r.c.length?'<div class="calc-in">Positive: '+r.c.join(', ')+'</div>':'')+(r.miss&&r.miss.length?'<div class="calc-in calc-miss">Missing inputs (not scored): '+r.miss.join(', ')+'</div>':'')+'</div>';}
 function calcCompute(){
   var note=(document.getElementById('calc-input').value||'');var out=document.getElementById('calc-out');
   if(note.trim().length<3){out.innerHTML=calcEmpty();return;}
@@ -4118,7 +4171,7 @@ function calcCompute(){
 
 /* ===== voice input, print/export, learned synonyms ===== */
 function rxDictate(targetId,btn){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;var el=document.getElementById(targetId);if(!el)return;if(!SR){alert('Voice input is not supported in this browser.');return;}if(window._rxRec){try{window._rxRec.stop();}catch(_){}window._rxRec=null;if(btn)btn.textContent='🎤';return;}var r=new SR();r.lang=(typeof rxDictLang==='function')?rxDictLang():'en-SA';r.interimResults=false;r.continuous=true;window._rxRec=r;if(btn)btn.textContent='⏹';r.onresult=function(ev){var t='';for(var i=ev.resultIndex;i<ev.results.length;i++){t+=ev.results[i][0].transcript;}el.value=(el.value?el.value+' ':'')+t.trim();};r.onerror=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.onend=function(){window._rxRec=null;if(btn)btn.textContent='🎤';};r.start();}
-function loadSynonyms(){if(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/synonyms').then(function(r){return r.json();}).then(function(arr){var m={};(arr||[]).forEach(function(x){if(x&&x.phrase&&!m[x.phrase])m[x.phrase]=x.code;});window._learnedSyn=m;}).catch(function(){});}catch(_){}}}
+function loadSynonyms(){if(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/synonyms',{headers:rxHeaders()}).then(function(r){return r.json();}).then(function(arr){var m={};(arr||[]).forEach(function(x){if(x&&x.phrase&&!m[x.phrase])m[x.phrase]=x.code;});window._learnedSyn=m;}).catch(function(){});}catch(_){}}}
 function noteTeach(){var pe=document.getElementById('note-teach-p'),ce=document.getElementById('note-teach-c');if(!pe||!ce)return;var ph=(pe.value||'').trim().toLowerCase(),cd=(ce.value||'').trim().toUpperCase();if(!ph||!cd)return;window._learnedSyn=window._learnedSyn||{};window._learnedSyn[ph]=cd;if(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/synonym',{method:'POST',headers:rxHeaders(),body:JSON.stringify(rxWithCtx({phrase:ph,code:cd}))}).catch(function(){});}catch(_){}}analyzeNote();}
 try{loadSynonyms();}catch(_){}
 
@@ -4295,19 +4348,18 @@ async function analyzeNoteAI(){
  }
 }
 
-/* ===== role gating (passcode per role) + IT review ===== */
-var ROLE_CODES={doctor:"doctor2024",admin:"admin2024",it:"it2024"};
+/* ===== workspace switcher (presentation only; not authentication) + IT review ===== */
 var ROLE_TABS={doctor:["uni","idf","icd","note","ed","hx","clin","struct","calc","help","preauth"],admin:["dash","help"],it:["dash","itreview","clins","config","help"]};
 function rxEnter(role){try{sessionStorage.setItem('rx_role',role);}catch(_){}rxApplyRole(role);}
 function rxApplyRole(role){
  var g=document.getElementById('rx-gate');if(g)g.style.display='none';
  var sh=document.getElementById('rx-shell');if(sh)sh.style.display='flex';
- var chip=document.getElementById('rx-rolechip');if(chip)chip.textContent=(role==='admin'?'MANAGEMENT':role.toUpperCase());
+ var chip=document.getElementById('rx-rolechip');if(chip){chip.textContent='WORKSPACE: '+(role==='admin'?'MANAGEMENT':role.toUpperCase());chip.title='Workspace view only — not authentication or authorisation';}
  rxBuildNav(role);
  var first=document.querySelector('#rx-nav .rxs-item');if(first)first.click();
 }
 function rxLogout(){try{sessionStorage.removeItem('rx_role');}catch(_){}location.reload();}
-function itLoad(){var out=document.getElementById('it-out');if(!out)return;if(!(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl)){out.innerHTML='<div class="empty"><div class="empty-icon">🛡️</div><h3>Backend not connected</h3><p>Set LEARN_CFG.syncUrl to review shared learning proposals.</p></div>';return;}out.innerHTML='<div class="empty"><div class="empty-icon">⏳</div><h3>Loading…</h3></div>';fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/pending').then(function(r){return r.json();}).then(itRender).catch(function(){out.innerHTML='<div class="empty"><h3>Could not load</h3></div>';});}
+function itLoad(){var out=document.getElementById('it-out');if(!out)return;if(!(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl)){out.innerHTML='<div class="empty"><div class="empty-icon">🛡️</div><h3>Backend not connected</h3><p>Set LEARN_CFG.syncUrl to review shared learning proposals.</p></div>';return;}out.innerHTML='<div class="empty"><div class="empty-icon">⏳</div><h3>Loading…</h3></div>';fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/pending',{headers:rxHeaders()}).then(function(r){return r.json();}).then(itRender).catch(function(){out.innerHTML='<div class="empty"><h3>Could not load</h3></div>';});}
 function itRender(arr){var out=document.getElementById('it-out');if(!out)return;if(!arr||!arr.length){out.innerHTML='<div class="empty"><div class="empty-icon">✅</div><h3>No pending proposals</h3><p>New learning from doctors appears here for approval before it reflects.</p></div>';return;}out.innerHTML='<div class="results-hdr">'+arr.length+' proposals awaiting review</div>'+arr.map(function(x){var r=(typeof ICD_MAP!=='undefined')?ICD_MAP[(x.code||'').toUpperCase()]:null;var p=(x.presentation||'').replace(/[\\'"]/g,'');return '<div class="icd-card" style="cursor:default"><div class="card-top"><div><div class="code-mono">'+x.presentation+' → '+x.code+'</div><div class="desc-main">'+(r?r.ascii_desc:'')+' · proposed '+x.count+'×</div></div><div style="display:flex;gap:8px"><button class="hx-btn2" onclick="itReview(\''+p+'\',\''+x.code+'\',\'approve\')">✓ Approve</button><button class="hx-btn2" onclick="itReview(\''+p+'\',\''+x.code+'\',\'reject\')">✕ Reject</button></div></div></div>';}).join('');}
 function itReview(p,c,a){if(!(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl))return;fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({presentation:p,code:c,action:a})}).then(function(){itLoad();}).catch(function(){});}
 (function(){try{var r=sessionStorage.getItem('rx_role');if(r&&ROLE_TABS[r]){rxApplyRole(r);}}catch(_){}})();
@@ -4603,7 +4655,7 @@ function rxBuildNav(role){
  groups.forEach(function(g){html+='<div class="rxs-group">'+g[0]+'</div>';
   g[1].forEach(function(id){html+='<button class="tab-btn rxs-item" onclick="switchTab(\''+id+'\',this);'+(RX_EXTRA[id]||'')+'">'+rxIcon(id)+'<span>'+RX_LABELS[id]+'</span>'+(id==='itreview'?'<span class="rxs-badge" id="rx-badge-it" style="display:none"></span>':'')+'</button>';});});
  nav.innerHTML=html;
- if(role==='it'&&typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/pending').then(function(r){return r.json();}).then(function(a){var b=document.getElementById('rx-badge-it');if(b&&a&&a.length){b.textContent=a.length;b.style.display='';}}).catch(function(){});}catch(_){}}
+ if(role==='it'&&typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl){try{fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/pending',{headers:rxHeaders()}).then(function(r){return r.json();}).then(function(a){var b=document.getElementById('rx-badge-it');if(b&&a&&a.length){b.textContent=a.length;b.style.display='';}}).catch(function(){});}catch(_){}}
 }
 /* null-safe switchTab override + title sync */
 function switchTab(id, btn){
@@ -4719,7 +4771,7 @@ function clinsLoad(){
  var out=document.getElementById('clins-out');if(!out)return;
  if(!(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl)){out.innerHTML='<div class="empty"><div class="empty-icon">👥</div><h3>Backend not connected</h3><p>Set LEARN_CFG.syncUrl. Clinician rows appear once the facility system passes identity (see integration guide).</p></div>';return;}
  out.innerHTML='<div class="empty"><div class="empty-icon">⏳</div><h3>Loading…</h3></div>';
- fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/clinicians').then(function(r){return r.json();}).then(clinsRender).catch(function(){out.innerHTML='<div class="empty"><h3>Could not load</h3></div>';});
+ fetch(LEARN_CFG.syncUrl.replace(/\/+$/,'')+'/clinicians',{headers:rxHeaders()}).then(function(r){return r.json();}).then(clinsRender).catch(function(){out.innerHTML='<div class="empty"><h3>Could not load</h3></div>';});
 }
 function clinsRender(arr){
  var out=document.getElementById('clins-out');if(!out)return;
@@ -7775,8 +7827,14 @@ function _itcStatus(){
   h+='<div class="itc-card"><div class="itc-k"><span class="itc-dot itc-'+c.s+'"></span>'+_e(c.n)+'</div>'
    +'<div class="itc-v" style="font-size:'+(String(c.v).length>34?'14px':'18px')+'">'+_e(c.v)+'</div>'
    +'<div class="itc-d">'+_e(c.d)+'</div></div>';});
- h+='</div><div style="margin-top:12px"><button class="hx-btn2" onclick="itcRender()">↻ Run the checks again</button> '
+  h+='</div><div style="margin-top:12px"><button class="hx-btn2" onclick="itcRender()">↻ Run the checks again</button> '
   +'<button class="hx-btn2" onclick="itcCopyStatus()">⧉ Copy status report</button></div></div>';
+  h+='<div class="hx-sec"><div class="hx-h">Privacy &amp; encounter telemetry</div>'
+   +'<div class="itc-d" style="margin:-4px 0 12px">Off by default. When enabled, this browser stores complaint labels, diagnosis codes, timings and completeness metrics for management reports. It never stores note content. These fields can still be sensitive clinical data.</div>'
+   +'<div class="itc-row"><label class="itc-name" for="itc-enc-enabled">Record local encounter metrics</label>'
+   +'<input id="itc-enc-enabled" type="checkbox" '+(encEnabled()?'checked':'')+' onchange="encSetEnabled(this.checked)" aria-describedby="itc-enc-help">'
+   +'<span id="itc-enc-help" class="itc-meta">'+(encEnabled()?'Enabled on this device':'Disabled; finalising notes records no encounter metrics')+'</span></div>'
+   +'<div style="margin-top:10px"><button class="hx-btn2" onclick="encClearReal()">Clear stored encounter metrics</button></div></div>';
  h+='<div class="hx-sec"><div class="hx-h">What IT controls in this tool</div>'
   +'<div class="itc-grid">'
   +_itcCap('Every field label','Rename anything a doctor sees, in place, without a release.','Forms & fields')
@@ -7968,10 +8026,10 @@ function _itcInteg(){
  var connected=!!(typeof LEARN_CFG!=='undefined'&&LEARN_CFG.syncUrl);
  var h='<div class="hx-sec"><div class="hx-h">Connection</div>'
   +'<div class="itc-d" style="margin:-4px 0 12px">RxDx runs fully standalone. Connecting it to your servers adds central settings, real clinician identity, shared learning and hospital-wide analytics.</div>'
-  +'<div class="itc-row"><span class="itc-name">Mode</span><span class="itc-seg">'
+   +'<div class="itc-row"><span class="itc-name">Mode</span><span class="itc-seg">'
    +'<button class="'+(g.mode!=='server'?'on':'')+'" onclick="itcSetInteg(\'mode\',\'standalone\');itcRender()">Standalone</button>'
    +'<button class="'+(g.mode==='server'?'on':'')+'" onclick="itcSetInteg(\'mode\',\'server\');itcRender()">Hospital server</button></span>'
-   +'<span class="itc-meta">Standalone keeps everything inside this browser. Nothing leaves the device.</span></div>'
+    +'<span class="itc-meta">Standalone keeps core clinical processing local. Optional external coding and configured sync connections can transmit data only when separately enabled.</span></div>'
   +'<div class="itc-row"><span class="itc-name">API endpoint</span>'
    +'<input class="hx-inp" style="flex:1 1 320px" placeholder="https://rxdx.hospital.local/api" value="'+_e(g.url)+'" onchange="itcSetInteg(\'url\',this.value)"></div>'
   +'<div class="itc-row"><span class="itc-name">API key</span>'
@@ -7990,7 +8048,7 @@ function _itcInteg(){
   +'</div>';
  var _ai=aiCfg();
  h+='<div class="hx-sec"><div class="hx-h">Clinical language model <span class="itc-meta">optional · runs inside the browser</span></div>'
-  +'<div class="itc-d" style="margin:-4px 0 12px">RxDx reads notes with a word list by default. Switching this on adds an OpenMed disease model that runs <b>inside the doctor\'s browser tab</b> — it catches wording the list cannot, and the note still never leaves the device. Host the exported model folder on your own web server; nothing is fetched from the internet.</div>'
+  +'<div class="itc-d" style="margin:-4px 0 12px">RxDx reads notes with a word list by default. Switching this on adds an OpenMed disease model that runs <b>inside the doctor\'s browser tab</b>: model assets may be fetched from the configured host, but note text is processed locally and is not uploaded for inference. Host the exported model folder on your own web server to avoid a public model host.</div>'
   +'<div class="itc-row"><span class="itc-name">Status</span><span class="itc-pill'+(_ai.on&&_ai.path?' on':'')+'">'
    +(!_ai.path?'Not configured':(_ai.on?'Active':'Configured, switched off'))+'</span>'
    +'<span class="itc-meta">'+(window._aiPipe?'Model loaded in this tab.':(window._aiErr?('Last error: '+_e(window._aiErr).slice(0,90)):'Loads on first use, then cached by the browser.'))+'</span></div>'
@@ -8031,9 +8089,9 @@ function _itcInteg(){
    +'<span class="itc-meta" style="flex:1 1 220px">'+_e(r[2])+'</span>'
    +'<span class="itc-pill'+(r[3].indexOf('Required')===0?' on':'')+'">'+_e(r[3])+'</span></div>';});
  h+='</div>';
- h+='<div class="hx-sec"><div class="hx-h">Security posture</div>'
+  h+='<div class="hx-sec"><div class="hx-h">Security posture</div>'
   +'<div class="itc-grid">'
-  +'<div class="itc-card"><div class="itc-k">Patient data</div><div class="itc-v" style="font-size:15px">Never leaves the device</div><div class="itc-d">In standalone mode no note, name or number is transmitted anywhere.</div></div>'
+   +'<div class="itc-card"><div class="itc-k">Local-first</div><div class="itc-v" style="font-size:15px">Core features stay local</div><div class="itc-d">External coding and hospital sync are optional network features and are labelled where configured.</div></div>'
   +'<div class="itc-card"><div class="itc-k">Hosting</div><div class="itc-v" style="font-size:15px">Your servers</div><div class="itc-d">A single HTML file plus an optional API. No external dependency at run time.</div></div>'
   +'<div class="itc-card"><div class="itc-k">Offline</div><div class="itc-v" style="font-size:15px">Keeps working</div><div class="itc-d">A network outage does not stop the emergency department documenting.</div></div>'
   +'<div class="itc-card"><div class="itc-k">Audit</div><div class="itc-v" style="font-size:15px">Every change logged</div><div class="itc-d">Configuration changes and clinical overrides are both recorded.</div></div>'
@@ -8167,13 +8225,19 @@ try{itcRefreshLists();}catch(_){}
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   ENCOUNTER LEDGER — de-identified metrics only.
-   No patient name, number, note text or free text is ever written here.
+   ENCOUNTER LEDGER — optional local encounter telemetry.
+   Complaint labels and diagnosis codes are stored, but note content is not.
    ══════════════════════════════════════════════════════════════════════ */
+function encEnabled(){try{return localStorage.getItem('rxdx_enc_enabled_v1')==='1';}catch(_){return false;}}
+function encSetEnabled(on){
+ try{if(on)localStorage.setItem('rxdx_enc_enabled_v1','1');else localStorage.removeItem('rxdx_enc_enabled_v1');}catch(_){}
+ if(typeof itcLog==='function')itcLog('Encounter telemetry '+(on?'enabled':'disabled'),'local complaint, diagnosis and completeness metrics');
+ try{itcRender();}catch(_){}
+}
 function encKey(){return _exDemoOn()?'rxdx_encdemo_v1':'rxdx_enc_v1';}
 function encList(){try{return JSON.parse(localStorage.getItem(encKey())||'[]');}catch(_){return[];}}
 function encPut(a){try{localStorage.setItem(encKey(),JSON.stringify(a.slice(0,3000)));}catch(_){}}
-function encClearReal(){if(!confirm('Delete the recorded encounter metrics on this device?\n\nNo patient data is stored — only counts and completeness figures.'))return;
+function encClearReal(){if(!confirm('Delete the recorded encounter metrics on this device?\n\nThis removes stored complaint labels, diagnosis codes, timings and completeness figures.'))return;
  try{localStorage.removeItem('rxdx_enc_v1');}catch(_){}
  if(typeof itcLog==='function')itcLog('Encounter metrics cleared','');exRender();}
 function _encN(sel){try{var n=document.querySelectorAll(sel);return n?n.length:0;}catch(_){return 0;}}
@@ -8185,6 +8249,7 @@ function _encUnspec(codes){
  return n;
 }
 function encCapture(mod,stage,ovr){
+  if(!encEnabled())return;
  if(stage==='interim')return;
  var isED=(mod==='ed');
  var cc=_encV(isED?'ed-cc':'hx-input');if(!cc)return;
@@ -8339,9 +8404,9 @@ function exRender(){
  if(!EX_TABS.some(function(x){return x[0]===cur;}))cur='over';
  tabs.innerHTML=EX_TABS.map(function(x){return '<button class="itc-tab'+(x[0]===cur?' on':'')+'" onclick="exTab(\''+x[0]+'\')">'+x[1]+'</button>';}).join('');
  var s=exStats();
- var banner=_exDemoOn()
+  var banner=_exDemoOn()
   ?'<div class="ex-demo">DEMONSTRATION DATA — these figures are simulated so you can see the reports populated. Your real recorded metrics are stored separately and are untouched. <button class="hx-btn2" style="margin-inline-start:10px" onclick="exDemo(false)">Switch back to real data</button></div>'
-  :(s.n?'':'<div class="itc-warnbox">No encounters recorded on this device yet. Every report below fills automatically as doctors finalise notes. <button class="hx-btn2" style="margin-inline-start:10px" onclick="exDemo(true)">Show me the reports with sample data</button></div>');
+   :(s.n?'':('<div class="itc-warnbox">No encounter metrics recorded on this device. Telemetry is '+(encEnabled()?'enabled and will record when notes are finalised.':'off by default; IT can opt in under System status.')+' <button class="hx-btn2" style="margin-inline-start:10px" onclick="exDemo(true)">Show me the reports with sample data</button></div>'));
  body.innerHTML=banner+({over:_exOver,money:_exMoney,qual:_exQual,gov:_exGov,adopt:_exAdopt,board:_exBoard}[cur])(s);
  var sub=document.getElementById('ex-sub');
  if(sub)sub.textContent={over:'The four numbers to open a board discussion with.',
@@ -8536,7 +8601,7 @@ function _exBoard(s){
  h+='</div>';
  h+='<div class="hx-sec"><div class="hx-h">Data handling</div>'
   +'<div class="itc-grid">'
-  +_exKPI('What is recorded','Counts only','Complaint, code, completeness figures, timings. No name, no number, no note text.')
+   +_exKPI('What is recorded','Clinical metrics','Complaint labels, diagnosis codes, completeness figures and timings. No name, number or note text.')
   +_exKPI('Where it lives',_exDemoOn()?'Sample store':'This browser','Nothing is transmitted while the tool runs standalone.')
   +_exKPI('Records held',encList().length.toLocaleString(),'Capped at 3,000; the oldest are dropped.')
   +_exKPI('Removal','One click','<button>Clear</button> below deletes the recorded metrics from this device.')
@@ -9461,7 +9526,7 @@ function rxNetProbe(){
  /* opened straight from a file? then nothing can be probed — never claim online */
  var proto=(typeof location!=='undefined'&&location.protocol)||'';
  if(proto==='file:'){
-  rxNetPaint('unknown','Opened as a local file, so the connection cannot be tested. Everything in RxDx works either way — nothing is fetched and no patient data leaves this device.');
+   rxNetPaint('unknown','Opened as a local file, so the connection cannot be tested. Core functionality works either way and remains available locally.');
   return;
  }
  if(typeof navigator!=='undefined'&&navigator.onLine===false){
@@ -9477,8 +9542,8 @@ function rxNetProbe(){
  try{
   fetch(target,{method:'GET',cache:'no-store',mode:url?'no-cors':'same-origin'})
    .then(function(){if(done)return;done=true;clearTimeout(timer);
-    rxNetPaint('on',(url?'Reached '+url:'Reached the server this page is served from')
-      +'. Patient data still never leaves this device.');})
+     rxNetPaint('on',(url?'Reached '+url:'Reached the server this page is served from')
+       +'. Clinical data never leaves this device during this connectivity check; optional network features remain separately controlled.');})
    .catch(function(){if(done)return;done=true;clearTimeout(timer);
     rxNetPaint('off','Could not reach the network. Everything in RxDx continues to work.');});
  }catch(_){ if(!done){done=true;clearTimeout(timer);rxNetPaint('unknown','The connection could not be tested.');} }
@@ -10030,5 +10095,6 @@ function clinResults(boxId,mod){
  res.innerHTML=h;
 }
 </script>
+<script src="./upgrade-ui.js"></script>
 </body>
 </html>
