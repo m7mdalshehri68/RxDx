@@ -1,7 +1,32 @@
 # RxDx
 
-Clinical documentation, coding and pre-authorisation support. One HTML file.
-**Patient data never leaves the device** — there is no server, no upload, no account.
+Clinical documentation, coding and pre-authorisation reference support.
+Core note analysis runs in your browser. Optional external services can transmit
+data when explicitly enabled; online note coding requires HTTPS, session consent,
+and a separate send action. Workspace selection is not authentication.
+
+**Development build — not independently clinically validated.** Review every
+suggested code against documentation and current payer rules. A code match is
+not a diagnosis, prescription, coverage decision, or guarantee of payment.
+
+## Safety and privacy update
+
+- Missing calculator inputs remain unknown; partial results are marked incomplete.
+- Mental-status extraction distinguishes negation, normal GCS, and unknown status.
+- NEWS2 highlights a single parameter scoring 3. It currently supports Scale 1 only.
+- Explicit Fahrenheit and supported urea/BUN units are converted. Bare values retain
+  legacy Celsius/mmol/L assumptions; verify extracted values and units yourself.
+- Encounter metrics are opt-in and can contain complaint labels and diagnosis codes.
+  Manage consent and delete local metrics in Control Centre. Do not use patient
+  identifiers in this development build.
+- Optional backend access is denied by default without configured credentials;
+  allowed browser origins must be explicitly configured.
+- Offline caching is restricted to this application's public runtime assets.
+  API responses and third-party responses are never cached by the service worker.
+- Upgraded responsive styling and keyboard navigation preserve existing workflows.
+
+Run all regression suites with `node tests/run-all.js`. Automated regression
+results do not establish clinical accuracy, regulatory approval, or security certification.
 
 ## Put it online
 

@@ -15,8 +15,9 @@ GET  /synonyms?min_count=1          -> [{phrase, code, count}]
 POST /ner {text}                    -> disease entities   (needs RXDX_NER_MODEL)
 POST /extract {text, labels?}       -> zero-shot entities (needs RXDX_EXTRACT_MODEL)
 
-Privacy: stores only (complaint -> code) counts, learned phrases (no patient
-identifiers), documentation-quality scores, and timestamps. No PHI.
+Privacy: stores complaint-to-code events, learned phrases, optional clinician
+context, documentation-quality scores, and timestamps. It does not store note
+content, but these records are clinical telemetry and must be protected.
 """
 
 from __future__ import annotations
@@ -36,7 +37,8 @@ DB_PATH = os.environ.get("RXDX_DB", "rxdx_learn.db")
 NER_MODEL = os.environ.get("RXDX_NER_MODEL", "").strip()
 EXTRACT_MODEL = os.environ.get("RXDX_EXTRACT_MODEL", "").strip()
 API_KEY = os.environ.get("RXDX_API_KEY", "").strip()
-ALLOW_ORIGINS = [o.strip() for o in os.environ.get("RXDX_ALLOW_ORIGINS", "*").split(",") if o.strip()]
+ALLOW_ORIGINS = [o.strip() for o in os.environ.get("RXDX_ALLOW_ORIGINS", "").split(",") if o.strip()]
+ALLOW_INSECURE_WRITES = os.environ.get("RXDX_ALLOW_INSECURE_WRITES", "").strip().lower() in ("1", "true", "yes")
 WEEK = 7 * 86400
 _write_lock = threading.Lock()
 
@@ -76,8 +78,9 @@ def _init_db() -> None:
 _init_db()
 
 app = FastAPI(title="RxDx Learning Backend", version="0.2.0")
-app.add_middleware(CORSMiddleware, allow_origins=ALLOW_ORIGINS or ["*"],
-                   allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=ALLOW_ORIGINS,
+                   allow_methods=["GET", "POST", "OPTIONS"],
+                   allow_headers=["Content-Type", "X-Api-Key"])
 
 
 class LearnIn(BaseModel):
@@ -117,8 +120,13 @@ class ExtractIn(BaseModel):
 
 
 def _auth(x_api_key: Optional[str]) -> None:
-    """Integration foundation: if RXDX_API_KEY is set, every write must carry
-    it as X-Api-Key. Unset = open demo mode."""
+    """Require an API key for network processing and writes.
+
+    An explicitly enabled insecure demo mode is available for isolated test
+    environments, but is never the default.
+    """
+    if not API_KEY and not ALLOW_INSECURE_WRITES:
+        raise HTTPException(status_code=503, detail="RXDX_API_KEY is required; insecure writes are disabled")
     if API_KEY and x_api_key != API_KEY:
         raise HTTPException(status_code=401, detail="invalid or missing X-Api-Key")
 
@@ -136,7 +144,8 @@ def health() -> Dict[str, Any]:
 
 
 @app.get("/learn")
-def get_learn() -> Dict[str, Dict[str, int]]:
+def get_learn(x_api_key: Optional[str] = Header(None)) -> Dict[str, Dict[str, int]]:
+    _auth(x_api_key)
     out: Dict[str, Dict[str, int]] = {}
     with closing(sqlite3.connect(DB_PATH)) as conn:
         for p, c, n in conn.execute("SELECT presentation, code, count FROM learn"):
@@ -198,7 +207,8 @@ def post_synonym(item: SynIn, x_api_key: Optional[str] = Header(None)) -> Dict[s
 
 
 @app.get("/synonyms")
-def get_synonyms(min_count: int = 1) -> List[Dict[str, Any]]:
+def get_synonyms(min_count: int = 1, x_api_key: Optional[str] = Header(None)) -> List[Dict[str, Any]]:
+    _auth(x_api_key)
     out: List[Dict[str, Any]] = []
     with closing(sqlite3.connect(DB_PATH)) as conn:
         for ph, c, n in conn.execute(
@@ -209,9 +219,10 @@ def get_synonyms(min_count: int = 1) -> List[Dict[str, Any]]:
 
 
 @app.get("/clinicians")
-def clinicians() -> List[Dict[str, Any]]:
+def clinicians(x_api_key: Optional[str] = Header(None)) -> List[Dict[str, Any]]:
     """Per-clinician follow-up rollup. Rows exist only when the facility system
     passes clinician identity — demo usage stays anonymous."""
+    _auth(x_api_key)
     out: Dict[str, Dict[str, Any]] = {}
     with closing(sqlite3.connect(DB_PATH)) as conn:
         for cid, cname, dept, ts in conn.execute(
@@ -244,7 +255,8 @@ def clinicians() -> List[Dict[str, Any]]:
 
 
 @app.get("/insights")
-def insights(top: int = 8) -> Dict[str, Any]:
+def insights(top: int = 8, x_api_key: Optional[str] = Header(None)) -> Dict[str, Any]:
+    _auth(x_api_key)
     top = max(1, min(50, int(top)))
     picks = 0
     code_count: Dict[str, int] = {}
@@ -306,7 +318,8 @@ def propose(item: LearnIn, x_api_key: Optional[str] = Header(None)) -> Dict[str,
 
 
 @app.get("/pending")
-def get_pending(top: int = 100) -> List[Dict[str, Any]]:
+def get_pending(top: int = 100, x_api_key: Optional[str] = Header(None)) -> List[Dict[str, Any]]:
+    _auth(x_api_key)
     out: List[Dict[str, Any]] = []
     with closing(sqlite3.connect(DB_PATH)) as conn:
         for p, c, n in conn.execute(
@@ -363,19 +376,21 @@ def _entities(pipe, text: str) -> List[Dict[str, Any]]:
 
 
 @app.post("/ner")
-def ner(item: NerIn) -> Dict[str, Any]:
+def ner(item: NerIn, x_api_key: Optional[str] = Header(None)) -> Dict[str, Any]:
+    _auth(x_api_key)
     if not NER_MODEL:
         return {"enabled": False, "entities": [], "note": "Set RXDX_NER_MODEL to enable disease NER."}
     return {"enabled": True, "entities": _entities(_load_token_model(NER_MODEL), item.text)}
 
 
 @app.post("/extract")
-def extract(item: ExtractIn) -> Dict[str, Any]:
+def extract(item: ExtractIn, x_api_key: Optional[str] = Header(None)) -> Dict[str, Any]:
     """Broader entity extraction (symptoms/procedures/etc.).
 
     Point RXDX_EXTRACT_MODEL at an OpenMed token-classification model (or a
     zero-shot NER model). This is the hook for symptom/procedure extraction.
     """
+    _auth(x_api_key)
     if not EXTRACT_MODEL:
         return {"enabled": False, "entities": [],
                 "note": "Set RXDX_EXTRACT_MODEL (e.g. an OpenMed zero-shot/NER model) to enable."}
