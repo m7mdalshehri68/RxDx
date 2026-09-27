@@ -1,0 +1,15 @@
+{
+  "name": "rxdx-coding-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Clinical free text to ICD-10-AM, running the same engine as the RxDx browser tool.",
+  "main": "server.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/api.js && node test/encounter.js && node test/parity.js"
+  },
+  "dependencies": {},
+  "author": "Mohammed Alshehri <m7md.alshehri68@gmail.com>",
+  "license": "UNLICENSED"
+}

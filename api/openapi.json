@@ -1,0 +1,258 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "RxDx Coding API",
+    "version": "1.0.0",
+    "summary": "Turns clinical free text into ICD-10-AM codes, with the evidence for each one.",
+    "description": "Every code comes back with the phrase that earned it, the sentence it sits in, a confidence figure and the reasons behind that figure. The service also returns what the note mentions but the engine deliberately refused to code, so a reviewer can see that a denied diagnosis was read and set aside rather than missed.\n\nThis API runs the same engine as the RxDx browser tool — literally the same script file, not a re-implementation — so the two can never give different answers. A parity test fails the build if they ever do.\n\nMeasured on a 60-note hand-labelled corpus: precision 100.0%, recall 98.7%, F1 99.3% at 3-character ICD category; 97.3%, 94.8% and 96.1% at full code. Negation: 123 of 123 traps held.\n\nPRIVACY. Clinical text is held in memory for the life of one request. It is never written to disk, never logged and never forwarded. The access log records a request id, a character count, how many codes came back and how long it took. If the deployment you are calling is the public demonstration instance, do not send real patient text to it — the note still crosses the public internet to reach the server.",
+    "contact": { "name": "Mohammed Alshehri", "email": "m7md.alshehri68@gmail.com", "url": "https://www.linkedin.com/in/mh-sh68/" }
+  },
+  "servers": [{ "url": "/", "description": "this deployment" }],
+  "tags": [
+    { "name": "documentation", "description": "What the payer will want, while the patient is still in the room" },
+    { "name": "coding", "description": "Free text to ICD-10-AM" },
+    { "name": "service", "description": "Health and content provenance" }
+  ],
+  "paths": {
+    "/v1/presentations": {
+      "get": {
+        "tags": ["documentation"],
+        "summary": "The 98 presenting complaints the protocol library knows",
+        "description": "Extracted from 215 national clinical protocol documents. Each entry lists the spellings the service also accepts and how many prompts it carries. No clinical text is involved, so this endpoint is open.",
+        "responses": {
+          "200": {
+            "description": "the catalogue",
+            "content": { "application/json": { "example": {
+              "count": 98,
+              "contentVersion": "icd:as supplied by the hospital | vocab:v2 — 2026-08-04",
+              "presentations": [
+                { "name": "Chest pain", "alsoCalled": ["Chest tightness"], "prompts": 26 },
+                { "name": "Syncope / blackout", "alsoCalled": ["Syncope", "Fainting", "Loss of consciousness"], "prompts": 21 }
+              ]
+            } } }
+          }
+        }
+      }
+    },
+    "/v1/encounter": {
+      "post": {
+        "tags": ["documentation"],
+        "summary": "What still has to be written for this visit",
+        "description": "Give the presenting complaint and, optionally, the note as it stands. The service returns the protocol prompts for that complaint, the pre-authorisation requirements the selected payer applies to it, and — the part that matters — what a payer will want that is not in the note yet.\n\nRules triggered by the presenting complaint are this visit's business. Rules triggered only by a condition mentioned in the background come back separately under otherConditionsOnFile, because a doctor documenting chest pain should not be handed the paperwork for a glucometer. That separation is the difference between a tool a clinician uses and one they close.\n\nNothing here is generated. The prompts come from the protocol library and the requirements from the published pre-authorisation protocols of three Saudi insurers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EncounterRequest" },
+              "example": {
+                "complaint": "chest pain",
+                "payer": "taw",
+                "note": "61 y male with central chest pain for two hours radiating to the left arm. ECG shows ST depression. Troponin sent."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "the questions still open", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EncounterResponse" } } } },
+          "400": { "description": "no complaint was supplied", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "422": { "description": "the complaint is not in the protocol library", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": ["service"],
+        "summary": "Is the service up, and which content is loaded",
+        "responses": {
+          "200": {
+            "description": "healthy",
+            "content": { "application/json": { "example": {
+              "ok": true, "service": "rxdx-coding-api", "version": "1.0.0",
+              "contentVersion": "icd:as supplied by the hospital | vocab:v2 — 2026-08-04",
+              "icdCodes": 16953, "vocabularyCodes": 870, "vocabularyTerms": 2108,
+              "engineLoadMs": 149, "uptimeSeconds": 3600, "requestsServed": 412,
+              "storesClinicalText": false, "publicDemo": true, "authRequired": false
+            } } }
+          }
+        }
+      }
+    },
+    "/v1/version": {
+      "get": {
+        "tags": ["service"],
+        "summary": "Where every reference table came from and when it was last reviewed",
+        "description": "A coder disputing a code months from now needs to know which version of the vocabulary produced it. This endpoint is that record.",
+        "responses": { "200": { "description": "content register" } }
+      }
+    },
+    "/v1/code": {
+      "post": {
+        "tags": ["coding"],
+        "summary": "Code one clinical note",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CodeRequest" },
+              "example": {
+                "text": "45 year old man admitted with community acquired pneumonia. Developed acute kidney injury on day 3. Serial troponins negative, no myocardial infarction.",
+                "sex": "male"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "coded", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CodeResponse" } } } },
+          "400": { "description": "the request could not be read", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "401": { "description": "a key is required and was not supplied", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "413": { "description": "the note is larger than this service accepts", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+          "429": { "description": "rate limited", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+        }
+      }
+    },
+    "/v1/code/batch": {
+      "post": {
+        "tags": ["coding"],
+        "summary": "Code many notes in one call",
+        "description": "For a coder workstation working through a queue, or a monthly documentation-gap report over past notes. Each answer carries back the id you sent, so nothing is mixed up.",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "example": {
+            "notes": [
+              { "id": "ENC-1001", "text": "Type 2 diabetes with diabetic foot ulcer. Wound swab grew MRSA.", "sex": "female" },
+              { "id": "ENC-1002", "text": "Chest pain, non cardiac. Troponin negative." }
+            ]
+          } } }
+        },
+        "responses": { "200": { "description": "coded" }, "413": { "description": "too many notes" } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": { "type": "apiKey", "in": "header", "name": "X-API-Key", "description": "Only required when the deployment sets RXDX_API_KEY." }
+    },
+    "schemas": {
+      "EncounterRequest": {
+        "type": "object",
+        "required": ["complaint"],
+        "properties": {
+          "complaint": { "type": "string", "example": "chest pain", "description": "The presenting complaint. Call /v1/presentations for the 98 accepted, and the alternative spellings each one answers to." },
+          "payer": { "type": "string", "enum": ["bupa", "taw", "art"], "description": "Bupa Arabia, Tawuniya, or Al Rajhi Takaful. Omit to see the requirements of all three." },
+          "note": { "type": "string", "description": "The note as it stands. Each requirement is checked against it, so the answer narrows as the doctor writes." },
+          "sex": { "type": "string", "enum": ["male", "female"] }
+        }
+      },
+      "EncounterResponse": {
+        "type": "object",
+        "properties": {
+          "presentation": { "type": "string", "example": "Chest pain" },
+          "payer": { "type": "object", "nullable": true, "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+          "sections": {
+            "type": "object",
+            "description": "The protocol prompts for this complaint. mentionedInNote is a keyword signal, not a guarantee — unlike the payer requirements, these carry no verification pattern.",
+            "properties": {
+              "associatedFeatures": { "type": "array", "items": { "$ref": "#/components/schemas/Prompt" } },
+              "redFlags": { "type": "array", "items": { "$ref": "#/components/schemas/Prompt" } },
+              "examination": { "type": "array", "items": { "$ref": "#/components/schemas/Prompt" } },
+              "investigations": { "type": "array", "items": { "$ref": "#/components/schemas/Prompt" } }
+            }
+          },
+          "payerRequirements": {
+            "type": "array",
+            "description": "Triggered by this visit's complaint. Each question carries the pattern that verifies it, so satisfied is a real check rather than a guess.",
+            "items": { "$ref": "#/components/schemas/PayerRule" }
+          },
+          "otherConditionsOnFile": {
+            "type": "array",
+            "description": "Triggered only by a condition mentioned in the background. Deliberately excluded from stillMissing: it is the coder's list, not the doctor's.",
+            "items": { "$ref": "#/components/schemas/PayerRule" }
+          },
+          "minimumDataSet": { "type": "array", "items": { "$ref": "#/components/schemas/Prompt" } },
+          "stillMissing": {
+            "type": "array",
+            "description": "The headline. Payer requirements this note does not yet satisfy, plus red flags it has not addressed.",
+            "items": { "type": "object", "properties": {
+              "source": { "type": "string", "enum": ["payer", "red flag"] },
+              "requirement": { "type": "string" },
+              "ask": { "type": "string" } } }
+          },
+          "codesSoFar": { "type": "array", "items": { "type": "object", "properties": { "code": { "type": "string" }, "description": { "type": "string" } } } },
+          "contentVersion": { "type": "string" },
+          "ms": { "type": "number" }
+        }
+      },
+      "Prompt": {
+        "type": "object",
+        "properties": {
+          "ask": { "type": "string" },
+          "kind": { "type": "string" },
+          "mentionedInNote": { "type": "boolean" }
+        }
+      },
+      "PayerRule": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "Acute chest pain" },
+          "specialty": { "type": "string", "nullable": true },
+          "payers": { "type": "array", "items": { "type": "string" } },
+          "questions": { "type": "array", "items": { "type": "object", "properties": {
+            "ask": { "type": "string" },
+            "satisfied": { "type": "boolean" },
+            "pattern": { "type": "string", "nullable": true } } } },
+          "doNot": { "type": "array", "items": { "type": "string" }, "description": "What this payer refuses outright." }
+        }
+      },
+      "CodeRequest": {
+        "type": "object",
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string", "description": "The clinical note, in English. Free text — headings, bullets and dictation all work." },
+          "sex": { "type": "string", "enum": ["male", "female"], "description": "Optional. Used only to flag a code that the ICD table marks as restricted to the other sex. A conflict is reported, never silently dropped: the note may be right and this field wrong." },
+          "explainRefusals": { "type": "boolean", "default": true, "description": "Set false to skip the mentionedButNotCoded scan when speed matters more than the audit trail." }
+        }
+      },
+      "CodeResponse": {
+        "type": "object",
+        "properties": {
+          "requestId": { "type": "string" },
+          "engine": { "type": "string", "example": "rxdx/1.0.0" },
+          "contentVersion": { "type": "string" },
+          "principal": { "type": "array", "items": { "$ref": "#/components/schemas/Coded" }, "description": "Diagnoses the note establishes." },
+          "supporting": { "type": "array", "items": { "$ref": "#/components/schemas/Coded" }, "description": "Findings and symptoms that support the picture without being the reason for the encounter." },
+          "mentionedButNotCoded": {
+            "type": "array",
+            "description": "Phrases the engine recognised and deliberately did not code, because the note denies or excludes them. This is the proof that negation was applied.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string" }, "description": { "type": "string" },
+                "term": { "type": "string" }, "offset": { "type": "integer" },
+                "reason": { "type": "string" }, "evidence": { "type": "string" }
+              }
+            }
+          },
+          "warnings": { "type": "array", "items": { "type": "object", "properties": { "severity": { "type": "string", "enum": ["error", "note"] }, "code": { "type": "string" }, "message": { "type": "string" } } } },
+          "ms": { "type": "number", "description": "Engine time for this note, in milliseconds." }
+        }
+      },
+      "Coded": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "example": "J18.9" },
+          "description": { "type": "string", "example": "Pneumonia, unspecified" },
+          "confidence": { "type": "number", "example": 0.58, "description": "0 to 1. Not a probability from a model — a transparent score built from the reasons listed beside it." },
+          "confidenceReasons": { "type": "array", "items": { "type": "object", "properties": { "direction": { "type": "string", "enum": ["up", "down"] }, "reason": { "type": "string" } } } },
+          "evidence": { "type": "object", "properties": { "term": { "type": "string" }, "offset": { "type": "integer" }, "sentence": { "type": "string" } } },
+          "mentions": { "type": "integer" },
+          "moreSpecificAvailable": { "type": "integer", "description": "How many more specific codes exist in this family. Above zero means a better code is available if the note said more." },
+          "sexRule": { "type": "string", "nullable": true }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": { "error": { "type": "object", "properties": { "code": { "type": "string" }, "message": { "type": "string" } } } }
+      }
+    }
+  }
+}

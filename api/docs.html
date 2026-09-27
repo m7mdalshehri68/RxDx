@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RxDx Coding API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f9;--surf:#ffffff;--surf2:#f8fafc;--border:#e6eaef;--border2:#d6dde6;
+  --teal:#0d9488;--teal-d:#0f766e;--blue:#0369a1;--gold:#b45309;--warn:#c2410c;
+  --success:#047857;--danger:#dc2626;
+  --text:#1f2733;--text2:#52606d;--text3:#8a97a6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55}
+code,pre,.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace}
+
+.header{background:var(--surf);border-bottom:1px solid var(--border);padding:22px 28px}
+.wrap{max-width:1080px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font-size:23px;font-weight:700;letter-spacing:-.3px}
+.brand .v{font-size:12px;color:var(--text3);font-weight:500}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--text3);display:inline-block;margin-right:6px}
+.brand .dot.up{background:var(--success)}
+.tagline{color:var(--text2);font-size:14.5px;margin-top:7px;max-width:74ch}
+
+main{max-width:1080px;margin:0 auto;padding:26px 28px 70px}
+section{margin-bottom:26px}
+h2{font-size:16px;font-weight:700;margin-bottom:12px;letter-spacing:-.2px}
+h3{font-size:13.5px;font-weight:600;color:var(--text2);margin:18px 0 8px}
+p{color:var(--text2);font-size:14.5px;max-width:76ch}
+p+p{margin-top:9px}
+
+.card{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:18px 20px}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1fr 1fr}
+@media(max-width:820px){.g3,.g2{grid-template-columns:1fr}}
+
+.stat{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:15px 17px}
+.stat .n{font-size:24px;font-weight:700;letter-spacing:-.6px;color:var(--teal-d)}
+.stat .l{font-size:12.5px;color:var(--text2);margin-top:3px}
+.stat .s{font-size:11.5px;color:var(--text3);margin-top:5px}
+
+.notice{border-radius:11px;padding:15px 17px;font-size:14px;border:1px solid}
+.notice b{font-weight:600}
+.notice.warn{background:#fff7ed;border-color:#fed7aa;color:#7c2d12}
+.notice.ok{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+
+.try{background:var(--surf);border:1px solid var(--border);border-radius:11px;overflow:hidden}
+.try .head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.try .head .m{font-size:11px;font-weight:700;letter-spacing:.4px;background:var(--teal);color:#fff;border-radius:5px;padding:3px 8px}
+.try .head .u{font-size:13.5px;font-weight:600}
+.try .body{padding:18px}
+textarea{width:100%;min-height:150px;border:1px solid var(--border2);border-radius:9px;padding:13px 14px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.6;color:var(--text);background:var(--surf2);resize:vertical}
+textarea:focus{outline:none;border-color:var(--teal);background:var(--surf)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+select,input[type=text]{border:1px solid var(--border2);border-radius:8px;padding:8px 11px;font-size:13.5px;font-family:inherit;background:var(--surf);color:var(--text)}
+button{border:0;border-radius:8px;padding:9px 18px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;background:var(--teal);color:#fff}
+button:hover{background:var(--teal-d)}
+button.ghost{background:var(--surf);color:var(--text2);border:1px solid var(--border2)}
+button.ghost:hover{background:var(--surf2)}
+button:disabled{opacity:.55;cursor:default}
+.samples{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.chip{background:var(--surf2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12.5px;color:var(--text2);cursor:pointer}
+.chip:hover{border-color:var(--teal);color:var(--teal-d)}
+
+.out{margin-top:18px;display:none}
+.out.on{display:block}
+.flab{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin:16px 0 8px}
+.hit{border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:9px;padding:12px 14px;margin-bottom:9px;background:var(--surf2)}
+.hit .t{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.hit .c{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-d);font-size:14.5px}
+.hit .d{font-size:14px;font-weight:500}
+.hit .conf{margin-left:auto;font-size:12px;color:var(--text2);white-space:nowrap}
+.hit .ev{font-size:13px;color:var(--text2);margin-top:7px;border-left:2px solid var(--border2);padding-left:10px}
+.hit .ev mark{background:#ccfbf1;color:#0f766e;padding:0 2px;border-radius:2px}
+.hit .why{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.hit .why span{font-size:11.5px;border-radius:5px;padding:2px 8px;border:1px solid var(--border2);color:var(--text2);background:var(--surf)}
+.hit .why span.up{border-color:#a7f3d0;color:#047857;background:#ecfdf5}
+.hit .why span.down{border-color:#fed7aa;color:#9a3412;background:#fff7ed}
+.hit.sup{border-left-color:var(--text3);opacity:.9}
+.hit.no{border-left-color:var(--danger);background:#fef2f2}
+.hit.no .c{color:#b91c1c}
+
+pre.json{background:#0f172a;color:#e6edf5;border-radius:9px;padding:15px 16px;overflow:auto;font-size:12.5px;line-height:1.6;max-height:420px}
+pre.json .k{color:#5eead4}pre.json .s{color:#fca5a5}pre.json .n{color:#fcd34d}pre.json .b{color:#93c5fd}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border)}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);font-weight:700}
+td.mono{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+tr:last-child td{border-bottom:0}
+
+.ep{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.ep:last-child{border-bottom:0}
+.ep .m{font-size:10.5px;font-weight:700;letter-spacing:.4px;border-radius:4px;padding:3px 7px;min-width:46px;text-align:center}
+.ep .m.get{background:#e0f2fe;color:#075985}
+.ep .m.post{background:#ccfbf1;color:#0f766e}
+.ep .p{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+.ep .x{font-size:13px;color:var(--text2)}
+
+footer{border-top:1px solid var(--border);margin-top:38px;padding-top:20px;font-size:13px;color:var(--text2)}
+footer a{color:var(--teal-d);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:9px;padding:12px 14px;font-size:13.5px}
+</style>
+</head>
+<body>
+
+<div class="header"><div class="wrap">
+  <div class="brand">
+    <h1>RxDx Coding API</h1>
+    <span class="v" id="ver"><span class="dot" id="dot"></span><span id="vertext">checking…</span></span>
+  </div>
+  <p class="tagline">Clinical free text in, ICD-10-AM out — with the phrase that earned each code, the sentence it came from, and what the note mentioned that the engine refused to code.</p>
+</div></div>
+
+<main>
+
+  <section class="grid g3">
+    <div class="stat"><div class="n" id="s-f1">99.3%</div><div class="l">F1 on a hand-labelled corpus</div><div class="s">60 notes · 77 gold codes · 3-character category</div></div>
+    <div class="stat"><div class="n" id="s-neg">123 / 123</div><div class="l">Negation traps held</div><div class="s">a denied diagnosis is never coded</div></div>
+    <div class="stat"><div class="n" id="s-icd">16,953</div><div class="l">ICD-10-AM codes loaded</div><div class="s"><span id="s-terms">2,108</span> vocabulary terms</div></div>
+  </section>
+
+  <section>
+    <div class="notice warn" id="privacy">
+      <b>Before you paste anything.</b> This endpoint reads the text on a server, so the note leaves the device that sent it.
+      The service holds it in memory for one request and never writes it to disk, never logs it and never forwards it —
+      but on a public deployment it still crosses the internet to get here.
+      <b>Use invented text on the public demonstration instance.</b>
+      For real patients, run this same service inside the hospital network, or keep using the offline engine built into RxDx,
+      which codes entirely in the browser.
+    </div>
+  </section>
+
+  <section>
+    <h2>Try it — what the payer will want, before the patient leaves</h2>
+    <div class="try">
+      <div class="head">
+        <div><span class="m">POST</span> <span class="u mono">/v1/encounter</span></div>
+        <div class="row" style="margin:0">
+          <select id="enc-cx"><option>loading complaints…</option></select>
+          <select id="enc-payer">
+            <option value="">all three payers</option>
+            <option value="taw">Tawuniya</option>
+            <option value="bupa">Bupa Arabia</option>
+            <option value="art">Al Rajhi Takaful</option>
+          </select>
+        </div>
+      </div>
+      <div class="body">
+        <textarea id="enc-note" spellcheck="false" style="min-height:110px">61 y male, known type 2 diabetes and hypertension. Central chest pain for two hours, radiating to the left arm, with sweating. ECG shows ST depression in V4-V6. Troponin sent.</textarea>
+        <div class="row">
+          <button id="enc-go" type="button">What is still missing?</button>
+          <span id="enc-timing" style="font-size:12.5px;color:var(--text3)"></span>
+        </div>
+        <div class="out" id="enc-out"></div>
+      </div>
+    </div>
+    <p style="margin-top:10px">Delete a sentence and ask again. The list grows. Write the HEART score in and it shrinks — that is the whole product in one interaction.</p>
+  </section>
+
+  <section>
+    <h2>Try it — a finished note to ICD-10-AM</h2>
+    <div class="try">
+      <div class="head">
+        <div><span class="m">POST</span> <span class="u mono">/v1/code</span></div>
+        <div class="row" style="margin:0">
+          <select id="sex"><option value="">sex not stated</option><option value="male">male</option><option value="female">female</option></select>
+          <button class="ghost" id="raw-btn" type="button">Show raw JSON</button>
+        </div>
+      </div>
+      <div class="body">
+        <textarea id="txt" spellcheck="false">45 year old man admitted with community acquired pneumonia. Started on IV amoxicillin clavulanate.
+Developed acute kidney injury on day 3, creatinine peaked at 240.
+Serial troponins negative, no myocardial infarction. CT ruled out pulmonary embolism.
+Background of type 2 diabetes and hypertension. Ex-smoker, 20 pack years.
+Discharged on day 6. Chest x-ray in 6 weeks, repeat creatinine in one week.</textarea>
+        <div class="samples" id="samples"></div>
+        <div class="row">
+          <button id="go" type="button">Code this note</button>
+          <span id="timing" style="font-size:12.5px;color:var(--text3)"></span>
+        </div>
+        <div class="out" id="out"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Endpoints</h2>
+    <div class="card">
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/encounter</span><span class="x">what the payer will want that is not written yet</span></div>
+      <div class="ep"><span class="m get">GET</span><span class="p">/v1/presentations</span><span class="x">the 98 complaints the protocol library knows</span></div>
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/code</span><span class="x">one note</span></div>
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/code/batch</span><span class="x">up to 200 notes in one call — for a coder queue or a monthly gap report</span></div>
+      <div class="ep"><span class="m get">GET</span><span class="p">/v1/health</span><span class="x">liveness, and which content is loaded</span></div>
+      <div class="ep"><span class="m get">GET</span><span class="p">/v1/version</span><span class="x">where every reference table came from and when it was reviewed</span></div>
+      <div class="ep"><span class="m get">GET</span><span class="p">/openapi.json</span><span class="x">the full specification, for your IT team</span></div>
+    </div>
+  </section>
+
+  <section class="grid g2">
+    <div class="card">
+      <h2>curl</h2>
+      <pre class="json" id="curl"></pre>
+    </div>
+    <div class="card">
+      <h2>What comes back</h2>
+      <table>
+        <tr><th>field</th><th>meaning</th></tr>
+        <tr><td class="mono">principal</td><td>diagnoses the note establishes</td></tr>
+        <tr><td class="mono">supporting</td><td>findings and symptoms behind them</td></tr>
+        <tr><td class="mono">mentionedButNotCoded</td><td>read, understood, and deliberately not coded</td></tr>
+        <tr><td class="mono">evidence</td><td>the exact phrase, its offset, and its sentence</td></tr>
+        <tr><td class="mono">confidenceReasons</td><td>why the score is what it is, in words</td></tr>
+        <tr><td class="mono">moreSpecificAvailable</td><td>a better code exists if the note said more</td></tr>
+        <tr><td class="mono">contentVersion</td><td>which vocabulary answered, for later disputes</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>One engine, not two</h2>
+    <p>This service does not re-implement the coding logic. It loads the very same script that runs in the doctor's
+      browser and calls the same functions. An API that reimplements the engine drifts away from the tool within a month,
+      and then two answers exist for the same note and nobody can say which is right. A parity test runs the whole
+      labelled corpus through both and fails the build the moment they disagree.</p>
+    <p>What this service does <b>not</b> do: it does not check drug interactions, renal or hepatic dose adjustment,
+      pregnancy or breastfeeding, and it does not decide medical necessity. It reads text and proposes codes.
+      A person signs the note.</p>
+  </section>
+
+  <footer>
+    <b>Mohammed Alshehri</b> · <a href="mailto:m7md.alshehri68@gmail.com">m7md.alshehri68@gmail.com</a> ·
+    <a href="https://www.linkedin.com/in/mh-sh68/" target="_blank" rel="noopener">linkedin.com/in/mh-sh68</a>
+    <div style="margin-top:6px;color:var(--text3);font-size:12.5px" id="foot-ver"></div>
+  </footer>
+</main>
+
+<script>
+'use strict';
+var $ = function(id){ return document.getElementById(id); };
+var showRaw = false, lastJson = null;
+
+var SAMPLES = [
+  ['Pneumonia + AKI', $('txt').value],
+  ['Everything ruled out', 'Chest pain for assessment. Serial troponins negative, no myocardial infarction.\nCT pulmonary angiogram ruled out pulmonary embolism. No pneumothorax on chest x-ray.\nGastroscopy showed no peptic ulcer. Discharged with non cardiac chest pain.'],
+  ['Diabetic foot', 'Type 2 diabetes mellitus with a foot ulcer, present for three weeks.\nWound swab grew MRSA. Developed cellulitis of the left foot during the admission.\nOn metformin and gliclazide. HbA1c 9.2 percent.'],
+  ['Obstetric', 'G3 P2 at 38 weeks with pre-eclampsia. Blood pressure 160/105, proteinuria 2+.\nNo seizures, no eclampsia. Delivered by emergency caesarean section.'],
+  ['Vague note', 'Patient seen today. Feeling unwell. Some pain. Will review.']
+];
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+  return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' })[c]; }); }
+
+function highlight(sentence, term){
+  var s = esc(sentence), t = esc(String(term || '').trim());
+  if (!t) return s;
+  var i = s.toLowerCase().indexOf(t.toLowerCase());
+  if (i < 0) return s;
+  return s.slice(0, i) + '<mark>' + s.slice(i, i + t.length) + '</mark>' + s.slice(i + t.length);
+}
+
+function colourJson(o){
+  var s = JSON.stringify(o, null, 1);
+  return esc(s)
+    .replace(/&quot;([^&]*?)&quot;(\s*:)/g, '<span class="k">"$1"</span>$2')
+    .replace(/:\s*&quot;([^&]*?)&quot;/g, ': <span class="s">"$1"</span>')
+    .replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="n">$1</span>')
+    .replace(/:\s*(true|false|null)/g, ': <span class="b">$1</span>');
+}
+
+function card(x, cls){
+  var why = (x.confidenceReasons || []).map(function(w){
+    return '<span class="' + (w.direction === 'up' ? 'up' : 'down') + '">' +
+      (w.direction === 'up' ? '↑ ' : '↓ ') + esc(w.reason) + '</span>'; }).join('');
+  var ev = x.evidence || {};
+  return '<div class="hit ' + (cls || '') + '">' +
+    '<div class="t"><span class="c">' + esc(x.code) + '</span>' +
+    '<span class="d">' + esc(x.description) + '</span>' +
+    (x.confidence != null ? '<span class="conf">confidence ' + x.confidence.toFixed(2) + '</span>' : '') +
+    '</div>' +
+    (ev.sentence ? '<div class="ev">' + highlight(ev.sentence, ev.term) + '</div>' : '') +
+    (why ? '<div class="why">' + why + '</div>' : '') +
+    (x.sexRule ? '<div class="why"><span class="down">' + esc(x.sexRule) + '</span></div>' : '') +
+    '</div>';
+}
+
+function render(r){
+  if (showRaw) { $('out').innerHTML = '<pre class="json">' + colourJson(r) + '</pre>'; $('out').className = 'out on'; return; }
+  var h = '';
+  if (r.principal && r.principal.length){
+    h += '<div class="flab">Principal and additional diagnoses</div>';
+    h += r.principal.map(function(x){ return card(x); }).join('');
+  }
+  if (r.supporting && r.supporting.length){
+    h += '<div class="flab">Supporting findings</div>';
+    h += r.supporting.map(function(x){ return card(x, 'sup'); }).join('');
+  }
+  if (r.mentionedButNotCoded && r.mentionedButNotCoded.length){
+    h += '<div class="flab">Mentioned, and deliberately not coded</div>';
+    h += r.mentionedButNotCoded.map(function(x){
+      return '<div class="hit no"><div class="t"><span class="c">' + esc(x.code) + '</span>' +
+        '<span class="d">' + esc(x.description) + '</span>' +
+        '<span class="conf">' + esc(x.reason) + '</span></div>' +
+        '<div class="ev">' + highlight(x.evidence, x.term) + '</div></div>'; }).join('');
+  }
+  (r.warnings || []).forEach(function(w){
+    h += '<div class="notice ' + (w.severity === 'error' ? 'warn' : 'ok') + '" style="margin-top:10px">' +
+      (w.code ? '<b>' + esc(w.code) + '</b> — ' : '') + esc(w.message) + '</div>';
+  });
+  if (!h) h = '<div class="notice ok">Nothing coded from this text.</div>';
+  $('out').innerHTML = h;
+  $('out').className = 'out on';
+}
+
+function run(){
+  var text = $('txt').value;
+  $('go').disabled = true; $('timing').textContent = 'coding…';
+  var t0 = Date.now();
+  fetch('v1/code', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: text, sex: $('sex').value || undefined })
+  }).then(function(res){ return res.json().then(function(j){ return { ok: res.ok, j: j }; }); })
+    .then(function(o){
+      $('go').disabled = false;
+      if (!o.ok){
+        $('out').innerHTML = '<div class="err"><b>' + esc(o.j.error ? o.j.error.code : 'error') + '</b> — ' +
+          esc(o.j.error ? o.j.error.message : 'the request failed') + '</div>';
+        $('out').className = 'out on'; $('timing').textContent = '';
+        return;
+      }
+      lastJson = o.j;
+      $('timing').textContent = 'engine ' + o.j.ms + ' ms · round trip ' + (Date.now() - t0) + ' ms · ' +
+        ((o.j.principal || []).length + (o.j.supporting || []).length) + ' codes · ' +
+        (o.j.mentionedButNotCoded || []).length + ' refused';
+      render(o.j);
+    })
+    .catch(function(e){
+      $('go').disabled = false; $('timing').textContent = '';
+      $('out').innerHTML = '<div class="err">Could not reach the service. ' + esc(e.message) + '</div>';
+      $('out').className = 'out on';
+    });
+}
+
+function curl(){
+  var origin = location.origin && location.origin !== 'null' ? location.origin : 'https://YOUR-SERVICE';
+  $('curl').textContent =
+    'curl -X POST ' + origin + '/v1/code \\\n' +
+    "  -H 'Content-Type: application/json' \\\n" +
+    '  -d \'{"text":"Community acquired pneumonia. No myocardial infarction.","sex":"male"}\'';
+}
+
+/* wire up */
+$('samples').innerHTML = SAMPLES.map(function(s, i){
+  return '<span class="chip" data-i="' + i + '">' + esc(s[0]) + '</span>'; }).join('');
+$('samples').addEventListener('click', function(e){
+  var c = e.target.closest('.chip'); if (!c) return;
+  $('txt').value = SAMPLES[+c.getAttribute('data-i')][1];
+  $('out').className = 'out'; $('timing').textContent = '';
+});
+$('go').addEventListener('click', run);
+$('raw-btn').addEventListener('click', function(){
+  showRaw = !showRaw;
+  $('raw-btn').textContent = showRaw ? 'Show readable view' : 'Show raw JSON';
+  if (lastJson) render(lastJson);
+});
+curl();
+
+/* ---------- the interactive half ---------- */
+fetch('v1/presentations').then(function(r){ return r.json(); }).then(function(d){
+  var sel = $('enc-cx');
+  sel.innerHTML = d.presentations.map(function(p){
+    return '<option' + (p.name === 'Chest pain' ? ' selected' : '') + '>' + esc(p.name) + '</option>'; }).join('');
+}).catch(function(){ $('enc-cx').innerHTML = '<option>Chest pain</option>'; });
+
+function encRow(ask, ok, source){
+  return '<div class="hit' + (ok ? '' : ' no') + '">' +
+    '<div class="t"><span class="d">' + esc(ask) + '</span>' +
+    '<span class="conf">' + (ok ? 'in the note' : esc(source || 'not written yet')) + '</span></div></div>';
+}
+function encRun(){
+  var body = { complaint: $('enc-cx').value, note: $('enc-note').value };
+  if ($('enc-payer').value) body.payer = $('enc-payer').value;
+  $('enc-go').disabled = true; $('enc-timing').textContent = 'reading the note…';
+  var t0 = Date.now();
+  fetch('v1/encounter', { method:'POST', headers:{ 'Content-Type':'application/json' },
+    body: JSON.stringify(body) })
+   .then(function(res){ return res.json().then(function(j){ return { ok: res.ok, j: j }; }); })
+   .then(function(o){
+     $('enc-go').disabled = false;
+     if (!o.ok){
+       $('enc-out').innerHTML = '<div class="err">' + esc(o.j.error ? o.j.error.message : 'failed') + '</div>';
+       $('enc-out').className = 'out on'; $('enc-timing').textContent = ''; return;
+     }
+     var j = o.j, h = '';
+     $('enc-timing').textContent = 'engine ' + j.ms + ' ms · round trip ' + (Date.now()-t0) + ' ms · ' +
+       j.stillMissing.length + ' still missing';
+
+     if (j.stillMissing.length){
+       h += '<div class="flab">Not written yet — a payer will ask for these</div>';
+       h += j.stillMissing.map(function(m){ return encRow(m.ask, false, m.source); }).join('');
+     } else {
+       h += '<div class="notice ok">Nothing outstanding for this complaint and payer.</div>';
+     }
+     var done = [];
+     (j.payerRequirements||[]).forEach(function(r){
+       (r.questions||[]).forEach(function(q){ if (q.satisfied) done.push(q.ask); }); });
+     if (done.length){
+       h += '<div class="flab">Already satisfied by the note</div>';
+       h += done.map(function(a){ return encRow(a, true); }).join('');
+     }
+     if ((j.otherConditionsOnFile||[]).length){
+       h += '<div class="flab">This patient’s other conditions — for the coder, not this consultation</div>';
+       h += '<div class="hit sup"><div class="t"><span class="d">' +
+         esc(j.otherConditionsOnFile.map(function(r){ return r.title; }).join(' · ')) +
+         '</span></div></div>';
+     }
+     if ((j.codesSoFar||[]).length){
+       h += '<div class="flab">Codes the note already earns</div><div class="hit"><div class="t">' +
+         j.codesSoFar.map(function(c){ return '<span class="c">' + esc(c.code) + '</span>'; }).join(' ') +
+         '</div></div>';
+     }
+     $('enc-out').innerHTML = h;
+     $('enc-out').className = 'out on';
+   })
+   .catch(function(e){
+     $('enc-go').disabled = false; $('enc-timing').textContent = '';
+     $('enc-out').innerHTML = '<div class="err">Could not reach the service. ' + esc(e.message) + '</div>';
+     $('enc-out').className = 'out on';
+   });
+}
+$('enc-go').addEventListener('click', encRun);
+
+fetch('v1/health').then(function(r){ return r.json(); }).then(function(h){
+  $('dot').className = 'dot up';
+  $('vertext').textContent = 'v' + h.version + ' · live';
+  if (h.icdCodes) $('s-icd').textContent = h.icdCodes.toLocaleString();
+  if (h.vocabularyTerms) $('s-terms').textContent = h.vocabularyTerms.toLocaleString();
+  $('foot-ver').textContent = 'Content: ' + h.contentVersion + ' · engine loaded in ' + h.engineLoadMs + ' ms' +
+    (h.authRequired ? ' · an API key is required on this deployment' : '');
+  if (!h.publicDemo) {
+    $('privacy').className = 'notice ok';
+    $('privacy').innerHTML = '<b>Private deployment.</b> This instance is not marked as a public demonstration. ' +
+      'Clinical text is still held in memory for one request only and is never written to disk or logged.';
+  }
+}).catch(function(){ $('vertext').textContent = 'service not reachable'; });
+</script>
+</body>
+</html>
