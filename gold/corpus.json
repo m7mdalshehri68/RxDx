@@ -740,6 +740,7 @@
   "setting": "ED",
   "note": "70 y male with painless frank haematuria for 3 days. Ex-smoker of 40 years. No dysuria, no fever, no flank pain, no trauma. Abdomen soft. Urine culture negative. Impression: painless visible haematuria — urgent urology referral for suspected urothelial malignancy.",
   "codes": [
+   "R31",
    "F17.2"
   ],
   "concepts": [

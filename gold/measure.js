@@ -1,18 +1,12 @@
 /* Accuracy measurement against the hand-labelled corpus.
    Labels were written from the note alone, never from the tool's output. */
 const fs=require('fs');
-const h=fs.readFileSync('/sessions/busy-elegant-allen/mnt/outputs/RxDx.html','utf8');
-const mi=h.indexOf('const IDF');const s=h.lastIndexOf('<script>',mi)+8;const e=h.indexOf('</script>',mi);
-const code=h.slice(s,e);
-function el(id){var o={id:id,value:'',innerHTML:'',className:'',checked:false,style:{},options:[],_attr:{},parentNode:{insertBefore(){}},classList:{add(){},remove(){},toggle(){},contains:()=>false},appendChild(){},addEventListener(){},focus(){},click(){},remove(){},scrollIntoView(){},getAttribute:n=>o._attr[n]||null,setAttribute:(n,v)=>{o._attr[n]=String(v);},removeAttribute(){},querySelector:()=>null,querySelectorAll:()=>[],closest:()=>null};return o;}
-var store={};function S(id){if(!store[id])store[id]=el(id);return store[id];}
-global.document={getElementById:id=>S(id),querySelectorAll:()=>[],querySelector:()=>null,createElement:t=>el(t),addEventListener(){},body:{classList:{add(){},remove(){},toggle:()=>true},appendChild(){}}};
-global.window=global;global.navigator={clipboard:{writeText(){}},onLine:true};global.location={reload(){},protocol:'https:'};
-global.localStorage={getItem:()=>null,setItem(){},removeItem(){},hasOwnProperty:()=>false};
-global.sessionStorage={getItem:()=>null,setItem(){},removeItem(){}};
-global.alert=()=>{};global.confirm=()=>true;global.prompt=()=>'';global.setInterval=()=>1;
-global.setTimeout=f=>{if(typeof f==='function'){try{f();}catch(_){}}return 1;};global.clearTimeout=()=>{};
-global.fetch=()=>Promise.reject(0);global.Blob=function(){};global.URL={createObjectURL:()=>'x',revokeObjectURL(){}};
+/* Found the same way the test suite finds it — ../index.html in this repository,
+   or RXDX_HTML — so anyone who clones the repository can rerun the figures. */
+const {load,makeEnv}=require('../tests/_harness.js');
+const {code}=load();
+makeEnv();
+global.confirm=()=>true;
 eval(code+';Object.assign(global,{_stProblems,_stMeds,_buildNoteIndexes,ICD_MAP,ICD,SYN,_ABBR_CASE,_NEEDS_CONTEXT});');
 
 const corpus=JSON.parse(fs.readFileSync(__dirname+'/corpus.json','utf8'));
