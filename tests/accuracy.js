@@ -34,9 +34,9 @@ function score(){
 const s=score();
 const pct=x=>(x*100).toFixed(1)+'%';
 
-t('precision on the principal diagnosis is at least 76%',()=>s.P>=0.76||('got '+pct(s.P)));
-t('recall on the principal diagnosis is at least 87%',()=>s.R>=0.87||('got '+pct(s.R)));
-t('F1 is at least 82%',()=>s.F1>=0.82||('got '+pct(s.F1)));
+t('precision on the principal diagnosis is at least 95%',()=>s.P>=0.95||('got '+pct(s.P)));
+t('recall on the principal diagnosis is at least 93%',()=>s.R>=0.93||('got '+pct(s.R)));
+t('F1 is at least 95%',()=>s.F1>=0.95||('got '+pct(s.F1)));
 t('a denied finding is never coded — 100%, no exceptions',()=>s.neg===1||('got '+pct(s.neg)));
 t('the negation test is not vacuous',()=>s.negT>=110||('only '+s.negT+' real traps'));
 t('at least 93% of drugs are found',()=>s.drug>=0.93||('got '+pct(s.drug)));
@@ -58,9 +58,19 @@ t('a symptom is demoted when the note names a diagnosis',()=>{
  const r=run('Cough and fever 4 days.\nImpression: community acquired pneumonia.');
  const pri=r.filter(x=>x.principal!==false).map(x=>x.code);
  return (pri.includes('J18.9')&&!pri.includes('R05')&&!pri.includes('R50.9'))||pri.join();});
-t('a symptom stays principal when there is no diagnosis',()=>{
+/* A claim carries one principal diagnosis. When nothing is diagnosed the
+   strongest complaint takes that slot and the rest become additional — they
+   are still coded, just not all claiming to be the reason for the encounter. */
+t('a symptom is still coded when there is no diagnosis',()=>{
  const r=run('Cough and fever for 4 days. No focus found.');
- return r.every(x=>x.principal!==false)||'a symptom was demoted with nothing to demote it to';});
+ return r.length>0||'nothing coded at all';});
+t('only one code claims to be principal when nothing is diagnosed',()=>{
+ const r=run('Cough and fever for 4 days. No focus found.');
+ const pri=r.filter(x=>x.principal!==false);
+ return pri.length===1||(pri.length+' principals: '+pri.map(x=>x.code).join());});
+t('the other complaint is demoted, not dropped',()=>{
+ const r=run('Cough and fever for 4 days. No focus found.');
+ return r.length>1||'the second complaint disappeared instead of being demoted';});
 t('the code the doctor named ranks first',()=>{
  const r=run('Chest pain and nausea.\nImpression: unstable angina.');
  return (r[0]&&r[0].named===true)||JSON.stringify(r.slice(0,2));});
