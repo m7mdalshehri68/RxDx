@@ -3,23 +3,34 @@
 Clinical documentation, coding and pre-authorisation support for Saudi hospitals.
 **Patient data never leaves the device.** The tool runs in the browser, with no upload and no account.
 
-Live: <https://m7mdalshehri68.github.io/RxDx/>
+Live: <https://m7mdalshehri68.github.io/RxDx/> · <https://rxdx-5pn.pages.dev>
 
 ## What it does
 
-**Before the patient leaves.** The doctor picks the presenting complaint and writes the note.
-RxDx lists what the insurer will require that the note does not say yet, and each item
-disappears once it is written.
+**Before the patient leaves.** Inside the History Builder, as the doctor takes the history, RxDx
+lists what the insurer will require that nothing written so far answers, and each item disappears
+once it is written — in its own field or anywhere else in the encounter. Tapping an item opens
+the field that answers it. Nothing on the list stops the doctor finalising.
 
 **After the note is written.** The note is coded to ICD-10-AM. Every code carries the phrase
 and the sentence that earned it. Diagnoses the note denies ("no myocardial infarction") are
 listed as refused, not coded.
 
+**For management.** A Payer protocols screen puts the three insurers side by side: which services need a
+request, the deadlines and rules that refuse requests for non-clinical reasons, the documentation each payer
+expects, where the payers disagree, a playbook per department, and — from the de-identified encounter
+ledger — which questions the hospital's notes most often leave unanswered. It also lists the codes in Bupa's
+document that are ICD-10-CM rather than the ICD-10-AM Saudi claims use.
+
+**Arabic or English.** The interface opens in Arabic, right to left, with a button to switch.
+Codes, code descriptions, protocols, payer questions and the note itself stay in English, so
+nothing Arabic can reach a claim.
+
 | | |
 |---|---|
 | ICD-10-AM codes | 16,953 |
 | Presenting complaints | 98, drawn from 215 national clinical protocol documents |
-| Pre-authorisation requirement sets | 71, with 189 payer questions |
+| Pre-authorisation requirement sets | 222, with 702 payer questions — 151 of them from Bupa's Prerequisites document |
 | Payer protocols | Bupa Arabia, Tawuniya, Al Rajhi Takaful |
 | Formulary drugs | 1,548 |
 | Clinical calculators | 24 |
@@ -45,8 +56,10 @@ by a certified coder is the next step.
 
 ## Tests
 
-534 tests in `tests/`. Run `node tests/<name>.js`.
+602 tests in `tests/`. Run `node tests/<name>.js`.
 The API adds 66 more and a parity check: `cd api && npm test`.
+`design/check_language.js` drives both notes with the screen in Arabic and fails if one Arabic
+character reaches a note, a field value or copied codes.
 
 ## API
 
@@ -57,8 +70,16 @@ the API cannot give different answers. It stores no clinical text. See `api/READ
 
 ## Put it online
 
-Settings → Pages → Deploy from a branch → `main`, root folder.
-Everything is relative-path, so a project site (`/rxdx/`) and a user site both work.
+The tool is static and deploys itself from `main` to two places:
+GitHub Pages (<https://m7mdalshehri68.github.io/RxDx/>) and Cloudflare Pages
+(<https://rxdx-5pn.pages.dev>). Everything is relative-path, so any static host works.
+
+The coding service is optional. `render.yaml` runs it on Render's free plan at
+<https://rxdx-coding-api.onrender.com>, the address **Note → Codes → Code through the online
+service instead** fills in when the box is ticked. A free Render service sleeps after fifteen
+idle minutes and the first request afterwards can wait about a minute; whenever the service
+cannot be reached, the tool codes the note in the browser instead. `deploy/huggingface/` holds
+the same service as a Hugging Face Space, for a host that sleeps only after 48 hours.
 
 ## The local clinical model
 
@@ -89,12 +110,14 @@ Upload `hf-upload/` as a new Hugging Face model, then in RxDx open
 |---|---|
 | `index.html` | the tool |
 | `data/` | the ICD-10-AM and formulary tables, loaded by `index.html` |
-| `tests/` | 534 tests |
+| `tests/` | 602 tests |
 | `api/` | HTTP API, Docker image, OpenAPI specification |
 | `gold/` | the labelled corpus and the accuracy harness |
-| `preauth/` | the three payer protocols, parsed |
+| `preauth/` | the three payer protocols, parsed; `PA.json` is what the tool loads, `bupa_prereq_build.py` rebuilds Bupa's Prerequisites sets |
 | `openmed_tools/` | ONNX export and offline analysis scripts |
 | `backend/` | optional FastAPI service, not needed for the site |
+| `design/` | theme, fonts, the Arabic dictionary, and `apply_design.py`, which applies them to a build |
+| `deploy/` | the coding service as a Hugging Face Space, an alternative to `render.yaml` |
 
 ## Contact
 

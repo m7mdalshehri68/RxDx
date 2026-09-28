@@ -6,7 +6,7 @@
    so a release reaches a returning visitor on their next load instead of the one
    after. The cache is what keeps the tool working when the network does not
    answer: offline, or slower than a few seconds. */
-const CACHE = 'rxdx-v12';
+const CACHE = 'rxdx-v15';
 const SHELL = ['./', './index.html', './manifest.json', './icon.svg'];
 const PATIENCE_MS = 4000;
 

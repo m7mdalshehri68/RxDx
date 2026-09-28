@@ -5,8 +5,8 @@
 # repository root as the build context, and gives back a public URL.
 #
 # The free plan sleeps after fifteen idle minutes; the first request afterwards
-# waits a few seconds for the container to wake. That is fine for a demonstration
-# and not fine for a ward, which is what the hospital deployment is for.
+# can wait about a minute for the container to wake. That is fine for a
+# demonstration and not fine for a ward, which is what the hospital deployment is for.
 services:
   - type: web
     name: rxdx-coding-api
@@ -18,10 +18,11 @@ services:
     healthCheckPath: /v1/health
     autoDeploy: true
     envVars:
-      # The GitHub Pages copy of RxDx is allowed to call this service.
-      # Add more origins, comma separated, as needed. Use "*" only for a demo.
+      # The copies of RxDx allowed to call this service from a browser: GitHub
+      # Pages, Cloudflare Pages, and a copy opened from disk (its origin is
+      # "null"). Hospital systems call it server to server and need no entry.
       - key: RXDX_ALLOW_ORIGINS
-        value: "https://m7mdalshehri68.github.io"
+        value: "https://m7mdalshehri68.github.io,https://rxdx-5pn.pages.dev,null"
       # Marks this instance as the public demonstration, which makes the
       # documentation page warn against pasting real patient text.
       - key: RXDX_PUBLIC_DEMO
