@@ -1,0 +1,346 @@
+/* RxDx clinical review theme. Colours, type and components follow the
+   RxDx Clinical Review design system; this layer sits after every older
+   style block, so it decides the look without touching the tool's logic. */
+
+:root{
+  --bg:#f6f4ee;--surf:#fcfbf8;--surf2:#f8f6f1;--paper:#fdfdfb;
+  --border:#e0d9cd;--border2:#d7cfc1;--line:#dcd4c7;
+  --teal:#2a7469;--teal-d:#246659;--teal-bg:rgba(42,116,105,.09);--teal-bd:rgba(42,116,105,.26);
+  --blue:#2e6f8e;--gold:#a8742e;--warn:#b8632f;--success:#3c9673;--danger:#c4443b;
+  --text:#1b333c;--text2:#5d757e;--text3:#8b9a9f;--track:#ebe6dc;
+  --accent:#e38559;--coral:#de8c68;--ink:#13272f;--ink2:#18303a;
+  --secondary:#ede8de;--muted:#eeeae2;
+  --sh:0 10px 27px rgba(29,53,63,.043),0 1px 2px rgba(29,53,63,.04);
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --sans:'IBM Plex Sans Arabic','IBM Plex Sans',-apple-system,'Segoe UI',Tahoma,sans-serif;
+}
+body.rxdark{
+  --bg:#111e22;--surf:#1b2c31;--surf2:#15252a;--paper:#1b2c31;
+  --border:#33464d;--border2:#374c53;--line:#33464d;
+  --teal:#40b09f;--teal-d:#6fcbbd;--teal-bg:rgba(64,176,159,.12);--teal-bd:rgba(64,176,159,.32);
+  --blue:#7fb6d6;--gold:#d8b15a;--warn:#e39a6a;--success:#6fcbb6;--danger:#e07a72;
+  --text:#f6f4ee;--text2:#a9b7bc;--text3:#7f9197;--track:#23363c;
+  --secondary:#2d4148;--muted:#293c42;
+  --sh:none;
+}
+
+/* ── type and page ─────────────────────────────────────────────── */
+html,body,button,input,select,textarea,optgroup{font-family:var(--sans)!important}
+.code-mono,.icd-code,.code-badge,.uni-code,.hx-chip-code,.itc-c,.drug-code,.st-tag,code,kbd,pre{font-family:var(--mono)!important}
+body{
+  background:radial-gradient(circle at 85% 4%,rgba(227,133,89,.10),transparent 28rem),
+             linear-gradient(135deg,#f6f4ee,#f1ece4)!important;
+  background-attachment:fixed!important;color:var(--text)!important;letter-spacing:0;
+}
+body.rxdark{
+  background:radial-gradient(circle at 85% 4%,rgba(227,133,89,.07),transparent 28rem),
+             linear-gradient(135deg,#111e22,#0d181b)!important;
+  background-attachment:fixed!important;
+}
+::selection{background:rgba(42,116,105,.18)}
+
+/* ── top ribbon ────────────────────────────────────────────────── */
+.rx-ribbon{height:31px;display:flex;align-items:center;justify-content:center;gap:9px;
+  background:#13272f;color:#e8eff3;font-size:10px;letter-spacing:.01em;position:relative;z-index:95}
+.rx-ribbon b{color:#eca689;font-weight:700;letter-spacing:.08em}
+.rx-ribbon i{font-style:normal;color:#eca689;opacity:.8}
+
+/* ── shell: sidebar ────────────────────────────────────────────── */
+#rx-shell{background:transparent}
+#rx-side,.rxs-side,.rx-sidebar{
+  width:252px!important;flex:0 0 252px!important;
+  background:linear-gradient(165deg,#18303a,#13272f)!important;
+  border:0!important;box-shadow:8px 0 28px rgba(21,46,55,.11);
+  color:#f6f4ee;padding:22px 14px 16px;top:0}
+[dir=rtl] #rx-side{box-shadow:-8px 0 28px rgba(21,46,55,.11)}
+#rx-side .rxs-brand,.rxs-brand{gap:12px;padding:6px 9px 0!important}
+.rxs-tile{width:39px!important;height:39px!important;background:#e09271!important;color:#13272f!important;
+  border:1px solid rgba(232,175,150,.58);border-radius:12px 12px 12px 4px!important;box-shadow:none!important;
+  font-family:var(--mono)!important;font-weight:700!important;font-size:14px!important}
+[dir=rtl] .rxs-tile{border-radius:12px 12px 4px 12px!important}
+.rxs-name{color:#f6f4ee!important;font-size:13px!important;letter-spacing:.09em!important;font-weight:700!important;text-transform:uppercase}
+.rxs-sub{color:#c9bfa6!important;font-family:var(--mono)!important;font-size:8.5px!important;letter-spacing:.08em!important;margin-top:3px;text-transform:uppercase}
+#rx-nav{padding:14px 0 12px!important;margin-top:20px;border-top:1px solid rgba(50,78,87,.75)}
+.rxs-group{color:#8f9c96!important;font-family:var(--mono)!important;font-size:9px!important;letter-spacing:.11em!important;margin:16px 9px 6px!important}
+.rxs-item{min-height:40px;padding:0 13px!important;border-radius:7px!important;font-size:12.5px!important;
+  color:#c7bfad!important;gap:11px!important;text-align:start!important;font-weight:500!important}
+.rxs-item:hover{background:rgba(45,78,74,.55)!important;color:#f6f4ee!important}
+.rxs-item.active,.rxs-item[aria-current="true"]{background:#2c5950!important;color:#f6f4ee!important;
+  font-weight:600!important;box-shadow:inset 3px 0 #de8c68}
+[dir=rtl] .rxs-item.active,[dir=rtl] .rxs-item[aria-current="true"]{box-shadow:inset -3px 0 #de8c68}
+.rxs-item.active::before,.rxs-item[aria-current="true"]::before{display:none!important}
+.rxs-item svg{opacity:.9}
+.rxs-badge{background:#e09271!important;color:#13272f!important;border-radius:6px!important;font-family:var(--mono)!important;margin-inline-start:auto!important;margin-left:0}
+.rxs-foot{color:#c7bfad!important;border-top:1px solid rgba(50,78,87,.75)!important;font-size:10.5px!important;line-height:1.6;padding:14px 9px 2px!important}
+body.rxdark #rx-side{background:linear-gradient(165deg,#0f1f25,#0b171b)!important}
+
+/* ── shell: top bar ────────────────────────────────────────────── */
+#rx-topbar{height:66px!important;padding:0 clamp(20px,4vw,58px)!important;gap:14px!important;
+  background:rgba(250,249,244,.84)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(222,214,202,.85)!important;box-shadow:none!important;top:0}
+body.rxdark #rx-topbar{background:rgba(17,30,34,.84)!important;border-bottom-color:var(--border)!important}
+#rx-title{color:var(--text)!important;font-size:13px!important;font-weight:600!important;letter-spacing:0!important;display:flex;align-items:center;gap:10px}
+#rx-title::before{content:'RXDX';font:600 10px var(--mono);letter-spacing:.08em;color:var(--text3)}
+#rx-title::after{content:'';order:-1}
+.rx-crumb-slash{color:var(--border2)}
+#rx-topbar .rxt-btn,.rxt-btn{background:transparent!important;border:1px solid #ded6ca!important;color:var(--teal)!important;
+  border-radius:6px!important;min-height:34px;height:34px;padding:0 10px!important;font-size:11px!important;font-weight:600!important;box-shadow:none!important}
+#rx-topbar .rxt-btn:hover{background:var(--secondary)!important;border-color:#d0c7b9!important}
+body.rxdark #rx-topbar .rxt-btn{border-color:var(--border)!important;color:var(--teal-d)!important}
+body.rxdark #rx-topbar .rxt-btn:hover{background:var(--secondary)!important}
+#rx-rolechip{background:transparent!important;border:0!important;color:var(--text2)!important;border-radius:0!important;
+  font-size:11px!important;font-weight:600!important;letter-spacing:.04em!important;padding:0!important;display:inline-flex;align-items:center;gap:8px}
+#rx-rolechip::before{content:'';width:.45rem;height:.45rem;border-radius:999px;background:#3c9673;box-shadow:0 0 0 4px rgba(60,150,115,.18)}
+#rx-topbar .rxt-out,.rxt-out{color:var(--danger)!important;font-size:12px!important;font-weight:600!important}
+#rx-net{font-size:11px;border-radius:999px}
+#rx-clin{border-radius:6px!important;background:transparent!important}
+
+/* ── workspace ─────────────────────────────────────────────────── */
+.main{max-width:1430px!important;padding:38px clamp(20px,4vw,58px) 64px!important}
+.panel.active{animation:rxRise .45s ease-out both}
+@keyframes rxRise{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.rx-head,.hx-title,.panel>h1,.panel>h2:first-child{letter-spacing:-.035em}
+.rx-head{font-size:clamp(26px,3vw,36px)!important;font-weight:700!important;color:var(--text)!important;line-height:1.2}
+.rx-sub{color:var(--text2)!important;font-size:13px!important;margin-top:8px}
+
+/* cards */
+.hx-sec,.icd-card,.calc-card,.dash-card,.drug-item,.uni-card,.itc-card,.ed-card,.clin-card,.nat-card,.note-summary,.stats-bar,.hx{
+  background:var(--paper)!important;border:1px solid var(--line)!important;border-radius:9px!important;box-shadow:var(--sh)!important}
+.hx-sec{padding:19px 21px!important}
+.icd-card:hover,.drug-item:hover,.uni-card:hover{border-color:var(--border2)!important;background:var(--surf)!important}
+body.rxdark .hx-sec,body.rxdark .icd-card,body.rxdark .calc-card,body.rxdark .dash-card,body.rxdark .drug-item,
+body.rxdark .uni-card,body.rxdark .itc-card,body.rxdark .ed-card,body.rxdark .clin-card,body.rxdark .nat-card,body.rxdark .note-summary{
+  background:var(--surf)!important;border-color:var(--border)!important;color:var(--text)!important}
+
+/* headings inside cards */
+.hx-h{color:var(--text)!important;font-size:12px!important;font-weight:700!important;letter-spacing:.02em!important;text-transform:none!important}
+.hx-lbl{color:var(--text2)!important;font-weight:600!important;font-size:12.5px!important}
+.hx-note,.note-hint,.dash-src,.itc-meta,.itc-d{color:var(--text3)!important}
+.hx-sub,.ed-sub{color:var(--text2)!important}
+
+/* inputs */
+.hx-inp,.hx-select,.note-textarea,.st-ta,.hx-out,.search-input,.calc-in,.itc-search,select,textarea,input[type=text],input[type=search],input[type=number]{
+  background:var(--surf2)!important;border:1px solid var(--border2)!important;border-radius:7px!important;color:var(--text)!important}
+.note-textarea,.st-ta,.hx-out{line-height:1.9!important;font-size:13.5px!important}
+.search-input{min-height:48px;font-weight:500!important}
+.hx-inp:focus,.hx-select:focus,.note-textarea:focus,.st-ta:focus,.search-input:focus,.calc-in:focus,select:focus,textarea:focus,input:focus{
+  outline:none!important;border-color:var(--teal)!important;box-shadow:0 0 0 3px rgba(42,116,105,.14)!important}
+.hx-inp::placeholder,.note-textarea::placeholder,.st-ta::placeholder,.search-input::placeholder,textarea::placeholder,input::placeholder{color:rgba(93,117,126,.65)!important}
+body.rxdark .hx-inp,body.rxdark .hx-select,body.rxdark .note-textarea,body.rxdark .st-ta,body.rxdark .hx-out,body.rxdark .search-input,body.rxdark select,body.rxdark textarea,body.rxdark input[type=text]{
+  background:var(--surf2)!important;border-color:var(--border2)!important;color:var(--text)!important}
+
+/* buttons */
+.hx-btn,.note-btn,.rxg-btn{background:var(--teal-d)!important;color:#faf8f5!important;border:0!important;border-radius:6px!important;
+  min-height:40px;padding:10px 16px!important;font-size:12.5px!important;font-weight:600!important;
+  box-shadow:0 3px 8px rgba(36,102,89,.14)!important;transition:transform .16s,opacity .16s!important}
+.hx-btn:hover,.note-btn:hover,.rxg-btn:hover{transform:translateY(-1px);background:var(--teal)!important}
+.hx-btn:disabled,.note-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.hx-btn2,.note-btn-ghost,button.tab-btn:not(.rxs-item){background:transparent!important;border:1px solid var(--border)!important;color:var(--teal)!important;
+  border-radius:8px!important;min-height:38px;padding:9px 14px!important;font-size:12px!important;font-weight:600!important;box-shadow:none!important}
+.hx-btn2:hover,.note-btn-ghost:hover,button.tab-btn:not(.rxs-item):hover{background:var(--secondary)!important}
+#rx-nav .rxs-item{border:0!important;background:transparent;box-shadow:none}
+.hx-act{background:transparent!important;border:1px solid var(--teal-bd)!important;color:var(--teal)!important;border-radius:7px!important;font-weight:600!important}
+.hx-act:hover{background:var(--teal)!important;color:#faf8f5!important}
+body.rxdark .hx-btn2,body.rxdark .note-btn-ghost{border-color:var(--border)!important;color:var(--teal-d)!important}
+body.rxdark .hx-btn,body.rxdark .note-btn{background:var(--teal)!important;color:#0f1d21!important}
+
+/* chips, tags and badges */
+.hx-chip,.hx-neg,.itc-pill,.st-tag,.tag,.stat-pill,.ed-sk-chip{border-radius:999px!important;border:1px solid var(--border)!important;
+  background:var(--surf)!important;color:var(--text2)!important;font-size:12px!important}
+.hx-chip:hover,.hx-neg:hover{border-color:var(--border2)!important;background:var(--secondary)!important}
+.hx-chip-ok,.hx-neg-on,.itc-pill.on,.tag-ok,.valid-chip{background:rgba(60,150,115,.09)!important;border-color:rgba(60,150,115,.35)!important;color:#2d7157!important}
+.hx-chip-ab,.tag-warn{background:rgba(219,149,36,.08)!important;border-color:rgba(219,149,36,.33)!important;color:#875922!important}
+.badge{border-radius:6px!important;font-family:var(--mono);letter-spacing:.02em}
+body.rxdark .hx-chip,body.rxdark .hx-neg,body.rxdark .itc-pill,body.rxdark .st-tag,body.rxdark .tag{background:var(--surf2)!important;color:var(--text2)!important;border-color:var(--border)!important}
+body.rxdark .hx-chip-ok,body.rxdark .hx-neg-on,body.rxdark .itc-pill.on{background:rgba(111,203,182,.10)!important;border-color:rgba(111,203,182,.35)!important;color:#8fe0cb!important}
+
+/* codes */
+.code-mono,.icd-code,.code-badge,.uni-code{color:var(--blue)!important;direction:ltr;unicode-bidi:isolate}
+
+/* warnings and notices */
+.itc-warnbox,.pa-warn,.ed-alert,.hx-flag,.limit-note{background:rgba(219,149,36,.08)!important;border:1px solid rgba(219,149,36,.33)!important;
+  border-radius:10px!important;color:#82623a!important}
+.pa-warn-h{color:#875922!important}
+body.rxdark .itc-warnbox,body.rxdark .pa-warn,body.rxdark .ed-alert,body.rxdark .hx-flag,body.rxdark .limit-note{background:rgba(216,177,90,.08)!important;border-color:rgba(216,177,90,.30)!important;color:#e6c98f!important}
+
+/* empty states */
+.empty{background:transparent!important}
+.empty-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:17px;margin:0 auto 14px!important;
+  color:var(--teal);background:var(--secondary);opacity:1!important;font-size:24px!important}
+.empty h3{color:var(--text)!important;font-size:16px!important;letter-spacing:-.01em!important}
+.empty p{color:var(--text2)!important}
+
+/* tables */
+table th{background:var(--surf2);color:var(--text2);font-size:11px;font-weight:700;letter-spacing:.03em;border-color:var(--border)!important}
+table td{border-color:var(--border)!important}
+
+/* scrollbars */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#d7cfc1;border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+body.rxdark ::-webkit-scrollbar-thumb{background:#374c53;background-clip:padding-box}
+#rx-side::-webkit-scrollbar-thumb{background:#2d4e4a;background-clip:padding-box}
+
+/* ── role gate ─────────────────────────────────────────────────── */
+#rx-gate{background:radial-gradient(circle at 85% 4%,rgba(227,133,89,.12),transparent 30rem),
+  linear-gradient(135deg,#f6f4ee,#efe9df)!important}
+#rx-gate::before{content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(27,52,60,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(27,52,60,.04) 1px,transparent 1px);
+  background-size:22px 22px}
+body.rxdark #rx-gate{background:radial-gradient(circle at 85% 4%,rgba(227,133,89,.08),transparent 30rem),linear-gradient(135deg,#111e22,#0d181b)!important}
+body.rxdark #rx-gate::before{background-image:linear-gradient(rgba(246,244,238,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(246,244,238,.035) 1px,transparent 1px)}
+.rxg-wrap{background:transparent!important;position:relative;max-width:900px!important}
+.rxg-tile{width:56px!important;height:56px!important;border-radius:16px 16px 16px 5px!important;background:#e09271!important;color:#13272f!important;
+  border:1px solid rgba(232,175,150,.58);box-shadow:0 10px 24px rgba(224,146,113,.28)!important;font-family:var(--mono)!important;font-size:21px!important}
+.rxg-h{color:var(--text)!important;font-size:38px!important;font-weight:700!important;letter-spacing:-.035em}
+.rxg-sub{color:var(--text2)!important;font-size:14px!important;margin:8px 0 30px!important}
+.rxg-cards{gap:16px!important}
+.rxg-card{background:var(--paper)!important;border:1px solid var(--line)!important;border-radius:12px!important;
+  box-shadow:0 10px 27px rgba(29,53,63,.06),0 1px 2px rgba(29,53,63,.05)!important;text-align:start!important;padding:20px 18px!important}
+.rxg-card:hover{border-color:var(--teal)!important;transform:translateY(-2px)}
+.rxg-ic{background:var(--teal-bg)!important;color:var(--teal)!important;box-shadow:none!important;border-radius:9px!important;width:40px!important;height:40px!important}
+.rxg-t{color:var(--text)!important;font-size:16px!important;font-weight:700!important}
+.rxg-s{color:var(--teal)!important;font-family:var(--mono)!important;font-size:9.5px!important;letter-spacing:.11em!important;margin:3px 0 10px!important}
+.rxg-d{color:var(--text2)!important;font-size:12.5px!important;line-height:1.7!important}
+.rxg-card::after{color:var(--teal)!important;font-weight:600!important}
+.rxg-note{color:var(--text3)!important}
+body.rxdark .rxg-card{background:var(--surf)!important;border-color:var(--border)!important}
+.rxg-top{position:absolute;inset-inline-end:28px;top:22px;display:flex;gap:10px;z-index:2}
+.rxg-top .rxt-btn{background:rgba(252,251,248,.7)!important}
+body.rxdark .rxg-top .rxt-btn{background:rgba(27,44,49,.7)!important}
+
+/* ── language ──────────────────────────────────────────────────── */
+.rx-lang{font-weight:700!important;min-width:84px}
+html[dir=rtl] body{text-align:start}
+html[dir=rtl] .rxg-card::after{content:'ادخل مساحة العمل \2190'!important}
+/* English clinical text keeps its own direction inside Arabic screens */
+html[dir=rtl] .panel p,html[dir=rtl] .panel li,html[dir=rtl] .panel td,html[dir=rtl] .panel th,
+html[dir=rtl] .panel .hx-note,html[dir=rtl] .panel .hx-lbl,html[dir=rtl] .panel label,
+html[dir=rtl] .panel .icd-desc,html[dir=rtl] .panel .desc-main,html[dir=rtl] .panel .clin-body,
+html[dir=rtl] .panel .pa-q,html[dir=rtl] .panel .itc-d,html[dir=rtl] .panel .itc-meta{unicode-bidi:plaintext;text-align:start}
+html[dir=rtl] textarea,html[dir=rtl] .note-textarea,html[dir=rtl] .st-ta,html[dir=rtl] .hx-out{direction:ltr;text-align:left}
+html[dir=rtl] .search-input{padding-left:15px!important;padding-right:44px!important}
+html[dir=rtl] .search-ico{left:auto!important;right:15px!important}
+
+/* ── payer protocols (management) ── */
+.pay-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.pay-card .itc-k{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--text);font-size:14px}
+.pay-nums{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12.5px;color:var(--text2)}
+.pay-nums b{font-family:var(--mono);color:var(--teal-d);font-size:15px}
+.pay-pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:1px 8px;border-radius:999px;border:1px solid transparent;margin-inline-end:4px;white-space:nowrap;line-height:1.7}
+.pay-bupa{background:rgba(42,116,105,.10);color:var(--teal-d);border-color:rgba(42,116,105,.22)}
+.pay-taw{background:rgba(227,133,89,.12);color:#b4552b;border-color:rgba(227,133,89,.3)}
+.pay-art{background:rgba(219,149,36,.12);color:#8a5a07;border-color:rgba(219,149,36,.3)}
+.pay-all{background:var(--secondary);color:var(--text2);border-color:var(--border)}
+.pay-via{border-style:dashed;opacity:.72}
+body.rxdark .pay-taw{color:#f0a57f}
+body.rxdark .pay-art{color:#e8b85c}
+.pay-mx{width:100%;border-collapse:collapse;font-size:13px;background:var(--surf)}
+.pay-mx th{position:sticky;top:0;background:var(--surf2);color:var(--text3);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;text-align:start;padding:9px 10px;border-bottom:1px solid var(--border)}
+.pay-mx td{padding:8px 10px;border-bottom:1px solid var(--line,var(--border));vertical-align:top;color:var(--text)}
+.pay-mx td.pay-y{color:var(--teal-d);font-weight:800;text-align:center;width:88px}
+.pay-mx td.pay-no{color:var(--text3);text-align:center;width:88px}
+.pay-mx tr.pay-grp td{background:var(--surf2);font-weight:700;color:var(--text2);font-size:12px;letter-spacing:.03em}
+.pay-mx tr.pay-diff td:first-child{border-inline-start:3px solid var(--accent,#e38559)}
+.pay-n{font-size:11.5px;color:var(--text3);margin-top:3px;line-height:1.5}
+.pay-rl{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:5px}
+.pay-x{font-size:10.5px;font-weight:700;color:#b42318;background:rgba(196,68,59,.09);border-radius:999px;padding:1px 8px}
+.pay-meta{font-size:12px;color:var(--text3);margin:2px 0 6px;line-height:1.6}
+.pa-q.opt{color:var(--text2)}
+.pa-opt{display:inline-block;font-size:10.5px;font-weight:600;color:var(--text3);background:var(--secondary);border-radius:999px;padding:0 7px;margin-inline-start:6px;vertical-align:1px}
+.pa-note{font-size:12px;color:var(--text2);background:var(--secondary);border-radius:8px;padding:6px 10px;margin:4px 0 8px;line-height:1.55}
+.pay-rule{flex:1;font-size:13.5px;line-height:1.6;color:var(--text)}
+.pay-pills{display:inline-flex;flex-wrap:wrap;gap:2px;margin-inline-start:8px}
+
+/* ── one page width on every screen ──
+   .main sits in a column flex container with auto margins, so it used to shrink
+   to its content: the ICD-10 search field was 437 px wide until results came in,
+   then jumped. It now takes the full width, capped as before. */
+.main{width:100%}
+
+/* ── Search, Drug Formulary, ICD-10: one large search field ── */
+.search-wrap{position:relative;margin:0 0 20px!important}
+.search-wrap .search-input,.search-wrap .search-input.search-big{
+  height:64px;min-height:64px!important;font-size:17.5px!important;font-weight:500!important;
+  padding:0 22px 0 58px!important;border-radius:16px!important;border:1.5px solid var(--border2)!important;
+  background:var(--paper)!important;color:var(--text)!important;
+  box-shadow:0 1px 2px rgba(13,42,38,.05),0 12px 30px -18px rgba(13,42,38,.28)!important}
+.search-wrap .search-input:focus{border-color:var(--teal)!important;
+  box-shadow:0 0 0 4px var(--teal-bg),0 12px 30px -18px rgba(13,42,38,.30)!important}
+.search-wrap .search-input::placeholder{font-weight:400}
+.search-wrap .search-ico{top:50%!important;left:22px!important;right:auto!important;transform:translateY(-50%)!important;
+  width:22px;height:22px;font-size:0!important;color:transparent!important;background:var(--teal);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3C/svg%3E") center/contain no-repeat}
+#panel-icd .search-wrap .search-input,#panel-idf .search-wrap .search-input{padding-right:150px!important}
+html[dir=rtl] .search-wrap .search-input{padding:0 58px 0 22px!important}
+html[dir=rtl] #panel-icd .search-wrap .search-input,html[dir=rtl] #panel-idf .search-wrap .search-input{padding-left:150px!important}
+html[dir=rtl] .search-wrap .search-ico{left:auto!important;right:22px!important}
+.srch-count{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:22px;pointer-events:none;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text3);white-space:nowrap}
+#panel-icd .empty,#panel-idf .empty{padding:64px 20px!important}
+.empty-icon,.detail-empty-icon{color:var(--teal)}
+.empty-icon svg,.detail-empty-icon svg{display:block;margin:auto}
+.detail-empty-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;margin:0 auto 12px!important;
+  background:var(--teal-bg);opacity:1!important}
+.results-hdr{font-size:12.5px!important;margin:0 0 12px!important}
+/* the formulary list keeps a readable share of the wider page */
+.idf-layout{gap:18px!important}
+.idf-list{width:auto!important;flex:0 0 clamp(280px,36%,420px)!important}
+.drug-item-name{font-size:12.5px!important}
+.drug-item-brands{font-size:11.5px!important}
+
+/* ── Before the patient leaves, inside the History Builder ── */
+#panel-hx .hx-leave{border-inline-start:3px solid var(--success)!important}
+#panel-hx .hx-leave.has-miss{border-inline-start-color:var(--warn)!important}
+.hx-lv-ic{background:var(--success)!important;color:#fff}
+.hx-leave.has-miss .hx-lv-ic{background:var(--warn)!important}
+.hx-lv-ic svg{display:block}
+.hx-leave #hx-leave-stat{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--text2)}
+.hx-leave.has-miss #hx-leave-stat{color:var(--warn)}
+.hx-lv-pay{margin:2px 0 14px!important}
+.hx-leave .hx-h{margin:16px 0 8px}
+.hx-lv-list{display:flex;flex-direction:column;gap:6px}
+.hx-lv-row{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;text-align:start;font:inherit;
+  font-size:13.5px;line-height:1.55;color:var(--text);background:var(--surf2);border:1px solid var(--border);
+  border-radius:10px;padding:10px 13px;margin:0}
+button.hx-lv-row{cursor:pointer;transition:border-color .12s,background .12s}
+button.hx-lv-row:hover{border-color:var(--warn);background:var(--surf)}
+button.hx-lv-row:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.hx-lv-row.miss{border-inline-start:3px solid var(--warn)}
+.hx-lv-row.ok{color:var(--text2);background:transparent}
+.hx-lv-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--warn);margin-top:7px}
+.hx-lv-tick{flex:none;color:var(--success);font-weight:800}
+.hx-lv-q{flex:1;min-width:0}
+.hx-lv-set{flex:none;max-width:36%;padding-top:2px;font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;
+  color:var(--text3);text-align:end;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hx-lv-done{margin-top:14px}
+.hx-lv-done summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+  letter-spacing:.02em;color:var(--text)}
+.hx-lv-done summary::-webkit-details-marker{display:none}
+.hx-lv-done summary::before{content:'';width:0;height:0;border-style:solid;border-width:4px 0 4px 6px;
+  border-color:transparent transparent transparent currentColor;transition:transform .12s}
+html[dir=rtl] .hx-lv-done summary::before{border-width:4px 6px 4px 0;border-color:transparent currentColor transparent transparent}
+.hx-lv-done[open] summary::before{transform:rotate(90deg)}
+html[dir=rtl] .hx-lv-done[open] summary::before{transform:rotate(-90deg)}
+.hx-lv-done .hx-lv-row{margin-top:6px}
+.hx-lv-n{min-width:20px;padding:0 7px;border-radius:999px;background:var(--teal-bg);color:var(--teal-d);
+  font-family:var(--mono);font-size:11px;letter-spacing:0;text-align:center;line-height:18px}
+.hx-lv-empty{font-size:13px;color:var(--text2)}
+.hx-lv-flash{border-color:var(--teal)!important;box-shadow:0 0 0 4px var(--teal-bg)!important}
+.hxs.hxs-lv{margin-inline-start:6px}
+.hxs.hxs-lv b svg{display:block}
+.hxs-n{font-style:normal;font-family:var(--mono);font-size:11px;font-weight:700;margin-inline-start:2px;
+  padding:0 6px;border-radius:999px;background:rgba(217,119,6,.14);line-height:17px}
+/* the copy hint no longer holds an empty line open under every ICD-10 card */
+.icd-card{position:relative}
+.icd-card .copy-hint{position:absolute;bottom:12px;inset-inline-end:16px;margin:0!important}
+/* dark theme: the chosen segment, the formulary's indication bar and search highlights stay legible */
+body.rxdark .itc-seg button{background:var(--surf2)!important;color:var(--text2)!important}
+body.rxdark .itc-seg button.on{background:var(--teal)!important;color:#fff!important}
+body.rxdark .itc-seg button.on.warn{background:#b45309!important}
+body.rxdark .itc-seg button.on.off{background:#64748b!important}
+body.rxdark .ind-group-header{background:var(--surf2)}
+body.rxdark .ind-group-header:hover{background:var(--surf)}
+body.rxdark mark{background:rgba(64,176,159,.22);color:var(--teal-d)}
+body.rxdark .ind-count{background:var(--surf);color:var(--text2)}
+body.rxdark .ind-toggle{background:var(--teal-bg);border-color:var(--teal-bd);color:var(--teal-d)}
