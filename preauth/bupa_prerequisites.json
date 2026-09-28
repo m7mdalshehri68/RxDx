@@ -1,0 +1,6128 @@
+[
+ {
+  "id": "b-mri",
+  "t": "MRI",
+  "sp": "Imaging",
+  "sec": "Imaging",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.3",
+  "q": [
+   {
+    "q": "Comprehensive history and examination findings, stating the indication for the MRI and the relevant past medical and surgical history?",
+    "ev": "indication|history|exam|O/E"
+   },
+   {
+    "q": "Trauma history relevant to the complaint, if there was trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic",
+    "opt": 1
+   },
+   {
+    "q": "Clear provisional diagnosis?",
+    "ev": "impression|provisional|diagnos|assessment|\\bdx\\b|differential|\\bddx\\b|likely|suspected"
+   },
+   {
+    "q": "Lab results that support the suspected diagnosis, if any?",
+    "ev": "\\blab|result|level|\\bCBC\\b|\\bFBC\\b|\\bCRP\\b|HbA1c|creatinine|\\bLFTs?\\b|\\bKFT\\b|\\bRFT\\b|electrolyte|culture|marker",
+    "opt": 1
+   },
+   {
+    "q": "Initial or previous relevant imaging (ultrasound or X-ray), if done?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|previous (imaging|scan)|prior (imaging|scan)",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "M23",
+   "M51",
+   "M75",
+   "M17",
+   "R51",
+   "R22",
+   "G43",
+   "C71",
+   "M54"
+  ],
+  "svc": [
+   "\\bMRI\\b|magnetic resonance"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-ct",
+  "t": "CT scan",
+  "sp": "Imaging",
+  "sec": "Imaging",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.3",
+  "q": [
+   {
+    "q": "Comprehensive history and examination findings, stating the indication for the CT scan and the relevant past medical and surgical history?",
+    "ev": "indication|history|exam|O/E"
+   },
+   {
+    "q": "Trauma history relevant to the complaint, if there was trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic",
+    "opt": 1
+   },
+   {
+    "q": "Clear provisional diagnosis?",
+    "ev": "impression|provisional|diagnos|assessment|\\bdx\\b|differential|\\bddx\\b|likely|suspected"
+   },
+   {
+    "q": "Lab results that support the suspected diagnosis, if any?",
+    "ev": "\\blab|result|level|\\bCBC\\b|\\bFBC\\b|\\bCRP\\b|HbA1c|creatinine|\\bLFTs?\\b|\\bKFT\\b|\\bRFT\\b|electrolyte|culture|marker",
+    "opt": 1
+   },
+   {
+    "q": "Initial or previous relevant imaging (ultrasound or X-ray), if done?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|previous (imaging|scan)|prior (imaging|scan)",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "R55",
+   "R51",
+   "I61.9",
+   "I63.9",
+   "C71.9",
+   "R10",
+   "K35"
+  ],
+  "svc": [
+   "\\bCT\\b|computed tomograph"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-lab-hba1c",
+  "t": "HbA1c test",
+  "sp": "Labs",
+  "sec": "Labs",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "History of the present illness or medication history that makes HbA1c relevant — and RBS or FBS reports if available?",
+    "ev": "diabet|polyuria|polydipsia|glucose|\\bRBS\\b|\\bFBS\\b|metformin|insulin|medication"
+   }
+  ],
+  "bx": [
+   "E11",
+   "R53",
+   "E55",
+   "E03",
+   "E05",
+   "D50"
+  ],
+  "px": [
+   "E11",
+   "E10",
+   "E13",
+   "E14",
+   "R73"
+  ],
+  "svc": [
+   "hba1c|\\ba1c\\b|glycated|glycosylated"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-lab-vitd",
+  "t": "Vitamin D test",
+  "sp": "Labs",
+  "sec": "Labs",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "The medical indication for testing vitamin D in this patient — stated, with the evidence?",
+    "ev": "vitamin d|vit d|osteopor|osteomalac|rickets|fracture|malabsorp|bone pain|fatigue|deficien|indication"
+   }
+  ],
+  "bx": [
+   "E11",
+   "R53",
+   "E55",
+   "E03",
+   "E05",
+   "D50"
+  ],
+  "px": [
+   "E55",
+   "M81",
+   "M83"
+  ],
+  "svc": [
+   "vitamin d (level|test)|vit\\.? ?d (level|test)|25-?OH|serum vitamin d|check (vitamin|vit\\.?) ?d"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-lab-fshlh",
+  "t": "FSH and LH",
+  "sp": "Labs",
+  "sec": "Labs",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "Initial prolactin and TSH reports, and the clinical examination?",
+    "ev": "prolactin|\\bTSH\\b"
+   },
+   {
+    "q": "Relevant to what — irregular menstruation, infertility, PCOS, premature ovarian failure, menopause, or another reason? State which.",
+    "ev": "irregular|oligomenor|amenor|infertil|\\bPCOS\\b|polycystic|ovarian (failure|insufficiency)|menopaus|subfertil"
+   }
+  ],
+  "bx": [
+   "E11",
+   "R53",
+   "E55",
+   "E03",
+   "E05",
+   "D50"
+  ],
+  "svc": [
+   "\\bFSH\\b|\\bLH\\b|gonadotroph"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-lab-t4t3",
+  "t": "Free T4 and T3",
+  "sp": "Labs",
+  "sec": "Labs",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "TSH report — in a suspected case of primary hypothyroidism?",
+    "ev": "\\bTSH\\b"
+   }
+  ],
+  "bx": [
+   "E11",
+   "R53",
+   "E55",
+   "E03",
+   "E05",
+   "D50"
+  ],
+  "px": [
+   "E03",
+   "E05"
+  ],
+  "svc": [
+   "\\bf?T4\\b|\\bf?T3\\b|thyroxine level|triiodothyronine"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-lab-ferritin",
+  "t": "Ferritin and iron studies",
+  "sp": "Labs",
+  "sec": "Labs",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "CBC report?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "Detailed history of the present illness, medication history and the relevant examination findings?",
+    "ev": "history|medication|exam|pallor|fatigue|menorrhag|bleed"
+   }
+  ],
+  "bx": [
+   "E11",
+   "R53",
+   "E55",
+   "E03",
+   "E05",
+   "D50"
+  ],
+  "px": [
+   "D50",
+   "D64",
+   "R53"
+  ],
+  "svc": [
+   "ferritin|iron studies|serum iron|\\bTIBC\\b|transferrin"
+  ],
+  "on": "svc",
+  "no": [
+   "Not applied in cases of iron overload."
+  ]
+ },
+ {
+  "id": "b-physio",
+  "t": "Physiotherapy sessions",
+  "sp": "Physiotherapy",
+  "sec": "Physiotherapy",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.4",
+  "q": [
+   {
+    "q": "Detailed history — duration of illness, the primary cause of the complaint, and the initial management given?",
+    "ev": "(since|for \\d+|duration|weeks|months)[\\s\\S]*(cause|after|due to|injur|strain|degenerat|surgery)|initial management|treated with|analges|NSAID"
+   },
+   {
+    "q": "Physical examination findings — range of motion, reflexes, strength?",
+    "ev": "range of motion|\\bROM\\b|reflex|strength|power|flexion|extension|abduction|straight leg"
+   },
+   {
+    "q": "Radiology report — X-ray, CT or MRI?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Detailed treatment plan — the physiotherapy modalities, the number of sessions and the goals — with a follow-up assessment report?",
+    "ev": "sessions?|modalit|TENS|ultrasound therapy|exercise|goal|frequency|\\d+ ?x ?(per|/) ?week"
+   }
+  ],
+  "bx": [
+   "M54",
+   "M23",
+   "M17",
+   "M75",
+   "M25",
+   "M77",
+   "M76",
+   "G83.4",
+   "G35",
+   "R26.89",
+   "R39.81",
+   "M40"
+  ],
+  "svc": [
+   "physiotherap|physical therap|\\bPT session|rehabilitation|\\bphysio\\b"
+  ],
+  "on": "svc",
+  "fix": [
+   "R26.89 and R39.81 are ICD-10-CM codes; ICD-10-AM uses R26.8 and R39.8."
+  ]
+ },
+ {
+  "id": "b-dev-glucometer",
+  "t": "Glucometer device",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "RBS, FBS or HbA1c result — or the medication history?",
+    "ev": "\\bRBS\\b|\\bFBS\\b|HbA1c|A1c|glucose|metformin|insulin|medication"
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "E10",
+   "E11",
+   "E13",
+   "E14",
+   "O24"
+  ],
+  "svc": [
+   "glucometer|gluco-?meter|glucose meter|test strips|lancet"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-dev-bp",
+  "t": "Blood pressure machine",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "Three blood pressure readings taken on different occasions?",
+    "ev": "\\d{2,3}\\s*/\\s*\\d{2,3}[\\s\\S]*?\\d{2,3}\\s*/\\s*\\d{2,3}[\\s\\S]*?\\d{2,3}\\s*/\\s*\\d{2,3}"
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "I10",
+   "I11",
+   "I12",
+   "I13",
+   "I15"
+  ],
+  "svc": [
+   "BP (machine|monitor|device|apparatus)|blood pressure (machine|monitor|device)|sphygmomanometer"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-dev-nebuliser",
+  "t": "Nebuliser device",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "Clinical findings and the diagnosis?",
+    "ev": "wheez|asthma|COPD|bronch|exam|O/E|diagnos|impression"
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "J45",
+   "J44",
+   "J40",
+   "J41",
+   "J42",
+   "J43"
+  ],
+  "svc": [
+   "nebuli[sz]er"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-dev-hearing",
+  "t": "Hearing aid device",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "Audiometry?",
+    "ev": "audiogra|audiometr|pure tone|\\bPTA\\b"
+   },
+   {
+    "q": "Tympanometry, if applicable?",
+    "ev": "tympanometr|tympanogram",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "H90",
+   "H91"
+  ],
+  "svc": [
+   "hearing aid"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-dev-cpap",
+  "t": "CPAP for obstructive sleep apnoea",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "Sleep study report?",
+    "ev": "sleep study|polysomnogra|\\bPSG\\b|\\bAHI\\b|apnoea-hypopnoea|apnea-hypopnea"
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "G47.3"
+  ],
+  "svc": [
+   "\\bCPAP\\b"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-dev-insulinpump",
+  "t": "Insulin pump therapy",
+  "sp": "Medical equipment",
+  "sec": "Medical equipment",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.5",
+  "q": [
+   {
+    "q": "Documented treatment with multiple daily injections for at least 6 months, including the drug prescriptions?",
+    "ev": "(multiple daily injection|\\bMDI\\b|basal[- ]bolus)[\\s\\S]*(6|six) months|(6|six) months[\\s\\S]*(multiple daily injection|\\bMDI\\b|basal[- ]bolus)"
+   },
+   {
+    "q": "Documented blood glucose readings for the last two months?",
+    "ev": "glucose (log|diary|readings)|\\bSMBG\\b|\\bCGM\\b|blood glucose readings|glucometer readings"
+   },
+   {
+    "q": "Visit reports showing attempts to adjust the insulin and the patient's self-management?",
+    "ev": "dose adjust|titrat|insulin adjust|adjusted (the )?(insulin|dose)|self-?management"
+   },
+   {
+    "q": "Report confirming the patient completed a diabetes education programme — self-care and follow-up?",
+    "ev": "diabetes education|\\bDSME\\b|education (programme|program)|educator"
+   },
+   {
+    "q": "At least two HbA1c results, each recent (within 3 months) and at least 3 months apart?",
+    "ev": "(HbA1c|A1c)[\\s\\S]*(HbA1c|A1c)"
+   }
+  ],
+  "bx": [
+   "E11",
+   "E10",
+   "I10",
+   "I11",
+   "J45",
+   "J40",
+   "H90",
+   "H91",
+   "G47.33",
+   "G47.20",
+   "E10",
+   "E11"
+  ],
+  "px": [
+   "E10",
+   "E11",
+   "E13"
+  ],
+  "svc": [
+   "insulin pump|\\bCSII\\b"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa prints one code list for all six devices. G47.33 and G47.20 are ICD-10-CM codes: in ICD-10-AM G47.33 is sleep hypoventilation syndrome and G47.20 does not exist; obstructive sleep apnoea is G47.3."
+  ]
+ },
+ {
+  "id": "b-surg-general",
+  "t": "Surgery or procedure — general",
+  "sp": "Surgery",
+  "sec": "Surgery",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.6",
+  "q": [
+   {
+    "q": "Imaging report — ultrasound, CT or MRI?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|imaging"
+   },
+   {
+    "q": "Clinical examination?",
+    "ev": "exam|O/E|on examination|tender|auscultat|palpat|inspection|range of motion|\\bROM\\b|reflex|power|strength|neurolog|chest clear|abdomen soft|\\bDRE\\b"
+   },
+   {
+    "q": "Relevant lab tests or tumour markers, if available?",
+    "ev": "\\blab|\\bCBC\\b|marker|\\bCEA\\b|\\bCA ?19|\\bCA ?125|\\bAFP\\b|thyroglobulin|calcitonin|\\bTFT|result",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K40",
+   "K80",
+   "K82.8",
+   "K64",
+   "K61",
+   "C18.9",
+   "D17.1",
+   "C44.319",
+   "K56.6",
+   "E04.2",
+   "C73"
+  ],
+  "px": [
+   "K40",
+   "K80",
+   "K82",
+   "K64",
+   "K61",
+   "C18",
+   "D17",
+   "C44",
+   "K56",
+   "E04",
+   "C73"
+  ],
+  "svc": [
+   "hernia repair|herniorrhaph|hernioplast|cholecystectom|haemorrhoidectom|hemorrhoidectom|fistulotom|fistulectom|thyroidectom|excision|colectom|hemicolectom|resection|laparoscop"
+  ],
+  "on": "svc",
+  "fix": [
+   "C44.319 is an ICD-10-CM code; ICD-10-AM uses C44.3 for skin of other parts of the face."
+  ]
+ },
+ {
+  "id": "b-surg-ophtha",
+  "t": "Surgery or procedure — ophthalmology",
+  "sp": "Surgery",
+  "sec": "Surgery",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.6",
+  "q": [
+   {
+    "q": "Detailed history — the aetiology, the previous management, and the examination findings?",
+    "ev": "history|aetiolog|etiolog|previous (treatment|management)|drops|visual acuity|\\bVA\\b|\\bIOP\\b|slit lamp|fundus|exam"
+   },
+   {
+    "q": "OCT report — in glaucoma, not mandatory?",
+    "ev": "\\bOCT\\b|optical coherence",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "H25",
+   "H40",
+   "H26.9",
+   "H43.1"
+  ],
+  "px": [
+   "H25",
+   "H26",
+   "H40",
+   "H43"
+  ],
+  "svc": [
+   "phaco|cataract (surgery|extraction)|trabeculectom|vitrectom|glaucoma surgery|\\bIOL\\b|laser (iridotomy|trabeculoplasty)"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-surg-ortho",
+  "t": "Surgery or procedure — orthopaedics",
+  "sp": "Surgery",
+  "sec": "Surgery",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.7",
+  "q": [
+   {
+    "q": "Clinical history — duration, the primary cause, and the initial management if any?",
+    "ev": "(since|for \\d+|duration|weeks|months|years)|initial management|treated with|analges|physio"
+   },
+   {
+    "q": "Physical examination — range of motion, reflexes, strength, deformities?",
+    "ev": "range of motion|\\bROM\\b|reflex|strength|power|deformit|flexion|swelling|tender"
+   },
+   {
+    "q": "Radiology report — X-ray, CT or MRI?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   }
+  ],
+  "bx": [
+   "M23",
+   "M51",
+   "M75",
+   "M17",
+   "M54"
+  ],
+  "svc": [
+   "arthroscop|arthroplast|meniscectom|\\bACL\\b|discectom|laminectom|rotator cuff repair|decompression|spinal fusion|joint replacement"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-endoscopy",
+  "t": "Endoscopy or gastroscopy",
+  "sp": "Endoscopy",
+  "sec": "Endoscopy",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.7",
+  "q": [
+   {
+    "q": "Detailed history stating the indication, including any alarm symptoms, and the relevant examination findings?",
+    "ev": "indication|alarm|dyspeps|epigastric|dysphag|weight loss|haematemesis|hematemesis|melaena|melena|anaemia|anemia|reflux|vomit"
+   },
+   {
+    "q": "Lab reports — CBC, H. pylori, stool occult blood, coeliac antibodies — if relevant?",
+    "ev": "\\bCBC\\b|pylori|occult blood|\\bFOBT\\b|coeliac|celiac|\\bTTG\\b|anti-?tTG",
+    "opt": 1
+   },
+   {
+    "q": "Initial radiology — barium swallow or ultrasound — if done?",
+    "ev": "barium|ultrasound|\\bUSS?\\b",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K29",
+   "K21",
+   "K25.9",
+   "R11",
+   "D13.1",
+   "R12",
+   "C16.9",
+   "R10"
+  ],
+  "px": [
+   "K29",
+   "K21",
+   "K25",
+   "R11",
+   "D13",
+   "R12",
+   "C16",
+   "R10"
+  ],
+  "svc": [
+   "\\bendoscopy\\b|gastroscop|\\bOGD\\b|\\bEGD\\b|upper GI scope|oesophagogastroduodenoscop|esophagogastroduodenoscop"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-surg-abdominal",
+  "t": "Surgery or procedure — abdominal area",
+  "sp": "Surgery",
+  "sec": "Surgery",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.8",
+  "q": [
+   {
+    "q": "Imaging report — ultrasound, CT or MRI?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|imaging"
+   },
+   {
+    "q": "Clinical examination?",
+    "ev": "exam|O/E|on examination|tender|auscultat|palpat|inspection|range of motion|\\bROM\\b|reflex|power|strength|neurolog|chest clear|abdomen soft|\\bDRE\\b"
+   },
+   {
+    "q": "Supportive lab reports or tumour markers, if relevant?",
+    "ev": "\\blab|\\bCBC\\b|\\bCRP\\b|marker|\\bCEA\\b|\\bCA ?19|result",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K35",
+   "K36",
+   "K80",
+   "K40.20",
+   "K42.9",
+   "K57.3",
+   "C18.9",
+   "K66.1",
+   "K65",
+   "R18.8",
+   "K63.89",
+   "D13.4",
+   "D17.5",
+   "R19",
+   "K66"
+  ],
+  "px": [
+   "K35",
+   "K36",
+   "K80",
+   "K40",
+   "K42",
+   "K57",
+   "C18",
+   "K66",
+   "K65",
+   "R18",
+   "K63",
+   "D13",
+   "D17",
+   "R19"
+  ],
+  "svc": [
+   "appendicectom|appendectom|laparotom|laparoscop|hernia repair|cholecystectom|colectom|resection|adhesiolysis"
+  ],
+  "on": "svc",
+  "fix": [
+   "R18.8 and K63.89 are ICD-10-CM codes; ICD-10-AM has R18 (ascites) and K63.8 (other specified diseases of intestine)."
+  ]
+ },
+ {
+  "id": "b-cs-delivery",
+  "t": "Caesarean delivery",
+  "sp": "Obstetrics",
+  "sec": "Obstetrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.8",
+  "q": [
+   {
+    "q": "CTG, with or without ultrasound — in cases of fetal distress?",
+    "ev": "\\bCTG\\b|cardiotocograph|fetal (distress|heart)|\\bFHR\\b",
+    "opt": 1
+   },
+   {
+    "q": "Partogram — for an emergency caesarean for failure to progress?",
+    "ev": "partogra|failure to progress|arrest of (labour|labor)|obstructed",
+    "opt": 1
+   },
+   {
+    "q": "Detailed history — current and previous antenatal care, labour and postnatal care — and the indication for the caesarean?",
+    "ev": "indication|previous (CS|caesarean|cesarean|LSCS)|breech|placenta|fetal distress|failure to progress|antenatal|\\bANC\\b"
+   }
+  ],
+  "bx": [
+   "O82",
+   "O34.21",
+   "O68.0"
+  ],
+  "px": [
+   "O82",
+   "O34",
+   "O68"
+  ],
+  "svc": [
+   "caesarean|cesarean|\\bC-?section\\b|\\bLSCS\\b|\\bCS\\b delivery|\\bCSD\\b"
+  ],
+  "on": "svc",
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O34.21 is an ICD-10-CM code; ICD-10-AM uses O34.2 for maternal care due to a uterine scar from previous surgery."
+  ]
+ },
+ {
+  "id": "b-colonoscopy",
+  "t": "Colonoscopy",
+  "sp": "Endoscopy",
+  "sec": "Endoscopy",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.9",
+  "q": [
+   {
+    "q": "Relevant lab and imaging that support the indication — FOBT, calprotectin, CT, barium enema?",
+    "ev": "\\bFOBT\\b|occult blood|\\bFIT\\b|calprotectin|\\bCT\\b|barium|\\blab"
+   },
+   {
+    "q": "Detailed history and examination, stating any alarm symptoms or signs and the indication for colonoscopy?",
+    "ev": "indication|alarm|rectal bleed|bleeding per rectum|\\bPR bleed|weight loss|change in bowel|anaemia|anemia|family history|screening"
+   }
+  ],
+  "bx": [
+   "R10",
+   "K57.3",
+   "D12.6",
+   "K52.9",
+   "K51.9",
+   "R19.7",
+   "K50.9"
+  ],
+  "px": [
+   "R10",
+   "K57",
+   "D12",
+   "K52",
+   "K51",
+   "R19",
+   "K50"
+  ],
+  "svc": [
+   "colonoscop|sigmoidoscop"
+  ],
+  "on": "svc",
+  "fix": [
+   "R19.7 is an ICD-10-CM code (diarrhoea, unspecified); ICD-10-AM codes that as K59.1 or A09.9 depending on cause."
+  ]
+ },
+ {
+  "id": "b-surg-renal",
+  "t": "Surgery or procedure — renal",
+  "sp": "Surgery",
+  "sec": "Surgery",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.9",
+  "q": [
+   {
+    "q": "Detailed history — how long the complaint has lasted, and the relevant previous medical and surgical history?",
+    "ev": "(since|for \\d+|duration|weeks|months|years)|previous (stone|surgery|lithotrips|ureteroscop)|history"
+   },
+   {
+    "q": "Imaging report — CT KUB?",
+    "ev": "\\bCT\\b.{0,10}\\bKUB\\b|\\bCTKUB\\b|CT urogra|\\bKUB\\b"
+   }
+  ],
+  "bx": [
+   "N18.1",
+   "N18.2",
+   "N17",
+   "N04.9",
+   "N20",
+   "N23",
+   "N39"
+  ],
+  "px": [
+   "N18",
+   "N17",
+   "N04",
+   "N20",
+   "N23",
+   "N39"
+  ],
+  "svc": [
+   "lithotrips|\\bESWL\\b|ureteroscop|\\bURS\\b|\\bPCNL\\b|nephrectom|\\bDJ\\b|\\bJJ\\b|ureteric stent|cystoscop"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-tonsillectomy",
+  "t": "Tonsillectomy",
+  "sp": "ENT",
+  "sec": "ENT",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.10",
+  "q": [
+   {
+    "q": "Initial radiology — lateral neck X-ray — if relevant, for example when adenoidectomy is requested?",
+    "ev": "lateral (neck|soft tissue)|x-?ray|\\bXR\\b|adenoid",
+    "opt": 1
+   },
+   {
+    "q": "Detailed history and examination stating the indication for surgery?",
+    "ev": "indication|episodes|attacks|per year|recurrent|obstruct|snor|apnoea|apnea|hypertroph|quinsy|peritonsillar|tonsil"
+   },
+   {
+    "q": "Initial management?",
+    "ev": "antibiotic|penicillin|amoxicillin|treated|initial management|medical (treatment|management)"
+   }
+  ],
+  "bx": [
+   "J03.9",
+   "J03",
+   "J35.1",
+   "J35.02",
+   "J35.2",
+   "J36"
+  ],
+  "px": [
+   "J03",
+   "J35",
+   "J36"
+  ],
+  "svc": [
+   "tonsillectom|adenoidectom|adenotonsillectom"
+  ],
+  "on": "svc",
+  "fix": [
+   "J35.02 is an ICD-10-CM code; ICD-10-AM has J35.0 (chronic tonsillitis)."
+  ]
+ },
+ {
+  "id": "b-admission",
+  "t": "Admission",
+  "sp": "Admissions",
+  "sec": "Admissions",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.10",
+  "q": [
+   {
+    "q": "Vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Lab reports?",
+    "ev": "\\blab|result|level|\\bCBC\\b|\\bFBC\\b|\\bCRP\\b|HbA1c|creatinine|\\bLFTs?\\b|\\bKFT\\b|\\bRFT\\b|electrolyte|culture|marker"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan"
+   },
+   {
+    "q": "Detailed history and examination stating the indication for admission?",
+    "ev": "indication for admission|admit(ted)? (for|due to|because)|requires admission|admission (for|due to)|unable to|failed outpatient|IV (antibiotic|fluid)|monitor"
+   }
+  ],
+  "bx": [
+   "R10",
+   "J18.9",
+   "K35.8",
+   "R07",
+   "I16",
+   "A09",
+   "I63"
+  ],
+  "px": [
+   "R10",
+   "J18",
+   "K35",
+   "R07",
+   "I10",
+   "A09",
+   "I63"
+  ],
+  "svc": [
+   "\\badmi(t|ss)|\\bIPD\\b|inpatient|to the ward"
+  ],
+  "on": "svc",
+  "fix": [
+   "I16 (hypertensive crisis) is an ICD-10-CM category; ICD-10-AM has no I16 — hypertensive urgency is coded within I10–I15."
+  ]
+ },
+ {
+  "id": "b-extension",
+  "t": "Extension of stay",
+  "sp": "Admissions",
+  "sec": "Admissions",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.10",
+  "q": [
+   {
+    "q": "Vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Lab reports?",
+    "ev": "\\blab|result|level|\\bCBC\\b|\\bFBC\\b|\\bCRP\\b|HbA1c|creatinine|\\bLFTs?\\b|\\bKFT\\b|\\bRFT\\b|electrolyte|culture|marker"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan"
+   },
+   {
+    "q": "Progress notes and the medication sheet?",
+    "ev": "progress note|medication (sheet|chart)|\\bMAR\\b|daily (review|progress)"
+   }
+  ],
+  "bx": [
+   "R50",
+   "R07",
+   "A09",
+   "R10",
+   "I63"
+  ],
+  "px": [
+   "R50",
+   "R07",
+   "A09",
+   "R10",
+   "I63"
+  ],
+  "svc": [
+   "(admission|stay|approval) extension|extension of (the )?(admission|stay)|extend (the )?(admission|stay)|continue (the )?(admission|stay)|length of stay"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-milk-cmpa",
+  "t": "Cow's milk protein allergy — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.11",
+  "q": [
+   {
+    "q": "Medical report with the full history and examination?",
+    "ev": "history|exam|rash|eczema|vomit|bloody stool|reaction|urticaria|failure to thrive"
+   }
+  ],
+  "bx": [
+   "Z91.011"
+  ],
+  "px": [
+   "Z91.0",
+   "T78.1",
+   "K52.2"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "Z91.011 (allergy to milk products) is an ICD-10-CM code; ICD-10-AM codes this under Z91.0 or as the reaction itself (for example K52.2 allergic gastroenteritis)."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-lactose",
+  "t": "Lactose intolerance — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.11",
+  "q": [
+   {
+    "q": "Medical report with the full history and examination?",
+    "ev": "history|exam|diarrh|bloat|colic|dehydrat"
+   },
+   {
+    "q": "Stool analysis?",
+    "ev": "stool"
+   },
+   {
+    "q": "Hydrogen breath test — or stool pH with or without osmolarity?",
+    "ev": "hydrogen breath|\\bHBT\\b|stool pH|reducing substance|osmol"
+   }
+  ],
+  "bx": [
+   "E73.9"
+  ],
+  "px": [
+   "E73"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-preterm",
+  "t": "Prematurity — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.11",
+  "q": [
+   {
+    "q": "Medical report giving the child's gestational age at birth and current body weight?",
+    "ev": "(gestation|weeks|\\bGA\\b|preterm|premature)[\\s\\S]*(weight|kg|\\bwt\\b)|(weight|kg|\\bwt\\b)[\\s\\S]*(gestation|weeks|\\bGA\\b|preterm|premature)"
+   }
+  ],
+  "bx": [
+   "P07.3"
+  ],
+  "px": [
+   "P07"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-ftt",
+  "t": "Failure to thrive — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.11",
+  "q": [
+   {
+    "q": "Medical report with the full history and examination, including the growth chart?",
+    "ev": "growth chart|centile|percentile|height velocity|z-?score"
+   },
+   {
+    "q": "Anthropometric measures and the current body weight?",
+    "ev": "weight|\\bkg\\b|length|height|head circumference|\\bOFC\\b|\\bMUAC\\b|anthropometr"
+   }
+  ],
+  "bx": [
+   "R62.51"
+  ],
+  "px": [
+   "R62"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "R62.51 is an ICD-10-CM code; ICD-10-AM codes failure to thrive in a child under R62.8."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-galactosaemia",
+  "t": "Galactosaemia — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.11",
+  "q": [
+   {
+    "q": "Newborn screening result?",
+    "ev": "newborn screen|neonatal screen|\\bNBS\\b"
+   },
+   {
+    "q": "Enzyme assay?",
+    "ev": "enzyme (assay|activity)|\\bGALT\\b"
+   }
+  ],
+  "bx": [
+   "E74.21"
+  ],
+  "px": [
+   "E74.2"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "E74.21 is an ICD-10-CM code; ICD-10-AM uses E74.2 (disorders of galactose metabolism)."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-pku",
+  "t": "Phenylketonuria — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.12",
+  "q": [
+   {
+    "q": "Newborn screening result?",
+    "ev": "newborn screen|neonatal screen|\\bNBS\\b"
+   },
+   {
+    "q": "Phenylalanine to tyrosine ratio in blood?",
+    "ev": "phenylalanine|\\bPhe\\b|Phe/Tyr"
+   },
+   {
+    "q": "Urine organic acids?",
+    "ev": "organic acid"
+   }
+  ],
+  "bx": [
+   "E70.0"
+  ],
+  "px": [
+   "E70.0",
+   "E70.1"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-msud",
+  "t": "Maple syrup urine disease — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.12",
+  "q": [
+   {
+    "q": "Newborn screening result?",
+    "ev": "newborn screen|neonatal screen|\\bNBS\\b"
+   },
+   {
+    "q": "Plasma amino acids — leucine, isoleucine, valine?",
+    "ev": "leucine|isoleucine|valine|amino acid"
+   },
+   {
+    "q": "Urine organic acids?",
+    "ev": "organic acid"
+   }
+  ],
+  "bx": [
+   "E71.0"
+  ],
+  "px": [
+   "E71.0"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-tyrosinaemia",
+  "t": "Tyrosinaemia — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.12",
+  "q": [
+   {
+    "q": "Newborn screening result?",
+    "ev": "newborn screen|neonatal screen|\\bNBS\\b"
+   },
+   {
+    "q": "Plasma tyrosine level?",
+    "ev": "tyrosine|amino acid"
+   },
+   {
+    "q": "Urine organic acids?",
+    "ev": "organic acid|succinylacetone"
+   }
+  ],
+  "bx": [
+   "E70.21"
+  ],
+  "px": [
+   "E70.2"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "E70.21 is an ICD-10-CM code; ICD-10-AM uses E70.2 (disorders of tyrosine metabolism)."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-milk-ucd",
+  "t": "Urea cycle defect — formula",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.12",
+  "q": [
+   {
+    "q": "Blood ammonia level?",
+    "ev": "ammonia|\\bNH3\\b"
+   },
+   {
+    "q": "Arterial blood gas?",
+    "ev": "\\bABG\\b|\\bVBG\\b|blood gas"
+   },
+   {
+    "q": "Plasma amino acids — glutamine, citrulline, arginine?",
+    "ev": "glutamine|citrulline|arginine|amino acid"
+   },
+   {
+    "q": "Urine orotic acid — in OTC deficiency?",
+    "ev": "orotic",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "E72.2"
+  ],
+  "px": [
+   "E72.2"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-ped-dka",
+  "t": "Diabetic ketoacidosis — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.13",
+  "q": [
+   {
+    "q": "Random blood sugar?",
+    "ev": "\\bRBS\\b|random (blood )?(sugar|glucose)|glucose|\\bBSL\\b"
+   },
+   {
+    "q": "Arterial blood gas?",
+    "ev": "\\bABG\\b|\\bVBG\\b|blood gas"
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   },
+   {
+    "q": "Electrolytes?",
+    "ev": "electrolyte|\\bNa\\b|sodium|potassium|\\bU&E\\b"
+   }
+  ],
+  "bx": [
+   "E10.10"
+  ],
+  "px": [
+   "E10.1",
+   "E11.1",
+   "E14.1"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "E10.10 is an ICD-10-CM code; ICD-10-AM codes type 1 diabetes with ketoacidosis at E10.11–E10.19."
+  ]
+ },
+ {
+  "id": "b-ped-ghd",
+  "t": "Growth hormone deficiency",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.13",
+  "q": [
+   {
+    "q": "Medical report including the height of both parents?",
+    "ev": "mid-?parental|parent(s|al)? height|father.{0,30}height|mother.{0,30}height|height of (both )?parents"
+   },
+   {
+    "q": "Growth chart?",
+    "ev": "growth chart|centile|percentile|height velocity|z-?score"
+   },
+   {
+    "q": "X-ray of the left hand — bone age?",
+    "ev": "bone age|left hand|hand x-?ray|wrist x-?ray"
+   },
+   {
+    "q": "Basic labs — CBC and thyroid profile?",
+    "ev": "\\bCBC\\b[\\s\\S]*(\\bTSH\\b|thyroid)|(\\bTSH\\b|thyroid)[\\s\\S]*\\bCBC\\b"
+   },
+   {
+    "q": "IGF-1, and growth hormone level by stimulation test?",
+    "ev": "IGF-?1|stimulation test|\\bGH stim|clonidine|glucagon stim|arginine stim"
+   }
+  ],
+  "bx": [
+   "E23.0"
+  ],
+  "px": [
+   "E23.0",
+   "E34.3",
+   "R62"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-congenital-hypothyroid",
+  "t": "Congenital hypothyroidism",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.13",
+  "q": [
+   {
+    "q": "TSH?",
+    "ev": "\\bTSH\\b"
+   },
+   {
+    "q": "T4?",
+    "ev": "\\bf?T4\\b|thyroxine"
+   },
+   {
+    "q": "Thyroid ultrasound — if agenesis is suspected?",
+    "ev": "thyroid (ultrasound|\\bUS\\b|scan)|agenesis",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "E03.1"
+  ],
+  "px": [
+   "E03.0",
+   "E03.1"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-cah",
+  "t": "Congenital adrenal hyperplasia",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.13",
+  "q": [
+   {
+    "q": "Serum electrolytes?",
+    "ev": "electrolyte|\\bNa\\b|sodium|potassium|\\bU&E\\b"
+   },
+   {
+    "q": "Serum 17-hydroxyprogesterone?",
+    "ev": "17-?OHP|17-?hydroxyprogesterone"
+   },
+   {
+    "q": "Renin level?",
+    "ev": "renin"
+   },
+   {
+    "q": "Cortisol level?",
+    "ev": "cortisol"
+   }
+  ],
+  "bx": [
+   "E25"
+  ],
+  "px": [
+   "E25"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-rickets",
+  "t": "Rickets",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.14",
+  "q": [
+   {
+    "q": "X-ray?",
+    "ev": "x-?ray|\\bXR\\b"
+   },
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "Serum calcium — total and ionised?",
+    "ev": "calcium|\\bCa\\b"
+   },
+   {
+    "q": "Serum phosphate?",
+    "ev": "phosph"
+   },
+   {
+    "q": "ALP?",
+    "ev": "\\bALP\\b|alkaline phosphatase"
+   },
+   {
+    "q": "PTH?",
+    "ev": "\\bPTH\\b|parathyroid hormone"
+   },
+   {
+    "q": "Vitamin D level?",
+    "ev": "vitamin d|vit d|25-?OH"
+   }
+  ],
+  "bx": [
+   "E55"
+  ],
+  "px": [
+   "E55",
+   "E83.3"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-uti",
+  "t": "Urinary tract infection — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.14",
+  "q": [
+   {
+    "q": "CBC, if available?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet",
+    "opt": 1
+   },
+   {
+    "q": "CRP, if available?",
+    "ev": "\\bCRP\\b|C-?reactive",
+    "opt": 1
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   }
+  ],
+  "bx": [
+   "N39"
+  ],
+  "px": [
+   "N39.0",
+   "N10",
+   "N30"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-gn",
+  "t": "Glomerulonephritis — post-streptococcal",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.14",
+  "q": [
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   },
+   {
+    "q": "C3 level?",
+    "ev": "\\bC3\\b|complement"
+   },
+   {
+    "q": "Throat swab, skin culture, ASO or streptozyme test?",
+    "ev": "throat swab|skin (swab|culture)|\\bASO\\b|anti-?streptolysin|streptozyme|\\bADNase"
+   }
+  ],
+  "bx": [
+   "N00",
+   "N01",
+   "N02",
+   "N03",
+   "N04"
+  ],
+  "px": [
+   "N00",
+   "N01",
+   "N02",
+   "N03",
+   "N05"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "Bupa lists N00–N04 for glomerulonephritis, but N04 is nephrotic syndrome in ICD-10."
+  ]
+ },
+ {
+  "id": "b-ped-nephrotic",
+  "t": "Nephrotic syndrome",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.14",
+  "q": [
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   },
+   {
+    "q": "Kidney function — 24-hour urine protein or protein-to-creatinine ratio?",
+    "ev": "24.?h(our)? urine|protein.{0,25}creatinine|\\bUPCR\\b|\\bPCR\\b|proteinuria"
+   },
+   {
+    "q": "Albumin level?",
+    "ev": "albumin"
+   },
+   {
+    "q": "Lipid profile?",
+    "ev": "lipid|cholesterol|\\bLDL\\b|triglycerid"
+   }
+  ],
+  "bx": [
+   "N05",
+   "N06",
+   "N07",
+   "N08"
+  ],
+  "px": [
+   "N04"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "Bupa lists N05–N08 for nephrotic syndrome. In ICD-10 nephrotic syndrome is N04; N05–N08 are unspecified nephritic syndrome, isolated proteinuria, hereditary nephropathy and glomerular disorders elsewhere."
+  ]
+ },
+ {
+  "id": "b-ped-stone",
+  "t": "Urinary stone — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.15",
+  "q": [
+   {
+    "q": "CT KUB or ultrasound?",
+    "ev": "\\bCT\\b.{0,10}\\bKUB\\b|\\bKUB\\b|ultrasound|\\bUSS?\\b"
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   }
+  ],
+  "bx": [
+   "N20",
+   "N21",
+   "N22",
+   "N23"
+  ],
+  "px": [
+   "N20",
+   "N21",
+   "N22",
+   "N23"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-arf",
+  "t": "Acute renal failure — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.15",
+  "q": [
+   {
+    "q": "Creatinine?",
+    "ev": "creatinine"
+   },
+   {
+    "q": "Arterial blood gas?",
+    "ev": "\\bABG\\b|\\bVBG\\b|blood gas"
+   },
+   {
+    "q": "Electrolytes?",
+    "ev": "electrolyte|\\bNa\\b|sodium|potassium|\\bU&E\\b"
+   },
+   {
+    "q": "Urine analysis?",
+    "ev": "urin(e|alysis)|\\bUA\\b|urine R/?E|dipstick"
+   },
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   }
+  ],
+  "bx": [
+   "N17",
+   "N18",
+   "N19"
+  ],
+  "px": [
+   "N17",
+   "N18",
+   "N19"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-puv",
+  "t": "Posterior urethral valve",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.15",
+  "q": [
+   {
+    "q": "Kidney function tests?",
+    "ev": "\\bKFT\\b|\\bRFT\\b|renal function|kidney function|creatinine|\\burea\\b|\\bBUN\\b|eGFR"
+   },
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Voiding cystourethrogram?",
+    "ev": "\\bVCUG\\b|\\bMCUG\\b|voiding cystourethrogra|micturating cystourethrogra"
+   }
+  ],
+  "bx": [
+   "Q64.2"
+  ],
+  "px": [
+   "Q64.2"
+  ],
+  "age": [
+   0,
+   18
+  ]
+ },
+ {
+  "id": "b-ped-asthma",
+  "t": "Asthma — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.16",
+  "q": [
+   {
+    "q": "Medical history, examination findings, vital signs and the initial ER management?",
+    "ev": "(nebuli[sz]|salbutamol|ventolin|steroid|prednisolone|dexamethasone|oxygen|\\bO2\\b|ipratropium)"
+   },
+   {
+    "q": "Spirometry — if the child is over 5 years?",
+    "ev": "spirometr|\\bFEV1\\b|peak (expiratory )?flow|\\bPEF\\b",
+    "lo": 5
+   }
+  ],
+  "bx": [
+   "J45.909"
+  ],
+  "px": [
+   "J45",
+   "J46"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "J45.909 is an ICD-10-CM code; ICD-10-AM uses J45.9 (asthma, unspecified)."
+  ]
+ },
+ {
+  "id": "b-ped-bronchiolitis",
+  "t": "Acute bronchitis or bronchiolitis — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.16",
+  "q": [
+   {
+    "q": "Bedside evaluation — history and examination?",
+    "ev": "history|exam|O/E|wheez|crackles|recession|retraction|feeding"
+   },
+   {
+    "q": "X-ray or CT report?",
+    "ev": "x-?ray|\\bCXR\\b|\\bCT\\b"
+   }
+  ],
+  "bx": [
+   "J00",
+   "J20",
+   "J21"
+  ],
+  "px": [
+   "J20",
+   "J21"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "Bupa lists J00 (common cold) with bronchitis and bronchiolitis."
+  ]
+ },
+ {
+  "id": "b-ped-pneumonia",
+  "t": "Pneumonia — child",
+  "sp": "Paediatrics",
+  "sec": "Paediatrics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.16",
+  "q": [
+   {
+    "q": "Bedside evaluation — history and examination — and vital signs?",
+    "ev": "(exam|O/E|crackles|creps|bronchial breath)[\\s\\S]*(\\bRR\\b|SpO2|sat|temp|\\bHR\\b)|(\\bRR\\b|SpO2|sat|temp|\\bHR\\b)[\\s\\S]*(exam|O/E|crackles|creps)"
+   },
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   },
+   {
+    "q": "BUN, creatinine and electrolytes?",
+    "ev": "\\bBUN\\b|\\burea\\b|creatinine|electrolyte"
+   },
+   {
+    "q": "Blood culture?",
+    "ev": "blood culture"
+   },
+   {
+    "q": "Chest X-ray or CT chest?",
+    "ev": "\\bCXR\\b|chest x-?ray|x-?ray chest|CT chest"
+   }
+  ],
+  "bx": [
+   "J01 to J99",
+   "J09",
+   "J10",
+   "J11",
+   "J12",
+   "J13",
+   "J14",
+   "J15",
+   "J16",
+   "J17",
+   "J18"
+  ],
+  "px": [
+   "J09",
+   "J10",
+   "J11",
+   "J12",
+   "J13",
+   "J14",
+   "J15",
+   "J16",
+   "J17",
+   "J18"
+  ],
+  "age": [
+   0,
+   18
+  ],
+  "fix": [
+   "Bupa lists J01–J99 — the whole respiratory chapter — for pneumonia. RxDx matches the pneumonia categories J09–J18 only."
+  ]
+ },
+ {
+  "id": "b-git-cf-ip",
+  "t": "Cystic fibrosis — inpatient",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.17",
+  "q": [
+   {
+    "q": "Sweat chloride test?",
+    "ev": "sweat (chloride|test)"
+   },
+   {
+    "q": "Genetic testing?",
+    "ev": "genetic|\\bCFTR\\b|mutation"
+   }
+  ],
+  "bx": [
+   "E84"
+  ],
+  "px": [
+   "E84"
+  ],
+  "svc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b"
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-git-cf-op",
+  "t": "Cystic fibrosis — outpatient",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.17",
+  "q": [
+   {
+    "q": "Clinical examination and history?",
+    "ev": "history|exam|O/E"
+   }
+  ],
+  "bx": [
+   "E84"
+  ],
+  "px": [
+   "E84"
+  ],
+  "nsvc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b|\\bER\\b|emergency|to the ward"
+  ]
+ },
+ {
+  "id": "b-git-hepatitis",
+  "t": "Acute viral hepatitis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.17",
+  "q": [
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   },
+   {
+    "q": "Liver function tests?",
+    "ev": "\\bLFTs?\\b|liver function|\\bALT\\b|\\bAST\\b|bilirubin|\\bALP\\b"
+   },
+   {
+    "q": "Viral serology?",
+    "ev": "serolog|HBsAg|anti-?HCV|anti-?HAV|\\bIgM\\b|viral markers|hepatitis (A|B|C|E) (antibod|serolog|surface)"
+   }
+  ],
+  "bx": [
+   "B15",
+   "B16",
+   "B17",
+   "B18",
+   "B19"
+  ],
+  "px": [
+   "B15",
+   "B16",
+   "B17",
+   "B18",
+   "B19"
+  ]
+ },
+ {
+  "id": "b-git-wilson",
+  "t": "Wilson disease",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.17",
+  "q": [
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "Liver function?",
+    "ev": "\\bLFTs?\\b|liver function|\\bALT\\b|\\bAST\\b|bilirubin|\\bALP\\b"
+   },
+   {
+    "q": "Serum ceruloplasmin?",
+    "ev": "caeruloplasmin|ceruloplasmin"
+   },
+   {
+    "q": "24-hour urinary copper excretion?",
+    "ev": "urinary copper|24.?h(our)? urine copper|urine copper"
+   }
+  ],
+  "bx": [
+   "E83"
+  ],
+  "px": [
+   "E83.0"
+  ]
+ },
+ {
+  "id": "b-git-gastroenteritis",
+  "t": "Gastroenteritis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.17",
+  "q": [
+   {
+    "q": "CBC?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "CRP?",
+    "ev": "\\bCRP\\b|C-?reactive"
+   },
+   {
+    "q": "Electrolytes?",
+    "ev": "electrolyte|\\bNa\\b|sodium|potassium|\\bU&E\\b"
+   },
+   {
+    "q": "Stool analysis?",
+    "ev": "stool"
+   },
+   {
+    "q": "Arterial blood gas, if available?",
+    "ev": "\\bABG\\b|\\bVBG\\b|blood gas",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K52.9",
+   "K50",
+   "K51",
+   "K00-K95"
+  ],
+  "px": [
+   "K52",
+   "A08",
+   "A09"
+  ],
+  "cx": [
+   "Diarrhoea"
+  ],
+  "fix": [
+   "Bupa lists K00–K95 — the whole digestive chapter — for gastroenteritis. RxDx matches K52, A08 and A09 only, or else every digestive diagnosis would pull in this list."
+  ]
+ },
+ {
+  "id": "b-git-ibd",
+  "t": "Inflammatory bowel disease",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.18",
+  "q": [
+   {
+    "q": "CBC, CRP or ESR, and albumin?",
+    "ev": "(\\bCBC\\b|\\bCRP\\b|\\bESR\\b)[\\s\\S]*albumin|albumin[\\s\\S]*(\\bCBC\\b|\\bCRP\\b|\\bESR\\b)"
+   },
+   {
+    "q": "Stool analysis?",
+    "ev": "stool"
+   },
+   {
+    "q": "Faecal calprotectin?",
+    "ev": "calprotectin"
+   },
+   {
+    "q": "Abdominal ultrasound or X-ray?",
+    "ev": "ultrasound|\\bUSS?\\b|x-?ray|\\bAXR\\b"
+   },
+   {
+    "q": "Colonoscopy or upper endoscopy with biopsy, if available?",
+    "ev": "colonoscop|endoscop|biops|histolog",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K52.9",
+   "K56"
+  ],
+  "px": [
+   "K50",
+   "K51",
+   "K52"
+  ],
+  "fix": [
+   "Bupa lists K52.9 and K56 for inflammatory bowel disease; K56 is paralytic ileus and intestinal obstruction. Crohn's disease is K50 and ulcerative colitis K51."
+  ]
+ },
+ {
+  "id": "b-git-nv",
+  "t": "Nausea and vomiting",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.18",
+  "q": [
+   {
+    "q": "Bedside evaluation — history and examination?",
+    "ev": "history|exam|O/E"
+   },
+   {
+    "q": "Number of attacks, the suspected meal, and skin turgor?",
+    "ev": "(episodes?|attacks?|times)[\\s\\S]*(meal|food|ate|turgor|dehydrat)|turgor"
+   },
+   {
+    "q": "Sodium, potassium, creatinine, BUN — ABG if available — or urine analysis?",
+    "ev": "\\bNa\\b|sodium|potassium|creatinine|\\bBUN\\b|\\burea\\b|\\bABG\\b|urin"
+   },
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Vital signs?",
+    "ev": "\\bBP\\b|blood pressure|\\bHR\\b|pulse|heart rate|\\bRR\\b|resp(iratory)? rate|SpO2|O2 sat|saturation|temperature|\\btemp\\b|vital"
+   }
+  ],
+  "bx": [
+   "R11"
+  ],
+  "px": [
+   "R11"
+  ],
+  "cx": [
+   "Nausea & vomiting"
+  ]
+ },
+ {
+  "id": "b-git-abdpain",
+  "t": "Abdominal and pelvic pain",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.18",
+  "q": [
+   {
+    "q": "Lab reports — CBC, CRP, stool analysis?",
+    "ev": "\\bCBC\\b|\\bCRP\\b|stool"
+   },
+   {
+    "q": "Ultrasound, CT or MRI?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|imaging"
+   },
+   {
+    "q": "Vital signs, past history and the clinical examination?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|temp|vital)[\\s\\S]*(exam|O/E|tender|soft)|(exam|O/E|tender|soft)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)"
+   }
+  ],
+  "bx": [
+   "R12",
+   "K92",
+   "R10",
+   "R13",
+   "R14",
+   "R19",
+   "K58"
+  ],
+  "px": [
+   "R10",
+   "R14",
+   "R19",
+   "K58"
+  ],
+  "cx": [
+   "Abdominal pain",
+   "Pelvic pain"
+  ],
+  "fix": [
+   "Bupa groups R12 (heartburn), K92, R13 (dysphagia) and R14 with abdominal pain; RxDx matches the pain codes and leaves those to their own sets."
+  ]
+ },
+ {
+  "id": "b-git-oesophagus",
+  "t": "Disorders of the oesophagus",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.18",
+  "q": [
+   {
+    "q": "Lab reports — CBC, H. pylori stool antigen, stool analysis?",
+    "ev": "\\bCBC\\b|pylori|stool"
+   },
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Vital signs, duration, medical history and medication history?",
+    "ev": "(since|for \\d+|duration|weeks|months)[\\s\\S]*(medication|\\bPPI\\b|omeprazole|esomeprazole|pantoprazole|antacid)|(medication|\\bPPI\\b|omeprazole)[\\s\\S]*(since|for \\d+|duration|weeks|months)"
+   },
+   {
+    "q": "Any alarm symptoms?",
+    "ev": "alarm|red flag|weight loss|dysphagia|melaena|melena|haematemesis|hematemesis|anaemia|anemia|no alarm"
+   }
+  ],
+  "bx": [
+   "R12",
+   "K20",
+   "K21",
+   "K22",
+   "K23"
+  ],
+  "px": [
+   "R12",
+   "K20",
+   "K21",
+   "K22",
+   "K23"
+  ],
+  "cx": [
+   "Heartburn / dyspepsia",
+   "Dysphagia"
+  ]
+ },
+ {
+  "id": "b-git-stomach",
+  "t": "Diseases of the stomach and duodenum",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.19",
+  "q": [
+   {
+    "q": "Medical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   },
+   {
+    "q": "Lab reports — CBC, H. pylori stool antigen, stool analysis, FOBT?",
+    "ev": "\\bCBC\\b|pylori|stool|\\bFOBT\\b|occult"
+   },
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Vital signs, duration and medication history?",
+    "ev": "(\\bBP\\b|pulse|vital)[\\s\\S]*(medication|\\bPPI\\b|NSAID)|(medication|\\bPPI\\b|NSAID)[\\s\\S]*(\\bBP\\b|pulse|vital)"
+   }
+  ],
+  "bx": [
+   "K25",
+   "K26",
+   "K27",
+   "K28",
+   "K29",
+   "K30",
+   "K31",
+   "K92"
+  ],
+  "px": [
+   "K25",
+   "K26",
+   "K27",
+   "K28",
+   "K29",
+   "K30",
+   "K31"
+  ]
+ },
+ {
+  "id": "b-git-appendicitis",
+  "t": "Appendicitis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.19",
+  "q": [
+   {
+    "q": "CBC and CRP?",
+    "ev": "\\bCBC\\b[\\s\\S]*\\bCRP\\b|\\bCRP\\b[\\s\\S]*\\bCBC\\b|\\bWBC\\b[\\s\\S]*\\bCRP\\b"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   },
+   {
+    "q": "Clinical examination?",
+    "ev": "exam|O/E|tender|McBurney|Rovsing|guarding|rebound|Alvarado"
+   }
+  ],
+  "bx": [
+   "K35",
+   "K36",
+   "K37",
+   "K38"
+  ],
+  "px": [
+   "K35",
+   "K36",
+   "K37",
+   "K38"
+  ]
+ },
+ {
+  "id": "b-git-haematemesis",
+  "t": "Haematemesis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.19",
+  "q": [
+   {
+    "q": "Lab reports — CBC, INR, stool analysis?",
+    "ev": "\\bCBC\\b|\\bINR\\b|stool"
+   },
+   {
+    "q": "Vital signs, drug history, and any similar attacks?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|vital)[\\s\\S]*(similar|previous|recurrent|first|NSAID|aspirin|anticoag|medication)|(similar|previous|recurrent|NSAID|aspirin|anticoag)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|vital)"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   }
+  ],
+  "bx": [
+   "K92.0"
+  ],
+  "px": [
+   "K92.0"
+  ],
+  "cx": [
+   "GI bleeding (haematemesis / melaena)"
+  ]
+ },
+ {
+  "id": "b-git-melaena",
+  "t": "Melaena",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.19",
+  "q": [
+   {
+    "q": "Lab reports — CBC, INR, stool analysis?",
+    "ev": "\\bCBC\\b|\\bINR\\b|stool"
+   },
+   {
+    "q": "Vital signs, drug history, and any similar attacks?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|vital)[\\s\\S]*(similar|previous|recurrent|first|NSAID|aspirin|anticoag|medication)|(similar|previous|recurrent|NSAID|aspirin|anticoag)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|vital)"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   }
+  ],
+  "bx": [
+   "K92.1"
+  ],
+  "px": [
+   "K92.1"
+  ],
+  "cx": [
+   "GI bleeding (haematemesis / melaena)"
+  ]
+ },
+ {
+  "id": "b-git-gibleed",
+  "t": "Gastrointestinal haemorrhage, unspecified",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.20",
+  "q": [
+   {
+    "q": "Lab reports — CBC, INR, stool analysis?",
+    "ev": "\\bCBC\\b|\\bINR\\b|stool"
+   },
+   {
+    "q": "Vital signs, drug history, and any similar attacks?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|vital)[\\s\\S]*(similar|previous|recurrent|first|NSAID|aspirin|anticoag|medication)|(similar|previous|recurrent|NSAID|aspirin|anticoag)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|vital)"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   },
+   {
+    "q": "Digital rectal examination?",
+    "ev": "\\bDRE\\b|\\bPR exam|per rectal|digital rectal|rectal exam"
+   }
+  ],
+  "bx": [
+   "K92.2"
+  ],
+  "px": [
+   "K92.2"
+  ],
+  "cx": [
+   "Rectal bleeding"
+  ]
+ },
+ {
+  "id": "b-git-otherdigestive",
+  "t": "Other specified diseases of the digestive system",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.20",
+  "q": [
+   {
+    "q": "Lab reports — CBC, INR, stool analysis?",
+    "ev": "\\bCBC\\b|\\bINR\\b|stool"
+   },
+   {
+    "q": "Vital signs, drug history, and any similar attacks?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|vital)[\\s\\S]*(similar|previous|recurrent|first|NSAID|aspirin|anticoag|medication)|(similar|previous|recurrent|NSAID|aspirin|anticoag)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|vital)"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   },
+   {
+    "q": "Digital rectal examination?",
+    "ev": "\\bDRE\\b|\\bPR exam|per rectal|digital rectal|rectal exam"
+   }
+  ],
+  "bx": [
+   "K92.8",
+   "K92.89"
+  ],
+  "px": [
+   "K92.8"
+  ],
+  "fix": [
+   "K92.89 is an ICD-10-CM code; ICD-10-AM uses K92.8."
+  ]
+ },
+ {
+  "id": "b-git-digestive-unspec",
+  "t": "Disease of the digestive system, unspecified",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.20",
+  "q": [
+   {
+    "q": "Lab reports — CBC, INR, stool analysis?",
+    "ev": "\\bCBC\\b|\\bINR\\b|stool"
+   },
+   {
+    "q": "Vital signs, drug history, and any similar attacks?",
+    "ev": "(\\bBP\\b|pulse|\\bHR\\b|vital)[\\s\\S]*(similar|previous|recurrent|first|NSAID|aspirin|anticoag|medication)|(similar|previous|recurrent|NSAID|aspirin|anticoag)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|vital)"
+   },
+   {
+    "q": "Ultrasound or CT?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bCT\\b"
+   },
+   {
+    "q": "Digital rectal examination?",
+    "ev": "\\bDRE\\b|\\bPR exam|per rectal|digital rectal|rectal exam"
+   }
+  ],
+  "bx": [
+   "K92.9"
+  ],
+  "px": [
+   "K92.9"
+  ]
+ },
+ {
+  "id": "b-git-mucositis",
+  "t": "Gastrointestinal mucositis (ulcerative)",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.21",
+  "q": [
+   {
+    "q": "Lab reports — faecal calprotectin, CBC, ESR, albumin?",
+    "ev": "calprotectin|\\bCBC\\b|\\bESR\\b|albumin"
+   },
+   {
+    "q": "Clinical examination and past history?",
+    "ev": "exam|O/E|history|previous"
+   },
+   {
+    "q": "Radiology report, if available?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K92.81"
+  ],
+  "px": [
+   "K92.8"
+  ],
+  "fix": [
+   "K92.81 is an ICD-10-CM code; ICD-10-AM has no mucositis code under K92 — it falls to K92.8."
+  ]
+ },
+ {
+  "id": "b-git-crohns",
+  "t": "Crohn's disease",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.21",
+  "q": [
+   {
+    "q": "Lab reports — faecal calprotectin, CBC, ESR, albumin?",
+    "ev": "calprotectin|\\bCBC\\b|\\bESR\\b|albumin"
+   },
+   {
+    "q": "Clinical examination and past history?",
+    "ev": "exam|O/E|history|previous"
+   },
+   {
+    "q": "Radiology report, if available?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K50"
+  ],
+  "px": [
+   "K50"
+  ]
+ },
+ {
+  "id": "b-git-uc",
+  "t": "Ulcerative colitis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.21",
+  "q": [
+   {
+    "q": "Lab reports — faecal calprotectin, CBC, ESR, albumin?",
+    "ev": "calprotectin|\\bCBC\\b|\\bESR\\b|albumin"
+   },
+   {
+    "q": "Clinical examination and past history?",
+    "ev": "exam|O/E|history|previous"
+   },
+   {
+    "q": "Radiology report, if available?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K51"
+  ],
+  "px": [
+   "K51"
+  ]
+ },
+ {
+  "id": "b-git-colitis",
+  "t": "Other noninfective gastroenteritis and colitis",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.21",
+  "q": [
+   {
+    "q": "Lab reports — faecal calprotectin, CBC, ESR, albumin?",
+    "ev": "calprotectin|\\bCBC\\b|\\bESR\\b|albumin"
+   },
+   {
+    "q": "Clinical examination and past history?",
+    "ev": "exam|O/E|history|previous"
+   },
+   {
+    "q": "Digital rectal examination?",
+    "ev": "\\bDRE\\b|\\bPR exam|per rectal|digital rectal|rectal exam"
+   },
+   {
+    "q": "Radiology report, if available?",
+    "ev": "x-?ray|\\bXR\\b|ultrasound|\\bUSS?\\b|sonograph|\\bCT\\b|\\bMRI\\b|radiolog|imaging|scan",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "K52"
+  ],
+  "px": [
+   "K52"
+  ]
+ },
+ {
+  "id": "b-git-faecal-incontinence",
+  "t": "Faecal incontinence",
+  "sp": "Gastroenterology",
+  "sec": "Gastroenterology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.22",
+  "q": [
+   {
+    "q": "Any recent spine or anal surgery?",
+    "ev": "(spin|anal|rectal|haemorrhoid|fistula|sphincter).{0,40}(surgery|operation)|no (previous |recent )?(spin|anal).{0,20}surgery|surgical history"
+   },
+   {
+    "q": "Digital rectal examination?",
+    "ev": "\\bDRE\\b|\\bPR exam|per rectal|digital rectal|rectal exam"
+   }
+  ],
+  "bx": [
+   "R15"
+  ],
+  "px": [
+   "R15"
+  ],
+  "cx": [
+   "Faecal incontinence"
+  ]
+ },
+ {
+  "id": "b-im-htn-op",
+  "t": "Essential hypertension — outpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.23",
+  "q": [
+   {
+    "q": "BP chart on the first request — or a medical report if the patient is already on medication (UCAF)?",
+    "ev": "\\d{2,3}\\s*/\\s*\\d{2,3}[\\s\\S]*?\\d{2,3}\\s*/\\s*\\d{2,3}|BP chart|home BP|\\bon (amlodipine|lisinopril|losartan|valsartan|perindopril|ramipril|bisoprolol|atenolol|indapamide|hydrochlorothiazide|telmisartan|candesartan|nifedipine)"
+   }
+  ],
+  "bx": [
+   "I10",
+   "I11",
+   "I12",
+   "I13",
+   "I14",
+   "I15"
+  ],
+  "px": [
+   "I10",
+   "I11",
+   "I12",
+   "I13",
+   "I15"
+  ],
+  "fix": [
+   "I14 does not exist in ICD-10."
+  ],
+  "nsvc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b|\\bER\\b|emergency|to the ward"
+  ]
+ },
+ {
+  "id": "b-im-htn-ip",
+  "t": "Essential hypertension — inpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.23",
+  "q": [
+   {
+    "q": "BP reading at the ER and the neurological examination?",
+    "ev": "(\\d{2,3}\\s*/\\s*\\d{2,3})[\\s\\S]*(neurolog|\\bGCS\\b|focal|power)|(neurolog|\\bGCS\\b|focal)[\\s\\S]*(\\d{2,3}\\s*/\\s*\\d{2,3})"
+   },
+   {
+    "q": "CT brain — optional?",
+    "ev": "CT (brain|head)|MRI (brain|head)|\\bCT\\b|\\bMRI\\b",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "I10",
+   "I11",
+   "I12",
+   "I13",
+   "I14",
+   "I15"
+  ],
+  "px": [
+   "I10",
+   "I11",
+   "I12",
+   "I13",
+   "I15"
+  ],
+  "svc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b|\\bER\\b|emergency|to the ward"
+  ],
+  "fix": [
+   "I14 does not exist in ICD-10."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-im-htn-urgency",
+  "t": "Hypertensive urgency",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.23",
+  "q": [
+   {
+    "q": "BP reading at the ER and the neurological examination?",
+    "ev": "(\\d{2,3}\\s*/\\s*\\d{2,3})[\\s\\S]*(neurolog|\\bGCS\\b|focal|power)|(neurolog|\\bGCS\\b|focal)[\\s\\S]*(\\d{2,3}\\s*/\\s*\\d{2,3})"
+   },
+   {
+    "q": "CT brain — optional?",
+    "ev": "CT (brain|head)|MRI (brain|head)|\\bCT\\b|\\bMRI\\b",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "I16.0",
+   "I16.1"
+  ],
+  "px": [
+   "I10"
+  ],
+  "svc": [
+   "urgency|crisis|emergency|\\bER\\b"
+  ],
+  "fix": [
+   "I16.0 and I16.1 are ICD-10-CM codes; ICD-10-AM has no I16. RxDx matches I10 with the words 'urgency', 'crisis' or ER."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-im-htn-secondary",
+  "t": "Secondary hypertension, unspecified — outpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.23",
+  "q": [
+   {
+    "q": "Medical history report?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   },
+   {
+    "q": "Physical examination findings?",
+    "ev": "exam|O/E|on examination|tender|auscultat|palpat|inspection|range of motion|\\bROM\\b|reflex|power|strength|neurolog|chest clear|abdomen soft|\\bDRE\\b"
+   },
+   {
+    "q": "A series of blood pressure readings (BP chart) and other vital signs?",
+    "ev": "\\d{2,3}\\s*/\\s*\\d{2,3}[\\s\\S]*?\\d{2,3}\\s*/\\s*\\d{2,3}|BP chart"
+   }
+  ],
+  "bx": [
+   "I15.9"
+  ],
+  "px": [
+   "I15"
+  ]
+ },
+ {
+  "id": "b-im-t2dm-op",
+  "t": "Type 2 diabetes mellitus — outpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.23",
+  "q": [
+   {
+    "q": "Clinical examination — signs and symptoms?",
+    "ev": "exam|O/E|polyuria|polydipsia|symptom|foot exam|neuropath"
+   },
+   {
+    "q": "FBS, HbA1c or RBS lab report?",
+    "ev": "\\bFBS\\b|HbA1c|A1c|\\bRBS\\b|glucose"
+   }
+  ],
+  "bx": [
+   "E11"
+  ],
+  "px": [
+   "E11"
+  ]
+ },
+ {
+  "id": "b-im-t1dm-op",
+  "t": "Type 1 diabetes mellitus — outpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.24",
+  "q": [
+   {
+    "q": "Clinical examination — signs and symptoms?",
+    "ev": "exam|O/E|polyuria|polydipsia|symptom"
+   },
+   {
+    "q": "FBS, HbA1c or RBS lab report?",
+    "ev": "\\bFBS\\b|HbA1c|A1c|\\bRBS\\b|glucose"
+   }
+  ],
+  "bx": [
+   "E10"
+  ],
+  "px": [
+   "E10"
+  ]
+ },
+ {
+  "id": "b-im-hypoglycaemia",
+  "t": "Hypoglycaemia",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.24",
+  "q": [
+   {
+    "q": "Medical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   },
+   {
+    "q": "Clinical examination — signs and symptoms?",
+    "ev": "exam|O/E|sweat|tremor|confus|\\bGCS\\b|symptom"
+   },
+   {
+    "q": "RBS report?",
+    "ev": "\\bRBS\\b|random (blood )?(sugar|glucose)|glucose|\\bBSL\\b|\\bmmol"
+   }
+  ],
+  "bx": [
+   "E16.1",
+   "E16.2",
+   "E15",
+   "E13.649",
+   "E09.641",
+   "E16.0"
+  ],
+  "px": [
+   "E16",
+   "E15",
+   "E10.6",
+   "E11.6",
+   "E13.6"
+  ],
+  "fix": [
+   "E13.649 and E09.641 are ICD-10-CM codes with no ICD-10-AM equivalent at that level."
+  ]
+ },
+ {
+  "id": "b-im-cvd-op",
+  "t": "Cerebrovascular disease — outpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.24",
+  "q": [
+   {
+    "q": "Clinical examination — signs and symptoms, and a full neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   }
+  ],
+  "bx": [
+   "I60",
+   "I61",
+   "I62",
+   "I63",
+   "I64",
+   "I65",
+   "I66",
+   "I67",
+   "I68",
+   "I69"
+  ],
+  "px": [
+   "I60",
+   "I61",
+   "I62",
+   "I63",
+   "I64",
+   "I65",
+   "I66",
+   "I67",
+   "I68",
+   "I69"
+  ],
+  "nsvc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b|\\bER\\b|emergency|to the ward"
+  ]
+ },
+ {
+  "id": "b-im-cvd-ip",
+  "t": "Cerebrovascular disease — inpatient",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.24",
+  "q": [
+   {
+    "q": "Clinical examination — signs and symptoms, and a full neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "CT brain or MRI brain?",
+    "ev": "CT (brain|head)|MRI (brain|head)|\\bCT\\b|\\bMRI\\b"
+   },
+   {
+    "q": "MRA or CTA — optional?",
+    "ev": "\\bMRA\\b|\\bCTA\\b|angiogra",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "I60",
+   "I61",
+   "I62",
+   "I63",
+   "I64",
+   "I65",
+   "I66",
+   "I67",
+   "I68",
+   "I69"
+  ],
+  "px": [
+   "I60",
+   "I61",
+   "I62",
+   "I63",
+   "I64",
+   "I65",
+   "I66",
+   "I67",
+   "I68",
+   "I69"
+  ],
+  "svc": [
+   "\\badmi(t|ss)|inpatient|\\bIPD\\b|\\bER\\b|emergency|to the ward"
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-im-copd",
+  "t": "COPD",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.24",
+  "q": [
+   {
+    "q": "Detailed medical report and vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Home medication?",
+    "ev": "home medication|regular (medication|inhaler)|inhaler|tiotropium|salbutamol|seretide|symbicort|\\bLAMA\\b|\\bLABA\\b|\\bICS\\b"
+   },
+   {
+    "q": "Blood gases and sepsis markers?",
+    "ev": "(\\bABG\\b|\\bVBG\\b|blood gas)[\\s\\S]*(\\bCRP\\b|procalcitonin|\\bPCT\\b|lactate|\\bWBC\\b)|(\\bCRP\\b|procalcitonin|\\bPCT\\b|lactate)[\\s\\S]*(\\bABG\\b|\\bVBG\\b|blood gas)"
+   },
+   {
+    "q": "Spirometry and chest X-ray — may be useful?",
+    "ev": "spirometr|\\bFEV1\\b|\\bCXR\\b|chest x-?ray",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "J44"
+  ],
+  "px": [
+   "J44"
+  ]
+ },
+ {
+  "id": "b-im-pulm-oedema",
+  "t": "Pulmonary oedema",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.25",
+  "q": [
+   {
+    "q": "Detailed medical report and vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Imaging report — for example X-ray — if available?",
+    "ev": "x-?ray|\\bCXR\\b|imaging",
+    "opt": 1
+   },
+   {
+    "q": "Echocardiogram, renal function and other tests according to the primary cause?",
+    "ev": "\\becho|renal function|creatinine|\\bKFT\\b|\\bBNP\\b|troponin"
+   }
+  ],
+  "bx": [
+   "J80",
+   "J81"
+  ],
+  "px": [
+   "J81"
+  ],
+  "fix": [
+   "Bupa lists J80 with pulmonary oedema; J80 is adult respiratory distress syndrome."
+  ]
+ },
+ {
+  "id": "b-im-sarcoidosis",
+  "t": "Sarcoidosis",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.25",
+  "q": [
+   {
+    "q": "Imaging report — CT chest or X-ray?",
+    "ev": "CT chest|\\bHRCT\\b|x-?ray|\\bCXR\\b"
+   },
+   {
+    "q": "Labs — ACE level, electrolytes, urine analysis, LFT?",
+    "ev": "\\bACE\\b|angiotensin|electrolyte|urin|\\bLFTs?\\b|calcium"
+   }
+  ],
+  "bx": [
+   "J86"
+  ],
+  "px": [
+   "D86"
+  ],
+  "fix": [
+   "Bupa lists J86 for sarcoidosis. J86 is pyothorax; sarcoidosis is D86 in ICD-10."
+  ]
+ },
+ {
+  "id": "b-im-tb",
+  "t": "Tuberculosis",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.25",
+  "q": [
+   {
+    "q": "Sputum stain for acid-fast bacilli, sputum culture, or PCR?",
+    "ev": "\\bAFB\\b|acid-?fast|sputum (smear|stain|culture)|GeneXpert|\\bPCR\\b|Xpert"
+   },
+   {
+    "q": "Tuberculin skin test?",
+    "ev": "tuberculin|\\bTST\\b|\\bPPD\\b|mantoux"
+   },
+   {
+    "q": "PPD or QuantiFERON — for latent TB?",
+    "ev": "\\bPPD\\b|QuantiFERON|\\bIGRA\\b|mantoux"
+   },
+   {
+    "q": "Imaging report — X-ray or CT chest?",
+    "ev": "x-?ray|\\bCXR\\b|CT chest"
+   },
+   {
+    "q": "Sputum culture, if available?",
+    "ev": "sputum culture|culture",
+    "opt": 1
+   }
+  ],
+  "bx": [
+   "A15"
+  ],
+  "px": [
+   "A15",
+   "A16"
+  ]
+ },
+ {
+  "id": "b-im-pneumonia",
+  "t": "Pneumonia",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.25",
+  "q": [
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Sepsis work-up — CRP, CBC, BUN, creatinine and electrolytes?",
+    "ev": "\\bCRP\\b|\\bCBC\\b|\\bBUN\\b|\\burea\\b|creatinine|electrolyte"
+   },
+   {
+    "q": "Clinical assessment score — CURB-65 or Pneumonia Severity Index?",
+    "ev": "CURB-?65|\\bCRB-?65|\\bPSI\\b|pneumonia severity"
+   },
+   {
+    "q": "Imaging — X-ray or CT chest?",
+    "ev": "x-?ray|\\bCXR\\b|CT chest"
+   }
+  ],
+  "bx": [
+   "J13",
+   "J15",
+   "J18"
+  ],
+  "px": [
+   "J13",
+   "J15",
+   "J18"
+  ]
+ },
+ {
+  "id": "b-im-effusion",
+  "t": "Pleural effusion",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.26",
+  "q": [
+   {
+    "q": "Detailed medical report and vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Imaging report — X-ray or CT chest?",
+    "ev": "x-?ray|\\bCXR\\b|CT chest|ultrasound"
+   }
+  ],
+  "bx": [
+   "J90",
+   "J91"
+  ],
+  "px": [
+   "J90",
+   "J91"
+  ]
+ },
+ {
+  "id": "b-im-cf",
+  "t": "Cystic fibrosis — adult",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.26",
+  "q": [
+   {
+    "q": "Detailed medical report and vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Sweat chloride test?",
+    "ev": "sweat (chloride|test)"
+   }
+  ],
+  "bx": [
+   "E84"
+  ],
+  "px": [
+   "E84"
+  ]
+ },
+ {
+  "id": "b-im-pneumothorax",
+  "t": "Pneumothorax",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.26",
+  "q": [
+   {
+    "q": "Vital signs chart?",
+    "ev": "vital signs? chart|vitals? chart|\\bVSC\\b|observation chart|obs chart|vital|\\bBP\\b"
+   },
+   {
+    "q": "Medical report stating the primary cause?",
+    "ev": "spontaneous|primary|secondary|trauma|COPD|smok|cause"
+   },
+   {
+    "q": "Imaging report — X-ray or CT chest?",
+    "ev": "x-?ray|\\bCXR\\b|CT chest"
+   }
+  ],
+  "bx": [
+   "J93"
+  ],
+  "px": [
+   "J93"
+  ]
+ },
+ {
+  "id": "b-im-pe",
+  "t": "Pulmonary embolism",
+  "sp": "Internal medicine",
+  "sec": "Internal medicine",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.26",
+  "q": [
+   {
+    "q": "Full physical examination, with the Wells score and the PERC rule for a suspected PE?",
+    "ev": "Wells|\\bPERC\\b"
+   },
+   {
+    "q": "Imaging — CT pulmonary angiogram or V/Q scan?",
+    "ev": "\\bCTPA\\b|CT pulmonary angio|V/?Q"
+   },
+   {
+    "q": "D-dimer?",
+    "ev": "d-?dimer"
+   }
+  ],
+  "bx": [
+   "J81"
+  ],
+  "px": [
+   "I26"
+  ],
+  "fix": [
+   "Bupa lists J81 for pulmonary embolism. J81 is pulmonary oedema; pulmonary embolism is I26."
+  ]
+ },
+ {
+  "id": "b-ortho-pelvic-ring",
+  "t": "Pelvic ring fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.27",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S32.0",
+   "S32.9"
+  ],
+  "px": [
+   "S32.1",
+   "S32.2",
+   "S32.3",
+   "S32.5",
+   "S32.7",
+   "S32.8"
+  ],
+  "fix": [
+   "Bupa lists S32.0 and S32.9. S32.0 is a lumbar vertebra fracture and S32.9 does not exist in ICD-10-AM; pelvic ring fractures sit at S32.1–S32.8."
+  ]
+ },
+ {
+  "id": "b-ortho-acetabulum",
+  "t": "Acetabular fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.27",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S32.3"
+  ],
+  "px": [
+   "S32.4"
+  ],
+  "fix": [
+   "Bupa lists S32.3, which is a fracture of the ilium. The acetabulum is S32.4."
+  ]
+ },
+ {
+  "id": "b-ortho-femoral-head",
+  "t": "Femoral head fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.27",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification — Pipkin I–IV?",
+    "ev": "Pipkin"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S72.0"
+  ],
+  "px": [
+   "S72.0"
+  ]
+ },
+ {
+  "id": "b-ortho-intertrochanteric",
+  "t": "Intertrochanteric femur fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.27",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification — Evans — stable or unstable?",
+    "ev": "Evans|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S72.1"
+  ],
+  "px": [
+   "S72.1"
+  ]
+ },
+ {
+  "id": "b-ortho-femoral-shaft",
+  "t": "Femoral shaft fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.28",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification — AO 32-A, B or C?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S72.3"
+  ],
+  "px": [
+   "S72.3"
+  ]
+ },
+ {
+  "id": "b-ortho-tibial-plateau",
+  "t": "Tibial plateau fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.28",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification — Schatzker I–VI?",
+    "ev": "Schatzker"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.1"
+  ],
+  "px": [
+   "S82.1"
+  ]
+ },
+ {
+  "id": "b-ortho-tibial-shaft",
+  "t": "Tibial shaft fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.28",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.2",
+   "S92.0 - S92.1",
+   "S92.2",
+   "S52.2",
+   "S42.2"
+  ],
+  "px": [
+   "S82.2"
+  ],
+  "fix": [
+   "Bupa prints the same code list (S82.2, S92.0–S92.1, S92.2, S52.2, S42.2) for tibial shaft, ankle, talus, calcaneus and proximal humerus fractures. RxDx matches each on its own code."
+  ]
+ },
+ {
+  "id": "b-ortho-ankle",
+  "t": "Ankle fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.28",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.2",
+   "S92.0 - S92.1",
+   "S92.2",
+   "S52.2",
+   "S42.2"
+  ],
+  "px": [
+   "S82.5",
+   "S82.6",
+   "S82.8"
+  ],
+  "fix": [
+   "Bupa prints the same code list (S82.2, S92.0–S92.1, S92.2, S52.2, S42.2) for tibial shaft, ankle, talus, calcaneus and proximal humerus fractures. RxDx matches each on its own code.",
+   "None of the printed codes is an ankle fracture; RxDx uses S82.5, S82.6 and S82.8."
+  ]
+ },
+ {
+  "id": "b-ortho-talus",
+  "t": "Talus fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.29",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.2",
+   "S92.0 - S92.1",
+   "S92.2",
+   "S52.2",
+   "S42.2"
+  ],
+  "px": [
+   "S92.1"
+  ],
+  "fix": [
+   "Bupa prints the same code list (S82.2, S92.0–S92.1, S92.2, S52.2, S42.2) for tibial shaft, ankle, talus, calcaneus and proximal humerus fractures. RxDx matches each on its own code."
+  ]
+ },
+ {
+  "id": "b-ortho-calcaneus",
+  "t": "Calcaneus fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.29",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.2",
+   "S92.0 - S92.1",
+   "S92.2",
+   "S52.2",
+   "S42.2"
+  ],
+  "px": [
+   "S92.0"
+  ],
+  "fix": [
+   "Bupa prints the same code list (S82.2, S92.0–S92.1, S92.2, S52.2, S42.2) for tibial shaft, ankle, talus, calcaneus and proximal humerus fractures. RxDx matches each on its own code."
+  ]
+ },
+ {
+  "id": "b-ortho-proximal-humerus",
+  "t": "Proximal humerus fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.29",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain)[\\s\\S]*(exam|O/E|tender|swelling|deformit)|(exam|O/E|tender|swelling|deformit)[\\s\\S]*(history|presented|complain)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report?",
+    "ev": "x-?ray|\\bXR\\b|\\bCT\\b|\\bMRI\\b|radiolog"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S82.2",
+   "S92.0 - S92.1",
+   "S92.2",
+   "S52.2",
+   "S42.2"
+  ],
+  "px": [
+   "S42.2"
+  ],
+  "fix": [
+   "Bupa prints the same code list (S82.2, S92.0–S92.1, S92.2, S52.2, S42.2) for tibial shaft, ankle, talus, calcaneus and proximal humerus fractures. RxDx matches each on its own code."
+  ]
+ },
+ {
+  "id": "b-ortho-arthroscopy",
+  "t": "Arthroscopy — shoulder, wrist, hip, knee, ankle",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.29",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and clinical examination, with the initial lines of management?",
+    "ev": "(exam|O/E|tender|effusion|McMurray|Lachman|drawer|impingement)[\\s\\S]*(physio|analges|NSAID|rest|injection|brace|treated)|(physio|analges|NSAID|injection|brace)[\\s\\S]*(exam|O/E|tender|effusion)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S43.0",
+   "S43.5",
+   "S46.0",
+   "M75.1",
+   "S63.5",
+   "S66.2",
+   "S61.4",
+   "S73.1",
+   "M25.8",
+   "S83.5",
+   "S83.2",
+   "M93.2",
+   "S86.0",
+   "S93.0",
+   "M03.2",
+   "S93.4"
+  ],
+  "px": [
+   "S43",
+   "S46",
+   "M75",
+   "S63",
+   "S66",
+   "S61",
+   "S73",
+   "M25",
+   "S83",
+   "M93",
+   "S86",
+   "S93"
+  ],
+  "svc": [
+   "arthroscop"
+  ],
+  "fix": [
+   "S61.4 does not exist in ICD-10-AM — open wounds of the wrist and hand are S61.0–S61.9; M03.2 is a post-infective arthropathy, unusual as the reason for an arthroscopy."
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-ortho-cervical-disc",
+  "t": "Cervical disc degeneration",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.30",
+  "q": [
+   {
+    "q": "History and neurological examination, the duration of the complaint, and the initial lines of management?",
+    "ev": "(neurolog|power|reflex|sensation|straight leg|\\bSLR\\b)[\\s\\S]*(since|for \\d+|weeks|months|physio|analges|NSAID)|(since|for \\d+|weeks|months|physio|analges)[\\s\\S]*(neurolog|power|reflex|sensation|\\bSLR\\b)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M50.2",
+   "M51.2",
+   "M43.16",
+   "M47.2"
+  ],
+  "px": [
+   "M50",
+   "M47.2",
+   "M47.8"
+  ]
+ },
+ {
+  "id": "b-ortho-lumbar-disc",
+  "t": "Lumbar disc degeneration",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.30",
+  "q": [
+   {
+    "q": "History and neurological examination, the duration of the complaint, and the initial lines of management?",
+    "ev": "(neurolog|power|reflex|sensation|straight leg|\\bSLR\\b)[\\s\\S]*(since|for \\d+|weeks|months|physio|analges|NSAID)|(since|for \\d+|weeks|months|physio|analges)[\\s\\S]*(neurolog|power|reflex|sensation|\\bSLR\\b)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M50.2",
+   "M51.2",
+   "M43.16",
+   "M47.2"
+  ],
+  "px": [
+   "M51",
+   "M47.2",
+   "M47.8"
+  ]
+ },
+ {
+  "id": "b-ortho-spondylolisthesis",
+  "t": "Spondylolisthesis",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.30",
+  "q": [
+   {
+    "q": "History and neurological examination, the duration of the complaint, and the initial lines of management?",
+    "ev": "(neurolog|power|reflex|sensation|straight leg|\\bSLR\\b)[\\s\\S]*(since|for \\d+|weeks|months|physio|analges|NSAID)|(since|for \\d+|weeks|months|physio|analges)[\\s\\S]*(neurolog|power|reflex|sensation|\\bSLR\\b)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M50.2",
+   "M51.2",
+   "M43.16",
+   "M47.2"
+  ],
+  "px": [
+   "M43.1"
+  ]
+ },
+ {
+  "id": "b-ortho-stenosis",
+  "t": "Spinal stenosis",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.30",
+  "q": [
+   {
+    "q": "History and neurological examination, the duration of the complaint, and the initial lines of management?",
+    "ev": "(neurolog|power|reflex|sensation|straight leg|\\bSLR\\b)[\\s\\S]*(since|for \\d+|weeks|months|physio|analges|NSAID)|(since|for \\d+|weeks|months|physio|analges)[\\s\\S]*(neurolog|power|reflex|sensation|\\bSLR\\b)"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M50.2",
+   "M51.2",
+   "M43.16",
+   "M47.2"
+  ],
+  "px": [
+   "M48.0"
+  ],
+  "fix": [
+   "Bupa's list for spinal stenosis has no stenosis code; ICD-10-AM uses M48.0."
+  ]
+ },
+ {
+  "id": "b-ortho-thoracic-wedge",
+  "t": "Thoracic wedge fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.31",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S22.0",
+   "S22.1",
+   "S11.0",
+   "S32.0"
+  ],
+  "px": [
+   "S22.0",
+   "S22.1"
+  ],
+  "fix": [
+   "Bupa prints the same list (S22.0, S22.1, S11.0, S32.0) for all four spinal fractures; S11.0 is an open wound of the larynx."
+  ]
+ },
+ {
+  "id": "b-ortho-thoracic-burst",
+  "t": "Thoracic burst fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.31",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S22.0",
+   "S22.1",
+   "S11.0",
+   "S32.0"
+  ],
+  "px": [
+   "S22.0",
+   "S22.1"
+  ],
+  "fix": [
+   "Bupa prints the same list (S22.0, S22.1, S11.0, S32.0) for all four spinal fractures; S11.0 is an open wound of the larynx."
+  ]
+ },
+ {
+  "id": "b-ortho-cervical-fracture",
+  "t": "Cervical spine fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.31",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S22.0",
+   "S22.1",
+   "S11.0",
+   "S32.0"
+  ],
+  "px": [
+   "S12"
+  ],
+  "fix": [
+   "Bupa prints the same list (S22.0, S22.1, S11.0, S32.0) for all four spinal fractures; S11.0 is an open wound of the larynx.",
+   "No printed code is a cervical spine fracture; ICD-10 uses S12."
+  ]
+ },
+ {
+  "id": "b-ortho-lumbar-burst",
+  "t": "Lumbar burst fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.31",
+  "q": [
+   {
+    "q": "Scenario of the trauma?",
+    "ev": "trauma|injur|\\bfall\\b|\\bfell\\b|accident|\\bRTA\\b|twist|struck|hit by|sport|atraumatic|non-?traumatic"
+   },
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "S22.0",
+   "S22.1",
+   "S11.0",
+   "S32.0"
+  ],
+  "px": [
+   "S32.0"
+  ],
+  "fix": [
+   "Bupa prints the same list (S22.0, S22.1, S11.0, S32.0) for all four spinal fractures; S11.0 is an open wound of the larynx."
+  ]
+ },
+ {
+  "id": "b-ortho-scoliosis",
+  "t": "Idiopathic scoliosis",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.32",
+  "q": [
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b|x-?ray"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M41.0",
+   "M46.1",
+   "M84.5"
+  ],
+  "px": [
+   "M41.0",
+   "M41.1",
+   "M41.2"
+  ],
+  "fix": [
+   "Bupa prints the same list (M41.0, M46.1, M84.5) for scoliosis, spinal infection and pathological fracture; M84.5 is an ICD-10-CM code."
+  ]
+ },
+ {
+  "id": "b-ortho-discitis",
+  "t": "Spinal infection (discitis)",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.32",
+  "q": [
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b|x-?ray"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M41.0",
+   "M46.1",
+   "M84.5"
+  ],
+  "px": [
+   "M46.2",
+   "M46.3",
+   "M46.4",
+   "M46.5"
+  ],
+  "fix": [
+   "Bupa prints the same list (M41.0, M46.1, M84.5) for scoliosis, spinal infection and pathological fracture; M84.5 is an ICD-10-CM code.",
+   "Bupa lists M46.1, which is sacroiliitis. Discitis is M46.4 and spinal infection M46.2–M46.5."
+  ]
+ },
+ {
+  "id": "b-ortho-pathological-fracture",
+  "t": "Pathological fracture",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.32",
+  "q": [
+   {
+    "q": "History and neurological examination?",
+    "ev": "neurolog|\\bGCS\\b|power|cranial nerve|plantar|focal|sensation|reflex"
+   },
+   {
+    "q": "Classification?",
+    "ev": "classif|grade|type [IVX0-9]|Weber|Gustilo|Garden|Neer|Sanders|Hawkins|Lauge|Denis|\\bAO\\b|Pipkin|Evans|Schatzker|Meyerding|Lenke|Kellgren|\\bKL\\b|Tile|Letournel|Young-?Burgess|\\bstable\\b|\\bunstable\\b"
+   },
+   {
+    "q": "Radiology report — MRI or CT?",
+    "ev": "\\bMRI\\b|\\bCT\\b|x-?ray"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M41.0",
+   "M46.1",
+   "M84.5"
+  ],
+  "px": [
+   "M84.4",
+   "M80"
+  ],
+  "fix": [
+   "Bupa prints the same list (M41.0, M46.1, M84.5) for scoliosis, spinal infection and pathological fracture; M84.5 is an ICD-10-CM code.",
+   "ICD-10-AM codes pathological fracture at M84.4 (or M80 with osteoporosis)."
+  ]
+ },
+ {
+  "id": "b-ortho-oa-hip",
+  "t": "Osteoarthritis of the hip",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.32",
+  "q": [
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain|pain)[\\s\\S]*(exam|O/E|range of motion|\\bROM\\b|crepitus|effusion|tender)|(exam|O/E|\\bROM\\b|crepitus)[\\s\\S]*(history|pain)"
+   },
+   {
+    "q": "Past history and the previous lines of management?",
+    "ev": "physio|analges|NSAID|paracetamol|injection|previous (treatment|management)|weight loss|brace|tried|failed"
+   },
+   {
+    "q": "Radiology report — X-ray, MRI or CT?",
+    "ev": "x-?ray|\\bXR\\b|\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M16.0",
+   "M16.10",
+   "M16.4",
+   "M17.0",
+   "M17.2",
+   "M17.9"
+  ],
+  "px": [
+   "M16"
+  ],
+  "fix": [
+   "Bupa prints the same list for hip and knee osteoarthritis; M16.10 is an ICD-10-CM code — ICD-10-AM uses M16.1."
+  ]
+ },
+ {
+  "id": "b-ortho-oa-knee",
+  "t": "Osteoarthritis of the knee",
+  "sp": "Orthopaedics",
+  "sec": "Orthopaedics",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.33",
+  "q": [
+   {
+    "q": "History and clinical examination?",
+    "ev": "(history|presented|complain|pain)[\\s\\S]*(exam|O/E|range of motion|\\bROM\\b|crepitus|effusion|tender)|(exam|O/E|\\bROM\\b|crepitus)[\\s\\S]*(history|pain)"
+   },
+   {
+    "q": "Past history and the previous lines of management?",
+    "ev": "physio|analges|NSAID|paracetamol|injection|previous (treatment|management)|weight loss|brace|tried|failed"
+   },
+   {
+    "q": "Radiology report — X-ray, MRI or CT?",
+    "ev": "x-?ray|\\bXR\\b|\\bMRI\\b|\\bCT\\b"
+   },
+   {
+    "q": "Management plan details?",
+    "ev": "\\bplan\\b|management|surgery|operat|fixation|\\bORIF\\b|conservative|physio|refer|admit|\\bcast\\b|brace|arthroplast|arthroscop"
+   }
+  ],
+  "bx": [
+   "M16.0",
+   "M16.10",
+   "M16.4",
+   "M17.0",
+   "M17.2",
+   "M17.9"
+  ],
+  "px": [
+   "M17"
+  ],
+  "fix": [
+   "Bupa prints the same list for hip and knee osteoarthritis; M16.10 is an ICD-10-CM code — ICD-10-AM uses M16.1."
+  ]
+ },
+ {
+  "id": "b-ob-puerperal-psych",
+  "t": "Puerperal psychiatric disorder",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.34",
+  "q": [
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "F53.0",
+   "F53.1"
+  ],
+  "px": [
+   "F53"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-ectopic",
+  "t": "Ectopic pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.34",
+  "q": [
+   {
+    "q": "Transvaginal ultrasound?",
+    "ev": "\\bTVUS\\b|transvaginal|\\bTVS\\b|ultrasound|\\bUSS?\\b"
+   },
+   {
+    "q": "CBC and quantitative beta hCG?",
+    "ev": "(\\bCBC\\b|\\bHb\\b)[\\s\\S]*hCG|hCG[\\s\\S]*(\\bCBC\\b|\\bHb\\b)"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "O00.00",
+   "O00.91"
+  ],
+  "px": [
+   "O00"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O00.00 and O00.91 are ICD-10-CM codes; ICD-10-AM uses O00.0–O00.9."
+  ]
+ },
+ {
+  "id": "b-ob-gtd",
+  "t": "Gestational trophoblastic disease",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.34",
+  "q": [
+   {
+    "q": "Transvaginal ultrasound?",
+    "ev": "\\bTVUS\\b|transvaginal|\\bTVS\\b|ultrasound|\\bUSS?\\b"
+   },
+   {
+    "q": "CBC and quantitative beta hCG?",
+    "ev": "(\\bCBC\\b|\\bHb\\b)[\\s\\S]*hCG|hCG[\\s\\S]*(\\bCBC\\b|\\bHb\\b)"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "O01.0",
+   "O02.0"
+  ],
+  "px": [
+   "O01",
+   "O02.0"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-abortion",
+  "t": "Abortion and termination of pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.34",
+  "q": [
+   {
+    "q": "Transvaginal ultrasound?",
+    "ev": "\\bTVUS\\b|transvaginal|\\bTVS\\b|ultrasound|\\bUSS?\\b"
+   },
+   {
+    "q": "CBC and quantitative beta hCG?",
+    "ev": "(\\bCBC\\b|\\bHb\\b)[\\s\\S]*hCG|hCG[\\s\\S]*(\\bCBC\\b|\\bHb\\b)"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "O02.1",
+   "O07.4"
+  ],
+  "px": [
+   "O02.1",
+   "O03",
+   "O04",
+   "O05",
+   "O06",
+   "O07"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-ectopic-molar",
+  "t": "Complications of ectopic and molar pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.34",
+  "q": [
+   {
+    "q": "Transvaginal ultrasound?",
+    "ev": "\\bTVUS\\b|transvaginal|\\bTVS\\b|ultrasound|\\bUSS?\\b"
+   },
+   {
+    "q": "CBC and quantitative beta hCG?",
+    "ev": "(\\bCBC\\b|\\bHb\\b)[\\s\\S]*hCG|hCG[\\s\\S]*(\\bCBC\\b|\\bHb\\b)"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "O08.0",
+   "O08.9"
+  ],
+  "px": [
+   "O08"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-htn",
+  "t": "Hypertension in pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.35",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, kidney function (urine analysis and protein-to-creatinine ratio) and LFT?",
+    "ev": "(protein.{0,25}creatinine|\\bUPCR\\b|\\bPCR\\b|proteinuria|urin)[\\s\\S]*(\\bLFTs?\\b|liver|\\bALT\\b)|(\\bLFTs?\\b|liver|\\bALT\\b)[\\s\\S]*(protein|urin)"
+   },
+   {
+    "q": "Medical report with the BP readings?",
+    "ev": "\\d{2,3}\\s*/\\s*\\d{2,3}"
+   }
+  ],
+  "bx": [
+   "O10.011",
+   "O16.9"
+  ],
+  "px": [
+   "O10",
+   "O11",
+   "O13",
+   "O14",
+   "O15",
+   "O16"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O10.011 and O16.9 are ICD-10-CM codes; ICD-10-AM uses O10.0 and O16."
+  ]
+ },
+ {
+  "id": "b-ob-early-bleed",
+  "t": "Haemorrhage in early pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.35",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC — with kidney function and LFT, optional?",
+    "ev": "\\bCBC\\b|\\bFBC\\b|full blood count|complete blood count|\\bHb\\b|ha?emoglobin|\\bWBC\\b|platelet"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O20.0",
+   "O20.9"
+  ],
+  "px": [
+   "O20"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-vomiting",
+  "t": "Vomiting in pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.35",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, electrolytes, urine analysis, random blood glucose and quantitative beta hCG?",
+    "ev": "(electrolyte|sodium|potassium)[\\s\\S]*(urin|ketone)|(urin|ketone)[\\s\\S]*(electrolyte|sodium|potassium)"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O21.0",
+   "O21.9"
+  ],
+  "px": [
+   "O21"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-infection",
+  "t": "Infections in pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.35",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, CRP, urine and ESR — according to the type and site of the infection?",
+    "ev": "\\bCBC\\b|\\bCRP\\b|urin|\\bESR\\b"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O23.00",
+   "O23.93"
+  ],
+  "px": [
+   "O23"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O23.00 and O23.93 are ICD-10-CM codes; ICD-10-AM uses O23.0–O23.9."
+  ]
+ },
+ {
+  "id": "b-ob-diabetes",
+  "t": "Diabetes in pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.36",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, RBS, ABG (in an emergency) and urine analysis?",
+    "ev": "\\bRBS\\b|glucose|\\bABG\\b|urin"
+   },
+   {
+    "q": "GTT, if available?",
+    "ev": "\\bGTT\\b|\\bOGTT\\b|glucose tolerance",
+    "opt": 1
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O24.011",
+   "O24.93"
+  ],
+  "px": [
+   "O24"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O24.011 is an ICD-10-CM code; ICD-10-AM uses O24.0–O24.9."
+  ]
+ },
+ {
+  "id": "b-ob-liver",
+  "t": "Liver disease in pregnancy",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.36",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, kidney function, LFT and bilirubin?",
+    "ev": "(\\bLFTs?\\b|liver function|\\bALT\\b|\\bAST\\b)[\\s\\S]*bilirubin|bilirubin[\\s\\S]*(\\bLFTs?\\b|liver function|\\bALT\\b)|bile acid"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O26.611"
+  ],
+  "px": [
+   "O26.6"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O26.611 is an ICD-10-CM code; ICD-10-AM uses O26.6."
+  ]
+ },
+ {
+  "id": "b-ob-cervix",
+  "t": "Cervical shortening",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.36",
+  "q": [
+   {
+    "q": "Transvaginal ultrasound?",
+    "ev": "\\bTVUS\\b|transvaginal|\\bTVS\\b|cervical length"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "O26.872",
+   "O26.879"
+  ],
+  "px": [
+   "O26.8",
+   "O34.3"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O26.872 and O26.879 are ICD-10-CM codes with no ICD-10-AM match; cervical incompetence is O34.3."
+  ]
+ },
+ {
+  "id": "b-ob-dfm",
+  "t": "Decreased fetal movement",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.36",
+  "q": [
+   {
+    "q": "Ultrasound and CTG?",
+    "ev": "(ultrasound|\\bUSS?\\b|scan)[\\s\\S]*\\bCTG\\b|\\bCTG\\b[\\s\\S]*(ultrasound|\\bUSS?\\b|scan)"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O36.8120",
+   "O36.8199"
+  ],
+  "px": [
+   "O36.8"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O36.8120 and O36.8199 are ICD-10-CM codes; ICD-10-AM uses O36.8."
+  ]
+ },
+ {
+  "id": "b-ob-pprom",
+  "t": "Preterm premature rupture of membranes",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.37",
+  "q": [
+   {
+    "q": "Ultrasound and CTG?",
+    "ev": "(ultrasound|\\bUSS?\\b|scan)[\\s\\S]*\\bCTG\\b|\\bCTG\\b[\\s\\S]*(ultrasound|\\bUSS?\\b|scan)"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   },
+   {
+    "q": "Management plan?",
+    "ev": "\\bplan\\b|steroid|dexamethasone|betamethasone|antibiotic|erythromycin|delivery|expectant|admit"
+   }
+  ],
+  "bx": [
+   "O42.00",
+   "O42.92"
+  ],
+  "px": [
+   "O42"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O42.00 and O42.92 are ICD-10-CM codes; ICD-10-AM uses O42.0–O42.9."
+  ]
+ },
+ {
+  "id": "b-ob-placenta",
+  "t": "Placental disorders",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.37",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   },
+   {
+    "q": "Management plan?",
+    "ev": "\\bplan\\b|admit|delivery|steroid|monitor|caesarean|cesarean"
+   }
+  ],
+  "bx": [
+   "O43.011",
+   "O45.93"
+  ],
+  "px": [
+   "O43",
+   "O44",
+   "O45"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "O43.011 and O45.93 are ICD-10-CM codes; ICD-10-AM uses O43, O44 and O45."
+  ]
+ },
+ {
+  "id": "b-ob-preterm-labour",
+  "t": "Preterm labour",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.37",
+  "q": [
+   {
+    "q": "Ultrasound and CTG?",
+    "ev": "(ultrasound|\\bUSS?\\b|scan)[\\s\\S]*\\bCTG\\b|\\bCTG\\b[\\s\\S]*(ultrasound|\\bUSS?\\b|scan)"
+   },
+   {
+    "q": "CBC and kidney function?",
+    "ev": "\\bCBC\\b|\\bKFT\\b|creatinine"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O47.00"
+  ],
+  "px": [
+   "O60",
+   "O47.0"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "Bupa lists O47.00. In ICD-10-AM O47 is false labour; preterm labour is O60."
+  ]
+ },
+ {
+  "id": "b-ob-failed-induction",
+  "t": "Failed induction of labour",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.37",
+  "q": [
+   {
+    "q": "Ultrasound, CTG and partogram?",
+    "ev": "partogra"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O61.0",
+   "O61.9"
+  ],
+  "px": [
+   "O61"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-cs",
+  "t": "Caesarean delivery — indication",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.38",
+  "q": [
+   {
+    "q": "Indication for the caesarean?",
+    "ev": "indication|previous (CS|caesarean|cesarean|LSCS)|breech|placenta praevia|placenta previa|fetal distress|failure to progress|obstructed"
+   },
+   {
+    "q": "Ultrasound report, CTG and partogram?",
+    "ev": "\\bCTG\\b|partogra"
+   }
+  ],
+  "bx": [
+   "O82"
+  ],
+  "px": [
+   "O82"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-ob-puerperium",
+  "t": "Puerperal complications",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.38",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, kidney function, LFT and bilirubin?",
+    "ev": "\\bCBC\\b|\\bKFT\\b|creatinine|\\bLFTs?\\b|bilirubin"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "O85"
+  ],
+  "px": [
+   "O85",
+   "O86",
+   "O87",
+   "O90"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-endometriosis",
+  "t": "Endometriosis",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.38",
+  "q": [
+   {
+    "q": "Ultrasound or MRI?",
+    "ev": "ultrasound|\\bUSS?\\b|\\bTVUS\\b|\\bMRI\\b"
+   },
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   }
+  ],
+  "bx": [
+   "N80"
+  ],
+  "px": [
+   "N80"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-prolapse",
+  "t": "Female genital prolapse",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.38",
+  "q": [
+   {
+    "q": "Medical report and vital signs chart?",
+    "ev": "(report|history|presented|G\\d|gravida)[\\s\\S]*(\\bBP\\b|pulse|\\bHR\\b|temp|vital)|(\\bBP\\b|pulse|vital)[\\s\\S]*(history|presented|G\\d|gravida)"
+   },
+   {
+    "q": "Past history and the initial lines of management?",
+    "ev": "pelvic floor|pessary|physio|previous|tried|Kegel|initial management"
+   }
+  ],
+  "bx": [
+   "N81"
+  ],
+  "px": [
+   "N81"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-polyp",
+  "t": "Polyp of the female genital tract",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.39",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "N84"
+  ],
+  "px": [
+   "N84"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-vulva",
+  "t": "Noninflammatory disorders of the vulva and perineum",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.39",
+  "q": [
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "N90"
+  ],
+  "px": [
+   "N90"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-oligo",
+  "t": "Absent, scanty and rare menstruation",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.39",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC and TSH?",
+    "ev": "\\bTSH\\b"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "N91"
+  ],
+  "px": [
+   "N91"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F"
+ },
+ {
+  "id": "b-gyn-menorrhagia",
+  "t": "Excessive, frequent and irregular menstruation",
+  "sp": "Obstetrics and gynaecology",
+  "sec": "Obstetrics and gynaecology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.39",
+  "q": [
+   {
+    "q": "Ultrasound?",
+    "ev": "ultrasound|\\bUSS?\\b|sonograph|\\bscan\\b"
+   },
+   {
+    "q": "CBC, TSH and coagulation profile?",
+    "ev": "coag|\\bINR\\b|\\bPT\\b|\\bAPTT\\b|\\bPTT\\b"
+   },
+   {
+    "q": "Medical report?",
+    "ev": "report|history|presented|complain|gravida|\\bG\\d|\\bP\\d|\\bLMP\\b"
+   }
+  ],
+  "bx": [
+   "N92",
+   "N93",
+   "N94",
+   "N95",
+   "N96"
+  ],
+  "px": [
+   "N92",
+   "N93"
+  ],
+  "age": [
+   10,
+   60
+  ],
+  "sex": "F",
+  "fix": [
+   "Bupa includes N94–N96 (pain, menopause, recurrent miscarriage) in the heavy-bleeding list."
+  ]
+ },
+ {
+  "id": "b-card-stress-ecg",
+  "t": "Stress ECG",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.40",
+  "q": [
+   {
+    "q": "Full past history, and when the condition was first diagnosed?",
+    "ev": "first diagnosed|since|history of|known|\\bPMH\\b|past history"
+   },
+   {
+    "q": "Resting ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   },
+   {
+    "q": "Pre-test probability — the RF-CL model?",
+    "ev": "pre-?test probabilit|\\bRF-?CL\\b|\\bPTP\\b|risk factor-?weighted"
+   },
+   {
+    "q": "Clinical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   }
+  ],
+  "bx": [
+   "R94.31"
+  ],
+  "px": [
+   "R94.3",
+   "I20",
+   "I25",
+   "R07"
+  ],
+  "svc": [
+   "stress ECG|exercise (ECG|tolerance test|stress)|\\bETT\\b|treadmill"
+  ],
+  "on": "svc",
+  "fix": [
+   "R94.31 is an ICD-10-CM code; ICD-10-AM uses R94.3."
+  ]
+ },
+ {
+  "id": "b-card-ctca",
+  "t": "CT coronary angiography",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.40",
+  "q": [
+   {
+    "q": "Full past history, when first diagnosed, and why CTCA rather than another test?",
+    "ev": "first diagnosed|past history|known|indication|rather than|instead of|versus"
+   },
+   {
+    "q": "Resting ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   },
+   {
+    "q": "Pre-test probability — the RF-CL model?",
+    "ev": "pre-?test probabilit|\\bRF-?CL\\b|\\bPTP\\b|risk factor-?weighted"
+   },
+   {
+    "q": "Clinical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   }
+  ],
+  "bx": [
+   "I21",
+   "I20"
+  ],
+  "px": [
+   "I20",
+   "I21",
+   "I25",
+   "R07"
+  ],
+  "svc": [
+   "\\bCTCA\\b|CT coronary|coronary CT|CT angio(gram|graphy)? (of )?(the )?coronar|calcium scor"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-dse",
+  "t": "Dobutamine stress echocardiography",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.40",
+  "q": [
+   {
+    "q": "Full past history, when first diagnosed, and why this test rather than another?",
+    "ev": "first diagnosed|past history|known|indication|rather than|instead of"
+   },
+   {
+    "q": "Resting ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   },
+   {
+    "q": "Pre-test probability — the RF-CL model?",
+    "ev": "pre-?test probabilit|\\bRF-?CL\\b|\\bPTP\\b|risk factor-?weighted"
+   },
+   {
+    "q": "Clinical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   }
+  ],
+  "bx": [
+   "R07",
+   "I21"
+  ],
+  "px": [
+   "R07",
+   "I20",
+   "I21",
+   "I25"
+  ],
+  "svc": [
+   "dobutamine|stress echo"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-ica",
+  "t": "Invasive coronary angiography",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.40",
+  "q": [
+   {
+    "q": "Full past history, and when first diagnosed?",
+    "ev": "first diagnosed|past history|known|history of"
+   },
+   {
+    "q": "Resting ECG and cardiac enzymes?",
+    "ev": "\\bECG\\b[\\s\\S]*(troponin|enzyme|\\bCK\\b)|(troponin|enzyme)[\\s\\S]*\\bECG\\b"
+   },
+   {
+    "q": "Other imaging report — echo, CT angiography?",
+    "ev": "\\becho|\\bCTCA\\b|CT angio|stress"
+   },
+   {
+    "q": "Pre-test probability — the RF-CL model?",
+    "ev": "pre-?test probabilit|\\bRF-?CL\\b|\\bPTP\\b|risk factor-?weighted"
+   },
+   {
+    "q": "Clinical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   }
+  ],
+  "bx": [
+   "I21",
+   "I20"
+  ],
+  "px": [
+   "I20",
+   "I21",
+   "I22",
+   "I24",
+   "I25"
+  ],
+  "svc": [
+   "coronary angiogra|\\bCAG\\b|cardiac cath|cath lab"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-pci",
+  "t": "PCI",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.41",
+  "q": [
+   {
+    "q": "ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   },
+   {
+    "q": "High-sensitivity troponin?",
+    "ev": "troponin|\\btrop\\b"
+   },
+   {
+    "q": "Angiography report?",
+    "ev": "angiogra|\\bCAG\\b|cath"
+   },
+   {
+    "q": "SYNTAX score II — where it applies (not in acute MI)?",
+    "ev": "SYNTAX",
+    "opt": 1
+   },
+   {
+    "q": "GRACE risk score — in unstable angina?",
+    "ev": "GRACE",
+    "opt": 1
+   },
+   {
+    "q": "Clinical history and full past history?",
+    "ev": "history|past medical|\\bPMH\\b|known"
+   }
+  ],
+  "bx": [
+   "I21",
+   "I20"
+  ],
+  "px": [
+   "I20",
+   "I21",
+   "I22",
+   "I25"
+  ],
+  "svc": [
+   "\\bPCI\\b|coronary (angioplast|stent)|\\bPTCA\\b|drug-eluting stent"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-cabg",
+  "t": "CABG",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.41",
+  "q": [
+   {
+    "q": "ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   },
+   {
+    "q": "High-sensitivity troponin?",
+    "ev": "troponin|\\btrop\\b"
+   },
+   {
+    "q": "Angiography report?",
+    "ev": "angiogra|\\bCAG\\b|cath"
+   },
+   {
+    "q": "SYNTAX score II — where it applies (not in acute MI)?",
+    "ev": "SYNTAX",
+    "opt": 1
+   },
+   {
+    "q": "GRACE risk score — in unstable angina?",
+    "ev": "GRACE",
+    "opt": 1
+   },
+   {
+    "q": "Clinical history and full past history?",
+    "ev": "history|past medical|\\bPMH\\b|known"
+   }
+  ],
+  "bx": [
+   "I21",
+   "I20"
+  ],
+  "px": [
+   "I20",
+   "I21",
+   "I22",
+   "I25"
+  ],
+  "svc": [
+   "\\bCABG\\b|bypass graft"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-ppm",
+  "t": "Permanent pacemaker",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.41",
+  "q": [
+   {
+    "q": "Clinical history, past medical history and the primary aetiology?",
+    "ev": "aetiolog|etiolog|cause|heart block|bradycard|sick sinus|history"
+   },
+   {
+    "q": "Vital signs?",
+    "ev": "\\bBP\\b|blood pressure|\\bHR\\b|pulse|heart rate|\\bRR\\b|resp(iratory)? rate|SpO2|O2 sat|saturation|temperature|\\btemp\\b|vital"
+   },
+   {
+    "q": "ECG — and Holter if available?",
+    "ev": "\\bECG\\b|holter"
+   },
+   {
+    "q": "Initial lines of management?",
+    "ev": "stopped|withheld|atropine|isoprenaline|temporary pacing|medication review|initial management|treated"
+   }
+  ],
+  "bx": [
+   "Z95.0",
+   "R00.2",
+   "I48"
+  ],
+  "px": [
+   "I44",
+   "I45",
+   "I49",
+   "R00.1",
+   "I48",
+   "R55"
+  ],
+  "svc": [
+   "pacemaker|\\bPPM\\b"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa lists Z95.0 (presence of a cardiac device) for pacemaker insertion; that is a status code, not the reason for the device."
+  ]
+ },
+ {
+  "id": "b-card-holter",
+  "t": "Holter monitor",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.41",
+  "q": [
+   {
+    "q": "Clinical history, including how often the palpitations happen?",
+    "ev": "(palpitation|episode|attack)[\\s\\S]{0,60}(per|a|each|times|daily|weekly|week|month|day)|frequen"
+   },
+   {
+    "q": "Resting ECG?",
+    "ev": "\\bECG\\b|\\bEKG\\b"
+   }
+  ],
+  "bx": [
+   "R00.2",
+   "I48"
+  ],
+  "px": [
+   "R00",
+   "I47",
+   "I48",
+   "I49",
+   "R55"
+  ],
+  "svc": [
+   "holter|ambulatory ECG|event monitor"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-abpm",
+  "t": "Ambulatory blood pressure monitoring",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.42",
+  "q": [
+   {
+    "q": "Clinical history?",
+    "ev": "history|presented|presents|complain|c/o|\\bHPI\\b|\\bHPC\\b|since|for \\d+ ?(day|week|month|year)|\\d+ ?(days?|weeks?|months?|years?) (ago|history)"
+   },
+   {
+    "q": "Office BP readings?",
+    "ev": "\\d{2,3}\\s*/\\s*\\d{2,3}|office BP|clinic BP"
+   },
+   {
+    "q": "Home BP readings?",
+    "ev": "home BP|home (blood pressure|readings)|self-?monitor|\\bHBPM\\b"
+   }
+  ],
+  "bx": [
+   "I10",
+   "I11",
+   "R03.0"
+  ],
+  "px": [
+   "I10",
+   "I11",
+   "R03.0"
+  ],
+  "svc": [
+   "\\bABPM\\b|ambulatory (BP|blood pressure)|24.?h(our)? BP"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-card-icd",
+  "t": "ICD device",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.42",
+  "q": [
+   {
+    "q": "Clinical history and full past history?",
+    "ev": "history|past medical|\\bPMH\\b|known"
+   },
+   {
+    "q": "Complete medication history?",
+    "ev": "medication|drug history|current (meds|medications)|\\bon (metformin|insulin|amlodipine|aspirin|statin|inhaler)|\\bmeds\\b"
+   },
+   {
+    "q": "Echocardiogram?",
+    "ev": "\\becho"
+   },
+   {
+    "q": "ECG or Holter report?",
+    "ev": "\\bECG\\b|holter"
+   },
+   {
+    "q": "ER notes?",
+    "ev": "\\bER\\b|emergency|\\bED\\b note|presented to"
+   }
+  ],
+  "bx": [
+   "Z95.810"
+  ],
+  "px": [
+   "I47.2",
+   "I49.0",
+   "I46",
+   "I42",
+   "I50",
+   "I25"
+  ],
+  "svc": [
+   "\\bICD\\b(?! ?-?10)|defibrillator|\\bAICD\\b"
+  ],
+  "on": "svc",
+  "fix": [
+   "Z95.810 is an ICD-10-CM status code (presence of a defibrillator); ICD-10-AM has Z95.8, and the claim needs the arrhythmia or heart-failure code that justifies the device."
+  ]
+ },
+ {
+  "id": "b-card-crt",
+  "t": "CRT device",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.42",
+  "q": [
+   {
+    "q": "Clinical history and full past history?",
+    "ev": "history|past medical|\\bPMH\\b|known"
+   },
+   {
+    "q": "Complete medication history?",
+    "ev": "medication|drug history|current (meds|medications)|\\bon (metformin|insulin|amlodipine|aspirin|statin|inhaler)|\\bmeds\\b"
+   },
+   {
+    "q": "Echocardiogram?",
+    "ev": "\\becho"
+   },
+   {
+    "q": "ECG or Holter report?",
+    "ev": "\\bECG\\b|holter"
+   },
+   {
+    "q": "ER notes?",
+    "ev": "\\bER\\b|emergency|\\bED\\b note|presented to"
+   }
+  ],
+  "bx": [
+   "Z95"
+  ],
+  "px": [
+   "I50",
+   "I42",
+   "I44.7"
+  ],
+  "svc": [
+   "CRT[- ]?[DP]\\b|CRT device|cardiac resynchron|resynchroni[sz]ation|biventricular pac"
+  ],
+  "on": "svc",
+  "fix": [
+   "Bupa lists Z95, a status code; the device is justified by heart failure (I50) or cardiomyopathy (I42)."
+  ]
+ },
+ {
+  "id": "b-card-eps",
+  "t": "EPS and cardiac ablation",
+  "sp": "Cardiology",
+  "sec": "Cardiology",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.42",
+  "q": [
+   {
+    "q": "Past medical history — heart failure, structural heart disease, previous admissions?",
+    "ev": "heart failure|structural|previous admission|cardiomyopath|valv|\\bPMH\\b|no (heart failure|structural)"
+   },
+   {
+    "q": "Previous management and its duration?",
+    "ev": "(beta.?block|bisoprolol|metoprolol|amiodarone|flecainide|diltiazem|verapamil|anticoag)|previous (treatment|management)"
+   },
+   {
+    "q": "Presenting symptoms and clinical status — documented tachycardia episodes and how often, syncope, palpitations?",
+    "ev": "(episode|attack)[\\s\\S]{0,80}(per|times|frequen|week|month)|syncope|palpitation"
+   },
+   {
+    "q": "Arrhythmia documentation — ECGs, Holter or event monitor findings, and echo (structure and function)?",
+    "ev": "(\\bECG\\b|holter|event monitor)[\\s\\S]*\\becho|\\becho[\\s\\S]*(\\bECG\\b|holter)"
+   }
+  ],
+  "bx": [
+   "R00.2",
+   "I48"
+  ],
+  "px": [
+   "I47",
+   "I48",
+   "I49",
+   "R00"
+  ],
+  "svc": [
+   "\\bEPS\\b|electrophysiolog|catheter ablation|cardiac ablation|(AF|SVT|AVNRT|AVRT|flutter|pathway) ablation|ablation (of|for) (AF|SVT|atrial|the pathway|flutter)"
+  ],
+  "on": "svc"
+ },
+ {
+  "id": "b-milk-protocol",
+  "t": "Specialised infant formula — clinical pre-approval guideline",
+  "sp": "Milk products",
+  "sec": "Milk products",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.43",
+  "q": [
+   {
+    "q": "Breastfeeding encouraged first — and documented?",
+    "ev": "breast ?feed|breast ?milk|\\bEBF\\b|lactation"
+   },
+   {
+    "q": "Cow's milk allergy: a trial of extensively hydrolysed formula for 4–8 weeks — and the response? If improved, continue 4–6 months.",
+    "ev": "extensively hydroly[sz]ed|\\beHF\\b|Nutramigen|Pregestimil|Alimentum|Aptamil Pepti|Althera|hydroly[sz]ed"
+   },
+   {
+    "q": "Lactose intolerance: how long has the diarrhoea lasted, and what is the dehydration status?",
+    "ev": "(diarrh)[\\s\\S]{0,80}(\\d+ ?days?|weeks?|>\\s*14|persistent)|dehydrat"
+   },
+   {
+    "q": "Persistent diarrhoea over 14 days in a formula-fed child: a trial of lactose-free formula for 4–6 weeks — and the response?",
+    "ev": "lactose-?free|\\bLF formula|Al 110|\\bO-?Lac"
+   },
+   {
+    "q": "No improvement: referred to a paediatric gastroenterologist?",
+    "ev": "refer[\\s\\S]{0,40}(gastro|\\bGI\\b)|paediatric gastro|pediatric gastro",
+    "opt": 1
+   }
+  ],
+  "px": [
+   "Z91.0",
+   "T78.1",
+   "K52.2",
+   "E73",
+   "P07",
+   "R62",
+   "E70",
+   "E71",
+   "E72",
+   "E74"
+  ],
+  "svc": [
+   "formula|special milk|Neocate|Alfamino|Nutramigen|Pregestimil|Aptamil|Similac|lactose-?free|hydroly[sz]ed|amino acid"
+  ],
+  "no": [
+   "Non-persistent diarrhoea with no or mild dehydration: continue breastfeeding — formula is not the answer.",
+   "Persistent diarrhoea (over 14 days) in a breastfed child: continue breastfeeding.",
+   "Reference: Insurance Authority rules and instructions."
+  ],
+  "age": [
+   0,
+   3
+  ],
+  "gate": 1
+ },
+ {
+  "id": "b-biologics",
+  "t": "Biological agent — submission",
+  "sp": "Biological agents",
+  "sec": "Biological agents",
+  "pay": [
+   "bupa"
+  ],
+  "src": "Bupa Prerequisites p.45",
+  "q": [
+   {
+    "q": "Confirmed diagnosis and ICD-10 code?",
+    "ev": "diagnos|confirmed|ICD|[A-Z]\\d\\d\\.\\d"
+   },
+   {
+    "q": "Specialist consultation notes?",
+    "ev": "rheumatolog|dermatolog|gastroenterolog|allerg|immunolog|pulmonolog|specialist|consultant"
+   },
+   {
+    "q": "Disease severity or activity assessment — the score?",
+    "ev": "\\bDAS-?28\\b|\\bDAS\\b|\\bPASI\\b|\\bEASI\\b|\\bSCORAD\\b|\\bCDAI\\b|\\bSDAI\\b|\\bBASDAI\\b|\\bASDAS\\b|Mayo|Harvey|\\bHBI\\b|\\bUAS7\\b|\\bACT\\b|severity|activity score"
+   },
+   {
+    "q": "Initial investigations attached, where applicable?",
+    "ev": "\\blab|\\bCBC\\b|\\bCRP\\b|\\bESR\\b|\\bRF\\b|anti-?CCP|\\bIgE\\b|eosinophil|biops|x-?ray|\\bMRI\\b|result"
+   },
+   {
+    "q": "Previous treatment history?",
+    "ev": "methotrexate|\\bMTX\\b|sulfasalazine|hydroxychloroquine|leflunomide|azathioprine|topical|phototherapy|ciclosporin|cyclosporin|mesalazine|steroid|antihistamine|previous (treatment|therap)|conventional"
+   },
+   {
+    "q": "Documented treatment failure or intolerance?",
+    "ev": "fail|inadequate response|intoleran|not tolerated|side effect|no response|refractory"
+   },
+   {
+    "q": "TB screening, where applicable?",
+    "ev": "\\bTB\\b|tuberculosis|QuantiFERON|\\bIGRA\\b|\\bPPD\\b|mantoux|\\bCXR\\b|chest x-?ray"
+   },
+   {
+    "q": "HBV and HCV screening, where applicable?",
+    "ev": "HBsAg|hepatitis B|anti-?HBc|\\bHBV\\b|\\bHCV\\b|hepatitis C"
+   },
+   {
+    "q": "Vaccination status reviewed?",
+    "ev": "vaccin|immuni[sz]ation"
+   },
+   {
+    "q": "Clinical rationale for choosing this biologic?",
+    "ev": "rationale|chosen|because|preferred|selected|indicated|mechanism|comorbid"
+   },
+   {
+    "q": "Prescription details — quantities and duration?",
+    "ev": "(mg|dose)[\\s\\S]{0,60}(every|weekly|monthly|q\\d|x ?\\d|for \\d+ (weeks|months))|quantity|duration"
+   }
+  ],
+  "svc": [
+   "biologic|adalimumab|Humira|etanercept|Enbrel|infliximab|Remicade|certolizumab|golimumab|ustekinumab|Stelara|secukinumab|Cosentyx|ixekizumab|guselkumab|risankizumab|tocilizumab|Actemra|rituximab|abatacept|dupilumab|Dupixent|omalizumab|Xolair|mepolizumab|Nucala|benralizumab|Fasenra|tezepelumab|vedolizumab|Entyvio"
+  ],
+  "on": "svc",
+  "no": [
+   "Most common reasons Bupa refuses a biologic: missing disease-severity documentation; missing initial investigations; no evidence of step-therapy failure; missing TB, HBV or HCV screening; missing specialist assessment; insufficient rationale for the biologic chosen."
+  ]
+ }
+]
