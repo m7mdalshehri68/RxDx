@@ -531,6 +531,18 @@
   [
    "([\\d,]+) drugs",
    "$1 دواء"
+  ],
+  [
+   "connected · ([\\d,]+) codes · (.+)",
+   "متصل · $1 كود · $2"
+  ],
+  [
+   "coded by the online service · (\\d+) ms · (.+)",
+   "رمّزتها الخدمة الإلكترونية · $1 ms · $2"
+  ],
+  [
+   "online service · (.+)",
+   "الخدمة الإلكترونية · $1"
   ]
  ],
  "Runs in your browser — patient text is not saved or sent automatically": "تعمل داخل المتصفح — نص المريض لا يُحفظ ولا يُرسل تلقائياً",
@@ -1921,5 +1933,11 @@
  "1 code": "كود واحد",
  "✓ Copied": "✓ تم النسخ",
  "Indication": "دواعي الاستعمال",
- "Before leaving": "قبل المغادرة"
+ "Before leaving": "قبل المغادرة",
+ "coding…": "جارٍ الترميز…",
+ "waking the service up…": "جارٍ تشغيل الخدمة…",
+ "could not reach that address — the offline engine will be used": "تعذّر الوصول إلى هذا العنوان — سيُستخدم المحرك المحلي",
+ "the service could not be reached — coded here in the browser instead": "تعذّر الوصول إلى الخدمة — رُمّزت الملاحظة هنا داخل المتصفح",
+ "enter the address of the service": "أدخل عنوان الخدمة",
+ "the service answered, but not as expected": "ردّت الخدمة، لكن ليس بالشكل المتوقع"
 }
