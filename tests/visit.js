@@ -1,5 +1,6 @@
-/* "Before the patient leaves" — the screen, running in the page with no server.
-   The API calls rxEncounter too, so these tests cover both. */
+/* "Before the patient leaves" — the engine, running in the page with no server.
+   The API calls rxEncounter too, so these tests cover both. The doctor now meets
+   it inside the History Builder (tests/leave.js); the old panel stays for these. */
 const {load,makeEnv,runner}=require('./_harness.js');
 const {code,html}=load();const {S,reset}=makeEnv();
 eval(code+';Object.assign(global,{rxEncounter,vsInit,vsRun,vsDebounce,switchTab,'+
@@ -15,7 +16,8 @@ const ask=(n,payer)=>rxEncounter({complaint:'chest pain',payer:payer||'taw',note
 
 /* ---- it is reachable ---- */
 t('the panel exists in the page',()=>/id="panel-visit"/.test(html));
-t('it is in the doctor navigation',()=>/\["Documentation",\["visit"/.test(html));
+t('it now lives inside the History Builder, not as a screen of its own',()=>
+ !/\["Documentation",\["visit"/.test(html)&&/id="hx-leave-sec"/.test(html));
 t('it has a label',()=>RX_LABELS.visit==='Before the patient leaves');
 t('opening the section fills its own dropdown',()=>{reset();
  switchTab('visit');
