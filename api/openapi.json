@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "RxDx Coding API",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "summary": "Turns clinical free text into ICD-10-AM codes, with the evidence for each one.",
     "description": "Every code comes back with the phrase that earned it, the sentence it sits in, a confidence figure and the reasons behind that figure. The service also returns what the note mentions but the engine deliberately refused to code, so a reviewer can see that a denied diagnosis was read and set aside rather than missed.\n\nThis API runs the same engine as the RxDx browser tool — literally the same script file, not a re-implementation — so the two can never give different answers. A parity test fails the build if they ever do.\n\nMeasured on a 60-note hand-labelled corpus: precision 100.0%, recall 98.7%, F1 99.3% at 3-character ICD category; 97.3%, 94.8% and 96.1% at full code. Negation: 123 of 123 traps held.\n\nPRIVACY. Clinical text is held in memory for the life of one request. It is never written to disk, never logged and never forwarded. The access log records a request id, a character count, how many codes came back and how long it took. If the deployment you are calling is the public demonstration instance, do not send real patient text to it — the note still crosses the public internet to reach the server.",
     "contact": { "name": "Mohammed Alshehri", "email": "m7md.alshehri68@gmail.com", "url": "https://www.linkedin.com/in/mh-sh68/" }
@@ -11,7 +11,8 @@
   "tags": [
     { "name": "documentation", "description": "What the payer will want, while the patient is still in the room" },
     { "name": "coding", "description": "Free text to ICD-10-AM" },
-    { "name": "service", "description": "Health and content provenance" }
+    { "name": "service", "description": "Health and content provenance" },
+    { "name": "code-note", "description": "A physician's note to sequenced, evidenced, validated ICD-10-AM codes, with medical necessity and an audit trail" }
   ],
   "paths": {
     "/v1/presentations": {
@@ -125,6 +126,322 @@
           } } }
         },
         "responses": { "200": { "description": "coded" }, "413": { "description": "too many notes" } }
+      }
+    },
+    "/v1/code-note": {
+      "post": {
+        "tags": [
+          "code-note"
+        ],
+        "summary": "Code one note: principal and additional diagnoses, evidence, necessity, validation",
+        "description": "The RxDx engine is the first and authoritative pass. Every code exists in the ICD-10-AM table at request time; every quote is verified at its offsets; the validation layer runs on every response. The note is held in memory for this request only.",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CodeNoteRequest"
+              },
+              "example": {
+                "clinical_note": "55 y male with central chest pain. Known hypertension. ECG: ST elevation. Troponin elevated. Impression: inferior STEMI. Aspirin and clopidogrel given, referred for primary PCI.",
+                "encounter_type": "emergency",
+                "patient": {
+                  "age_years": 55,
+                  "sex": "male"
+                },
+                "payer": "bupa",
+                "options": {
+                  "use_llm": false,
+                  "max_candidates": 5,
+                  "include_not_coded": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "coded (see coding_validation.valid and clarification_required)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeNoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "the request could not be read, or asks for a coding system other than ICD-10-AM",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "a key is required and was not supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "the note is larger than this service accepts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "the request carries a patient identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "the service failed; nothing from the request was stored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/code-note/batch": {
+      "post": {
+        "tags": [
+          "code-note"
+        ],
+        "summary": "Up to 200 notes in one call",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CodeNoteBatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "one result per note, in order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeNoteBatchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "the request could not be read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "key required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "too many notes, or too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/feedback": {
+      "post": {
+        "tags": [
+          "code-note"
+        ],
+        "summary": "A coder accepts or rejects a returned code (codes only)",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              },
+              "example": {
+                "request_id": "6f5dc6bc-1e3c-48dc-a041-8cc9cf4016e9",
+                "code": "E11.9",
+                "decision": "reject",
+                "reason": "more_specific_available",
+                "replacement_code": "E11.40"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "stored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unknown field, bad reason or bad request id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "the code is not in the ICD-10-AM table",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "code-note"
+        ],
+        "summary": "Export feedback for the Coder Review queue and vocabulary review",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "codes and counts only",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackExport"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/audit/{request_id}": {
+      "get": {
+        "tags": [
+          "code-note"
+        ],
+        "summary": "The audit record of one request on this instance (codes, versions, timings)",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not on this instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -252,6 +569,1086 @@
       "Error": {
         "type": "object",
         "properties": { "error": { "type": "object", "properties": { "code": { "type": "string" }, "message": { "type": "string" } } } }
+      },
+      "CodeNoteRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "clinical_note",
+          "encounter_type"
+        ],
+        "description": "Age and sex only, never identity. A request with a name, national ID or Iqama, MRN, phone, email or date of birth — as a field or inside the note — is refused with 422.",
+        "properties": {
+          "clinical_note": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The physician's note. At most 256 KB (RXDX_MAX_BODY). Held in memory for this request only."
+          },
+          "encounter_type": {
+            "type": "string",
+            "enum": [
+              "outpatient",
+              "emergency",
+              "inpatient",
+              "day_case"
+            ]
+          },
+          "patient": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "age_years": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 130
+              },
+              "sex": {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female"
+                ]
+              }
+            }
+          },
+          "payer": {
+            "type": "string",
+            "enum": [
+              "bupa",
+              "taw",
+              "art"
+            ],
+            "nullable": true
+          },
+          "coding_system": {
+            "type": "string",
+            "enum": [
+              "ICD-10-AM"
+            ],
+            "description": "Optional. Anything other than ICD-10-AM is refused with 400."
+          },
+          "options": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "use_llm": {
+                "type": "boolean",
+                "default": false,
+                "description": "Ask the optional adjudicator. Ignored with a warning unless the service is configured for it."
+              },
+              "max_candidates": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10,
+                "default": 5
+              },
+              "include_not_coded": {
+                "type": "boolean",
+                "default": true
+              },
+              "nphies": {
+                "type": "boolean",
+                "default": false,
+                "description": "Return NPHIES Claim.diagnosis entries when the result is valid and unambiguous."
+              },
+              "coding_system": {
+                "type": "string",
+                "enum": [
+                  "ICD-10-AM"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Evidence": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "quote",
+          "start",
+          "end",
+          "section"
+        ],
+        "description": "Words copied from the note. note.slice(start, end) === quote, character for character.",
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "section": {
+            "type": "string",
+            "enum": [
+              "complaint",
+              "hpi",
+              "pmh",
+              "medications",
+              "allergies",
+              "family_history",
+              "social_history",
+              "examination",
+              "investigations",
+              "assessment",
+              "plan",
+              "other"
+            ]
+          }
+        }
+      },
+      "Diagnosis": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "icd_code",
+          "description",
+          "coding_system",
+          "status",
+          "evidence",
+          "reason",
+          "source",
+          "confidence"
+        ],
+        "properties": {
+          "icd_code": {
+            "type": "string",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+            "description": "An ICD-10-AM code that exists in the table this service loaded."
+          },
+          "description": {
+            "type": "string",
+            "description": "Read from the ICD-10-AM table, never generated."
+          },
+          "coding_system": {
+            "type": "string",
+            "enum": [
+              "ICD-10-AM"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "uncertain",
+              "provisional"
+            ],
+            "description": "uncertain: coded as if established under the admitted-episode policy; provisional: the principal awaits the physician's answer to a clarification."
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "The coding rule applied and why this code outranks the alternatives. Interpretation, kept apart from the quotes."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "engine",
+              "llm",
+              "engine+llm"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Computed from explicit signals (vocabulary match, assertion, assessment, specificity, validation, adjudicator agreement), calibrated on the labelled corpus. Never a model's opinion of itself."
+          }
+        }
+      },
+      "SecondaryDiagnosis": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "icd_code",
+          "description",
+          "coding_system",
+          "status",
+          "evidence",
+          "reason",
+          "source",
+          "confidence",
+          "affects",
+          "supports"
+        ],
+        "properties": {
+          "icd_code": {
+            "type": "string",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+            "description": "An ICD-10-AM code that exists in the table this service loaded."
+          },
+          "description": {
+            "type": "string",
+            "description": "Read from the ICD-10-AM table, never generated."
+          },
+          "coding_system": {
+            "type": "string",
+            "enum": [
+              "ICD-10-AM"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "uncertain",
+              "provisional"
+            ],
+            "description": "uncertain: coded as if established under the admitted-episode policy; provisional: the principal awaits the physician's answer to a clarification."
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "The coding rule applied and why this code outranks the alternatives. Interpretation, kept apart from the quotes."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "engine",
+              "llm",
+              "engine+llm"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Computed from explicit signals (vocabulary match, assertion, assessment, specificity, validation, adjudicator agreement), calibrated on the labelled corpus. Never a model's opinion of itself."
+          },
+          "affects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "treatment",
+                "investigation",
+                "monitoring",
+                "risk"
+              ]
+            },
+            "description": "Why ACS 0002 lets it be coded."
+          },
+          "supports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Planned services it justifies."
+          }
+        }
+      },
+      "NotCoded": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mention",
+          "reason",
+          "evidence"
+        ],
+        "properties": {
+          "mention": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "negated",
+              "ruled_out",
+              "family_history",
+              "historical_no_impact",
+              "integral_symptom",
+              "uncertain",
+              "hypothetical",
+              "insufficient_documentation",
+              "not_in_vocabulary"
+            ]
+          },
+          "icd_codes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+              "description": "An ICD-10-AM code that exists in the table this service loaded."
+            },
+            "description": "What the engine's vocabulary would have coded, had the note asserted it."
+          },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+              "description": "An ICD-10-AM code that exists in the table this service loaded."
+            },
+            "description": "not_in_vocabulary only: codes from the table whose descriptions share the physician's words, for the coder."
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            }
+          }
+        }
+      },
+      "MedicalNecessity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "service",
+          "supported_by",
+          "status"
+        ],
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "medication",
+              "investigation",
+              "imaging",
+              "procedure",
+              "referral",
+              "therapy"
+            ]
+          },
+          "supported_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+              "description": "An ICD-10-AM code that exists in the table this service loaded."
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "supported",
+              "unsupported",
+              "needs_documentation"
+            ]
+          }
+        }
+      },
+      "PayerRequirement": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requirement",
+          "ask",
+          "satisfied"
+        ],
+        "properties": {
+          "requirement": {
+            "type": "string"
+          },
+          "ask": {
+            "type": "string"
+          },
+          "satisfied": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DocumentationGap": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "concerns",
+          "missing",
+          "physician_query"
+        ],
+        "properties": {
+          "concerns": {
+            "type": "string",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+            "description": "An ICD-10-AM code that exists in the table this service loaded."
+          },
+          "missing": {
+            "type": "string"
+          },
+          "physician_query": {
+            "type": "string",
+            "description": "Non-leading: options read from the table in code order, ending with 'Other' and 'Cannot be determined'."
+          }
+        }
+      },
+      "Clarification": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "question",
+          "options"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "principal_ambiguous",
+              "insufficient_documentation",
+              "no_codable_diagnosis"
+            ]
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ValidationIssue": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "severity",
+          "concerns",
+          "message",
+          "fix"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "CODE_NOT_IN_TABLE",
+              "EVIDENCE_NOT_FOUND",
+              "NEGATED_OR_FAMILY_CODED",
+              "SEX_EDIT",
+              "AGE_EDIT",
+              "PDX_NOT_ACCEPTABLE",
+              "DUPLICATE_CONDITION",
+              "NO_PRINCIPAL",
+              "ASTERISK_WITHOUT_DAGGER",
+              "ARABIC_IN_CLAIM_FIELD",
+              "UNSPECIFIED_WHEN_SPECIFIC_DOCUMENTED",
+              "SPECIFICITY_NOT_SUPPORTED",
+              "SYMPTOM_INTEGRAL_TO_DIAGNOSIS",
+              "MORPHOLOGY_REQUIRED",
+              "SERVICE_WITHOUT_DIAGNOSIS",
+              "UNCERTAIN_DIAGNOSIS",
+              "EXTERNAL_CAUSE_EXPECTED",
+              "LLM_DISAGREES_WITH_ENGINE",
+              "LLM_UNAVAILABLE"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "concerns": {
+            "type": "string",
+            "nullable": true,
+            "description": "The diagnosis (or diagnoses) the issue is about."
+          },
+          "message": {
+            "type": "string"
+          },
+          "fix": {
+            "type": "string",
+            "description": "What a coder would do about it."
+          },
+          "mention": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          }
+        }
+      },
+      "CodingValidation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "valid",
+          "errors",
+          "warnings"
+        ],
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationIssue"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationIssue"
+            }
+          }
+        }
+      },
+      "NphiesDiagnosis": {
+        "type": "object",
+        "nullable": true,
+        "additionalProperties": false,
+        "required": [
+          "diagnosis"
+        ],
+        "description": "Claim.diagnosis entries written from api/nphies.config.json. Null unless options.nphies is true and the result is valid and unambiguous.",
+        "properties": {
+          "diagnosis": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sequence",
+                "diagnosisCodeableConcept",
+                "type"
+              ],
+              "properties": {
+                "sequence": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "diagnosisCodeableConcept": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "coding"
+                  ],
+                  "properties": {
+                    "coding": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "system",
+                          "code"
+                        ],
+                        "properties": {
+                          "system": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "display": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "type": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "coding"
+                    ],
+                    "properties": {
+                      "coding": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "system",
+                            "code"
+                          ],
+                          "properties": {
+                            "system": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "display": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "onAdmission": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "coding"
+                  ],
+                  "properties": {
+                    "coding": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "system",
+                          "code"
+                        ],
+                        "properties": {
+                          "system": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "display": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "LlmAudit": {
+        "type": "object",
+        "nullable": true,
+        "additionalProperties": false,
+        "required": [
+          "requested",
+          "used",
+          "outcome"
+        ],
+        "properties": {
+          "provider": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "prompt_version": {
+            "type": "string"
+          },
+          "requested": {
+            "type": "boolean"
+          },
+          "used": {
+            "type": "boolean"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "answered",
+              "timeout",
+              "error",
+              "refused",
+              "truncated",
+              "invalid_json",
+              "invalid_output",
+              "rate_limited",
+              "not_permitted",
+              "failed_validation",
+              "not_configured",
+              "not_permitted_no_dpa",
+              "not_permitted_public_host",
+              "client_not_installed",
+              "unknown_provider",
+              "no_http_client"
+            ]
+          },
+          "ms": {
+            "type": "number"
+          },
+          "deidentified": {
+            "type": "boolean"
+          },
+          "sent_chars": {
+            "type": "integer"
+          },
+          "accepted": {
+            "type": "integer"
+          },
+          "rejected": {
+            "type": "integer"
+          }
+        }
+      },
+      "CodeNoteAudit": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "content_version",
+          "engine_version",
+          "llm",
+          "received_chars",
+          "ms"
+        ],
+        "properties": {
+          "content_version": {
+            "type": "string",
+            "description": "ICD table and vocabulary versions, table fingerprint, service catalogue version, hospital configuration revision."
+          },
+          "engine_version": {
+            "type": "string"
+          },
+          "llm": {
+            "$ref": "#/components/schemas/LlmAudit"
+          },
+          "received_chars": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ms": {
+            "type": "number"
+          },
+          "stage_ms": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "uncertain_diagnosis_policy": {
+            "type": "string",
+            "enum": [
+              "code_symptoms",
+              "code_as_established"
+            ]
+          },
+          "calibration": {
+            "type": "string"
+          },
+          "arabic_chars_ignored": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "CodeNoteResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request_id",
+          "encounter_summary",
+          "primary_diagnosis",
+          "secondary_diagnoses",
+          "not_coded",
+          "medical_necessity",
+          "payer_requirements",
+          "documentation_gaps",
+          "clarification_required",
+          "clarifications",
+          "coding_validation",
+          "nphies",
+          "audit"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "encounter_summary": {
+            "type": "string",
+            "description": "Assembled from coded facts and table descriptions; no identifiers, no note text."
+          },
+          "primary_diagnosis": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Diagnosis"
+              }
+            ],
+            "nullable": true
+          },
+          "secondary_diagnoses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SecondaryDiagnosis"
+            }
+          },
+          "not_coded": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotCoded"
+            }
+          },
+          "medical_necessity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MedicalNecessity"
+            }
+          },
+          "payer_requirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PayerRequirement"
+            }
+          },
+          "documentation_gaps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentationGap"
+            }
+          },
+          "clarification_required": {
+            "type": "boolean"
+          },
+          "clarifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Clarification"
+            }
+          },
+          "coding_validation": {
+            "$ref": "#/components/schemas/CodingValidation"
+          },
+          "nphies": {
+            "$ref": "#/components/schemas/NphiesDiagnosis"
+          },
+          "audit": {
+            "$ref": "#/components/schemas/CodeNoteAudit"
+          }
+        }
+      },
+      "CodeNoteBatchRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "notes"
+        ],
+        "properties": {
+          "notes": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "description": "A CodeNoteRequest plus an optional id (a request reference, never a patient identifier)."
+            }
+          },
+          "defaults": {
+            "type": "object",
+            "description": "Fields applied to every note unless the note sets them (encounter_type, payer, patient, options). use_llm is not available in batch."
+          }
+        }
+      },
+      "CodeNoteBatchResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "count",
+          "content_version",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "content_version": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "{id} plus a CodeNoteResponse, or {id, status, error}."
+            }
+          }
+        }
+      },
+      "FeedbackRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request_id",
+          "code",
+          "decision",
+          "reason"
+        ],
+        "description": "Codes only. There is no free-text field.",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+            "description": "An ICD-10-AM code that exists in the table this service loaded."
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ]
+          },
+          "accept": {
+            "type": "boolean",
+            "description": "Alternative to decision."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "correct",
+              "not_documented",
+              "wrong_code",
+              "more_specific_available",
+              "less_specific_required",
+              "sequencing",
+              "negated_or_family",
+              "duplicate",
+              "clinical_edit",
+              "other"
+            ]
+          },
+          "replacement_code": {
+            "type": "string",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$",
+            "description": "An ICD-10-AM code that exists in the table this service loaded."
+          }
+        }
+      },
+      "FeedbackResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stored",
+          "feedback_id",
+          "request_known",
+          "code_was_returned",
+          "stores"
+        ],
+        "properties": {
+          "stored": {
+            "type": "boolean"
+          },
+          "feedback_id": {
+            "type": "string"
+          },
+          "request_known": {
+            "type": "boolean"
+          },
+          "code_was_returned": {
+            "type": "boolean"
+          },
+          "stores": {
+            "type": "string",
+            "enum": [
+              "codes only"
+            ]
+          }
+        }
+      },
+      "FeedbackExport": {
+        "type": "object",
+        "required": [
+          "product",
+          "kind",
+          "count",
+          "codes",
+          "review_queue"
+        ],
+        "description": "Per-code acceptance for vocabulary review, and each rejection in the Coder Review queue's own buckets (spec, doc, conf2).",
+        "properties": {
+          "product": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "exported": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "review_queue": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "AuditRecord": {
+        "type": "object",
+        "description": "Codes, versions and timings of one request. Never text.",
+        "properties": {
+          "request_id": {
+            "type": "string"
+          },
+          "t": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "principal": {
+            "type": "string",
+            "nullable": true
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "valid": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content_version": {
+            "type": "string"
+          },
+          "engine_version": {
+            "type": "string"
+          },
+          "received_chars": {
+            "type": "integer"
+          },
+          "ms": {
+            "type": "number"
+          }
+        }
       }
     }
   }
