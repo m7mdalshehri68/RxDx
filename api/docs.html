@@ -37,6 +37,8 @@ p+p{margin-top:9px}
 .grid{display:grid;gap:14px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g2{grid-template-columns:1fr 1fr}
+.grid>*{min-width:0}
+table{display:block;overflow-x:auto}
 @media(max-width:820px){.g3,.g2{grid-template-columns:1fr}}
 
 .stat{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:15px 17px}
@@ -191,8 +193,44 @@ Discharged on day 6. Chest x-ray in 6 weeks, repeat creatinine in one week.</tex
   </section>
 
   <section>
+    <h2>Try it — a physician's note to sequenced, evidenced, validated codes</h2>
+    <div class="try">
+      <div class="head">
+        <div><span class="m">POST</span> <span class="u mono">/v1/code-note</span></div>
+        <div class="row" style="margin:0">
+          <select id="cn-enc"><option value="emergency">emergency</option><option value="outpatient">outpatient</option><option value="inpatient">inpatient</option><option value="day_case">day case</option></select>
+          <input type="text" id="cn-age" placeholder="age" style="width:70px" value="55">
+          <select id="cn-sex"><option value="male">male</option><option value="female">female</option><option value="">sex not stated</option></select>
+          <select id="cn-payer"><option value="">no payer</option><option value="bupa">Bupa Arabia</option><option value="taw">Tawuniya</option><option value="art">Al Rajhi Takaful</option></select>
+          <input type="password" id="cn-key" placeholder="X-API-Key" style="width:130px;display:none">
+          <button class="ghost" id="cn-raw" type="button">Show raw JSON</button>
+        </div>
+      </div>
+      <div class="body">
+        <textarea id="cn-txt" spellcheck="false">55 y male with 2 hours of central crushing chest pain radiating to the left arm, with sweating. Known hypertension and dyslipidaemia. Smoker.
+ECG: ST elevation in II, III and aVF. Troponin I elevated. No previous myocardial infarction. Father had a stroke.
+Impression: inferior STEMI.
+Plan: aspirin 300 mg and clopidogrel 600 mg given, referred for primary PCI.</textarea>
+        <div class="samples" id="cn-samples"></div>
+        <div class="row">
+          <button id="cn-go" type="button">Code this note</button>
+          <span id="cn-timing" style="font-size:12.5px;color:var(--text3)"></span>
+        </div>
+        <div class="out" id="cn-out"></div>
+      </div>
+    </div>
+    <p style="margin-top:10px">Every code is read from the ICD-10-AM table and quoted from the note at its exact offsets; the validation
+      layer checks both on every response. A request carrying a name, national ID or Iqama, MRN or phone number is refused.
+      Only invented text belongs on a public instance.</p>
+  </section>
+
+  <section>
     <h2>Endpoints</h2>
     <div class="card">
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/code-note</span><span class="x">principal and additional diagnoses, evidence, medical necessity, documentation gaps, validation</span></div>
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/code-note/batch</span><span class="x">up to 200 notes</span></div>
+      <div class="ep"><span class="m post">POST</span><span class="p">/v1/feedback</span><span class="x">a coder accepts or rejects a code — codes only, no free text</span></div>
+      <div class="ep"><span class="m get">GET</span><span class="p">/v1/audit/{request_id}</span><span class="x">the codes, versions and timings of one request</span></div>
       <div class="ep"><span class="m post">POST</span><span class="p">/v1/encounter</span><span class="x">what the payer will want that is not written yet</span></div>
       <div class="ep"><span class="m get">GET</span><span class="p">/v1/presentations</span><span class="x">the 98 complaints the protocol library knows</span></div>
       <div class="ep"><span class="m post">POST</span><span class="p">/v1/code</span><span class="x">one note</span></div>
@@ -230,8 +268,8 @@ Discharged on day 6. Chest x-ray in 6 weeks, repeat creatinine in one week.</tex
       and then two answers exist for the same note and nobody can say which is right. A parity test runs the whole
       labelled corpus through both and fails the build the moment they disagree.</p>
     <p>What this service does <b>not</b> do: it does not check drug interactions, renal or hepatic dose adjustment,
-      pregnancy or breastfeeding, and it does not decide medical necessity. It reads text and proposes codes.
-      A person signs the note.</p>
+      pregnancy or breastfeeding. It links planned services to the diagnoses that justify them, but it does not approve
+      or refuse a claim. It reads text and proposes codes. A person signs the note, and a coder signs the codes.</p>
   </section>
 
   <footer>
@@ -437,7 +475,79 @@ function encRun(){
 }
 $('enc-go').addEventListener('click', encRun);
 
+/* ---------- /v1/code-note ---------- */
+var cnRaw = false, cnLast = null;
+var CN_SAMPLES = [
+  ['STEMI', $('cn-txt').value, 'emergency', 55, 'male'],
+  ['Two equal reasons', 'Fever, dysuria and a productive cough for 3 days. Chest crackles on the right. Urine dipstick nitrites positive.\nImpression: community acquired pneumonia and urinary tract infection.\nPlan: amoxicillin and nitrofurantoin.', 'outpatient', 40, 'female'],
+  ['Unspecified vs documented', '55 y male with burning pain in both feet at night. Known type 2 diabetes for 12 years, HbA1c 9.1%.\nImpression: diabetic peripheral neuropathy.\nPlan: started pregabalin.', 'outpatient', 55, 'male'],
+  ['Clinical edit', 'Impression: benign prostatic hyperplasia with moderate symptoms. Started tamsulosin.', 'outpatient', 60, 'female'],
+  ['Neoplasm', 'Painless lump in the left breast for 3 weeks.\nImpression: breast cancer, awaiting biopsy.\nPlan: referred to oncology, mammogram booked.', 'outpatient', 50, 'female']
+];
+$('cn-samples').innerHTML = CN_SAMPLES.map(function(s, i){ return '<span class="chip" data-i="' + i + '">' + esc(s[0]) + '</span>'; }).join('');
+$('cn-samples').addEventListener('click', function(e){
+  var i = e.target.getAttribute('data-i'); if (i === null) return;
+  var s = CN_SAMPLES[+i]; $('cn-txt').value = s[1]; $('cn-enc').value = s[2]; $('cn-age').value = s[3]; $('cn-sex').value = s[4]; cnRun();
+});
+function cnEvidence(d){
+  return (d.evidence || []).map(function(e){ return '“' + esc(e.quote) + '” <span style="color:var(--text3)">· ' + esc(e.section) + ' · ' + e.start + '–' + e.end + '</span>'; }).join('<br>');
+}
+function cnCard(d, principal){
+  return '<div class="hit' + (principal ? '' : ' sup') + '"><div class="t"><span class="c">' + esc(d.icd_code) + '</span><span class="d">' + esc(d.description) + '</span>'
+    + '<span class="conf">' + esc(d.status) + ' · ' + esc(d.source) + ' · ' + Math.round(d.confidence * 100) + '%</span></div>'
+    + '<div class="ev">' + cnEvidence(d) + '</div><div class="ev" style="border-left-color:var(--teal)">' + esc(d.reason) + '</div>'
+    + (principal ? '' : '<div class="why">' + (d.affects || []).map(function(a){ return '<span class="up">' + esc(a) + '</span>'; }).join('')
+      + (d.supports || []).map(function(s){ return '<span>supports ' + esc(s) + '</span>'; }).join('') + '</div>') + '</div>';
+}
+function cnRender(r){
+  var h = '';
+  var v = r.coding_validation;
+  h += '<div class="notice ' + (v.valid && !r.clarification_required ? 'ok' : 'warn') + '" style="margin-bottom:10px"><b>'
+    + (v.valid ? 'Valid' : 'Not valid') + (r.clarification_required ? ' · clarification required' : '') + '.</b> ' + esc(r.encounter_summary) + '</div>';
+  (r.clarifications || []).forEach(function(c){ h += '<div class="err" style="background:#fffbeb;border-color:#fde68a;color:#92400e;margin-bottom:8px"><b>Question for the physician:</b> ' + esc(c.question) + '<br>' + c.options.map(esc).join(' · ') + '</div>'; });
+  h += '<div class="flab">Principal diagnosis</div>' + (r.primary_diagnosis ? cnCard(r.primary_diagnosis, true) : '<div class="err">none</div>');
+  if (r.secondary_diagnoses.length) h += '<div class="flab">Additional diagnoses</div>' + r.secondary_diagnoses.map(function(d){ return cnCard(d, false); }).join('');
+  if (v.errors.length || v.warnings.length) {
+    h += '<div class="flab">Validation</div>' + v.errors.concat(v.warnings).map(function(x){
+      return '<div class="hit ' + (x.severity === 'error' ? 'no' : 'sup') + '"><div class="t"><span class="c">' + esc(x.code) + '</span><span class="d">' + esc(x.concerns || '') + '</span></div>'
+        + '<div class="ev">' + esc(x.message) + '</div><div class="ev" style="border-left-color:var(--teal)">Fix: ' + esc(x.fix) + '</div></div>'; }).join('');
+  }
+  if (r.medical_necessity.length) h += '<div class="flab">Medical necessity</div><table><tr><th>service</th><th>status</th><th>supported by</th></tr>'
+    + r.medical_necessity.map(function(m){ return '<tr><td>' + esc(m.service) + '</td><td>' + esc(m.status) + '</td><td class="mono">' + esc(m.supported_by.join(', ')) + '</td></tr>'; }).join('') + '</table>';
+  if (r.payer_requirements.length) h += '<div class="flab">Payer requirements</div><table><tr><th>requirement</th><th>ask</th><th></th></tr>'
+    + r.payer_requirements.map(function(p){ return '<tr><td>' + esc(p.requirement) + '</td><td>' + esc(p.ask) + '</td><td>' + (p.satisfied ? '✓' : 'missing') + '</td></tr>'; }).join('') + '</table>';
+  if (r.documentation_gaps.length) h += '<div class="flab">Documentation gaps</div>' + r.documentation_gaps.map(function(g){
+    return '<div class="hit sup"><div class="t"><span class="c">' + esc(g.concerns) + '</span><span class="d">missing: ' + esc(g.missing) + '</span></div><div class="ev">' + esc(g.physician_query) + '</div></div>'; }).join('');
+  if (r.not_coded.length) h += '<div class="flab">Read and not coded</div>' + r.not_coded.map(function(n){
+    return '<div class="hit no"><div class="t"><span class="d">' + esc(n.mention) + '</span><span class="conf">' + esc(n.reason.replace(/_/g, ' ')) + '</span></div></div>'; }).join('');
+  h += '<div style="margin-top:10px;font-size:12px;color:var(--text3)">' + esc(r.audit.content_version) + ' · ' + esc(r.audit.engine_version) + ' · request ' + esc(r.request_id) + '</div>';
+  return h;
+}
+function cnRun(){
+  var out = $('cn-out'); out.className = 'out on'; out.innerHTML = '<div style="color:var(--text3)">coding…</div>';
+  var body = { clinical_note: $('cn-txt').value, encounter_type: $('cn-enc').value, options: { nphies: true } };
+  var p = {}; var age = parseFloat($('cn-age').value); if (!isNaN(age)) p.age_years = age; if ($('cn-sex').value) p.sex = $('cn-sex').value; body.patient = p;
+  if ($('cn-payer').value) body.payer = $('cn-payer').value;
+  var headers = { 'Content-Type': 'application/json' }; if ($('cn-key').value) headers['X-API-Key'] = $('cn-key').value;
+  var t0 = Date.now();
+  fetch('v1/code-note', { method: 'POST', headers: headers, body: JSON.stringify(body) })
+    .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
+    .then(function(x){
+      $('cn-timing').textContent = (Date.now() - t0) + ' ms';
+      cnLast = x.j;
+      if (!x.ok) { out.innerHTML = '<div class="err">' + esc((x.j.error && x.j.error.message) || 'refused') + '</div>'; return; }
+      out.innerHTML = cnRaw ? '<pre class="json">' + colourJson(x.j) + '</pre>' : cnRender(x.j);
+    })
+    .catch(function(){ out.innerHTML = '<div class="err">The service could not be reached.</div>'; });
+}
+$('cn-go').addEventListener('click', cnRun);
+$('cn-raw').addEventListener('click', function(){
+  cnRaw = !cnRaw; this.textContent = cnRaw ? 'Show the reading' : 'Show raw JSON';
+  if (cnLast && cnLast.request_id) $('cn-out').innerHTML = cnRaw ? '<pre class="json">' + colourJson(cnLast) + '</pre>' : cnRender(cnLast);
+});
+
 fetch('v1/health').then(function(r){ return r.json(); }).then(function(h){
+  if (h.authRequired) $('cn-key').style.display = '';
   $('dot').className = 'dot up';
   $('vertext').textContent = 'v' + h.version + ' · live';
   if (h.icdCodes) $('s-icd').textContent = h.icdCodes.toLocaleString();

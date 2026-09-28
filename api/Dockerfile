@@ -5,10 +5,12 @@ FROM node:20-alpine
 
 WORKDIR /srv
 
-# The engine and the reference table it needs. The drug formulary is not copied:
-# coding a note needs ICD and the vocabulary, not 1,548 medicines.
+# The engine and the reference tables. The coding engine itself still never
+# loads the drug formulary (the parity check depends on that); /v1/code-note
+# reads it separately, reduced to each drug's indicated ICD-10-AM codes, to
+# link planned medicines to the diagnoses that justify them.
 COPY index.html        /srv/index.html
-COPY data/icd-1.js     /srv/data/icd-1.js
+COPY data/             /srv/data/
 COPY gold/             /srv/gold/
 COPY api/              /srv/api/
 

@@ -7,6 +7,9 @@
 # The free plan sleeps after fifteen idle minutes; the first request afterwards
 # can wait about a minute for the container to wake. That is fine for a
 # demonstration and not fine for a ward, which is what the hospital deployment is for.
+#
+# This public instance is for INVENTED TEXT ONLY. Real patients are coded by the
+# same image inside the hospital network: see api/DEPLOY-ON-PREMISE.md.
 services:
   - type: web
     name: rxdx-coding-api

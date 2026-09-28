@@ -56,8 +56,9 @@ by a certified coder is the next step.
 
 ## Tests
 
-605 tests in `tests/`. Run `node tests/<name>.js`.
-The API adds 66 more and a parity check: `cd api && npm test`.
+614 tests in `tests/`. Run `node tests/<name>.js`.
+The API adds 134 more, the labelled corpus through `/v1/code-note`, a privacy canary and a parity
+check: `cd api && npm test`.
 `design/check_language.js` drives both notes with the screen in Arabic and fails if one Arabic
 character reaches a note, a field value or copied codes.
 
@@ -65,8 +66,12 @@ character reaches a note, a field value or copied codes.
 
 `api/` serves the same engine over HTTP for hospital information systems.
 `POST /v1/encounter` returns what the payer still needs; `POST /v1/code` turns a note into
-ICD-10-AM. The service loads this `index.html` and calls the same functions, so the tool and
-the API cannot give different answers. It stores no clinical text. See `api/README.md`.
+ICD-10-AM. `POST /v1/code-note` is the coder's endpoint: principal and additional diagnoses
+sequenced by the Australian Coding Standards, verbatim evidence at exact offsets, medical
+necessity, documentation gaps with physician queries, and a validation layer — every code from
+the ICD-10-AM table, never generated. The service loads this `index.html` and calls the same
+functions, so the tool and the API cannot give different answers. It stores no clinical text.
+See `api/README.md`; for real patients, `api/DEPLOY-ON-PREMISE.md`.
 
 ## Put it online
 
@@ -110,7 +115,7 @@ Upload `hf-upload/` as a new Hugging Face model, then in RxDx open
 |---|---|
 | `index.html` | the tool |
 | `data/` | the ICD-10-AM and formulary tables, loaded by `index.html` |
-| `tests/` | 605 tests |
+| `tests/` | 614 tests |
 | `api/` | HTTP API, Docker image, OpenAPI specification |
 | `gold/` | the labelled corpus and the accuracy harness |
 | `preauth/` | the three payer protocols, parsed; `PA.json` is what the tool loads, `bupa_prereq_build.py` rebuilds Bupa's Prerequisites sets |
