@@ -158,6 +158,27 @@ function createPipeline(opts) {
     const svc = stages.necessity(doc);
     lap('necessity_detect', s);
 
+    /* ACS 0002: a condition written as history is still coded when it still
+       affects this encounter — a medicine indicated for it is being taken or
+       given, or the assessment or plan deals with it ("history of atrial
+       fibrillation, on warfarin"). Otherwise it stays in not_coded. */
+    const meds = svc.current.concat(svc.planned).filter(x => x.kind === 'medication');
+    (ext.dropped || []).filter(c => c.assertion === 'historical').forEach(c => {
+      const root = c.code.split('.')[0];
+      /* a medicine counts only when no current diagnosis already explains it:
+         amoxicillin for today's pneumonia does not treat an old appendicitis */
+      const treated = meds.some(m => m.roots && m.roots.has(root)
+        && !coded.some(k => m.roots.has(k.code.split('.')[0])));
+      const dealtWith = (c.allSpans || []).some(sp => sp.section === 'assessment' || sp.section === 'plan');
+      if (!treated && !dealtWith) return;
+      const hist = (c.allSpans || []).filter(sp => sp.engineActive);
+      c.spans = hist.length ? hist : c.spans;
+      c.assertion = 'present';
+      c.historyWithImpact = treated ? 'treatment' : 'monitoring';
+      (c.enginePrincipal ? coded : integral).push(c);
+      for (let i = refused.length - 1; i >= 0; i--) if (refused[i].droppedByPipeline && refused[i].codes.indexOf(c.code) >= 0) refused.splice(i, 1);
+    });
+
     s = process.hrtime.bigint();
     const cand = stages.candidates(doc, coded, refused, Math.max(1, Math.min(10, o.max_candidates | 0 || 5)));
     lap('candidates', s);

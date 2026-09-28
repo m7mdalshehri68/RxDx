@@ -175,7 +175,7 @@ function createExtractor(engine, table) {
                      section: s.section, assertion: c.assertion, cue: s.cue, droppedByPipeline: true });
     });
 
-    return { conditions, refused };
+    return { conditions, refused, dropped };
   }
 
   return { extract, assertion, spansFor, occurrences, terms };

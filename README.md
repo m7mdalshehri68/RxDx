@@ -57,7 +57,7 @@ by a certified coder is the next step.
 ## Tests
 
 614 tests in `tests/`. Run `node tests/<name>.js`.
-The API adds 134 more, the labelled corpus through `/v1/code-note`, a privacy canary and a parity
+The API adds 135 more, the labelled corpus through `/v1/code-note`, a privacy canary and a parity
 check: `cd api && npm test`.
 `design/check_language.js` drives both notes with the screen in Arabic and fails if one Arabic
 character reaches a note, a field value or copied codes.

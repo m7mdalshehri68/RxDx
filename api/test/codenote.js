@@ -164,6 +164,13 @@ const STEMI = '55 y male with central chest pain radiating to the left arm. Know
     const bad = codes(r.json).filter(c => /^(E11|I10|J45)/.test(c));
     return (!bad.length && r.json.primary_diagnosis.icd_code === 'J18.9' && r.json.not_coded.some(n => n.reason === 'family_history')) || JSON.stringify({ bad, nc: r.json.not_coded });
   });
+  await t('history is coded only when it still affects the encounter (ACS 0002)', async () => {
+    const a = await A.req('POST', '/v1/code-note', note('History of atrial fibrillation, on warfarin. Impression: community acquired pneumonia. Started amoxicillin.'));
+    const b = await A.req('POST', '/v1/code-note', note('Previous appendicitis. Impression: community acquired pneumonia. Started amoxicillin.'));
+    const af = a.json.secondary_diagnoses.find(d => d.icd_code === 'I48.9');
+    return (af && af.affects.indexOf('treatment') >= 0 && codes(b.json).join() === 'J18.9'
+      && b.json.not_coded.some(n => n.reason === 'historical_no_impact' && /appendicitis/.test(n.mention))) || JSON.stringify([codes(a.json), codes(b.json), b.json.not_coded]);
+  });
   await t('Arabic in the note is ignored for coding and never reaches a claim field', async () => {
     const text = 'Impression: community acquired pneumonia. المريض يعاني من سعال. Started amoxicillin.';
     const r = await A.req('POST', '/v1/code-note', note(text));

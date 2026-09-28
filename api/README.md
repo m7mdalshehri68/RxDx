@@ -234,7 +234,7 @@ inside the hospital network.
 ```bash
 cd rxdx-site/api
 node server.js            # http://localhost:8080/docs
-npm test                  # 134 HTTP tests, the gold corpus through /v1/code-note, the privacy canary, parity
+npm test                  # 135 HTTP tests, the gold corpus through /v1/code-note, the privacy canary, parity
 ```
 
 **Docker** (build from the repository root, not from `api/`)
