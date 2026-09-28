@@ -226,7 +226,7 @@ const NOTE = '61 y male, known type 2 diabetes and hypertension. Central chest p
   });
   await t('health reports the protocol and payer content it loaded', async () => {
     const r = await req('GET', '/v1/health');
-    return (r.json.presentations === 98 && r.json.payerRuleSets === 71)
+    return (r.json.presentations === 98 && r.json.payerRuleSets === 222)
       || JSON.stringify({ p: r.json.presentations, r: r.json.payerRuleSets });
   });
   await t('an encounter is answered in a few milliseconds', async () => {
