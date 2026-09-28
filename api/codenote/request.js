@@ -18,8 +18,10 @@ const IDENTITY_KEY = /^(?:name|first_?name|last_?name|full_?name|patient_?name|f
 
 /* identifiers inside free text: kind → pattern */
 const IN_TEXT = [
-  ['national_id_or_iqama', /(?<![\d.])[12]\d{9}(?![\d.])/],
-  ['phone', /(?:\+|00)966[\s-]?5\d(?:[\s-]?\d){7}(?!\d)|(?<![\d.])05\d(?:[\s-]?\d){7}(?!\d)/],
+  /* ten digits starting 1 (citizen) or 2 (resident); not part of a longer
+     number or a decimal, but a full stop after it is just the sentence ending */
+  ['national_id_or_iqama', /(?<!\d|\d\.)[12]\d{9}(?!\d|\.\d)/],
+  ['phone', /(?:\+|00)966[\s-]?5\d(?:[\s-]?\d){7}(?!\d)|(?<!\d|\d\.)05\d(?:[\s-]?\d){7}(?!\d|\.\d)/],
   ['email', /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i],
   ['medical_record_number', /\b(?:mrn|medical record(?: number| no)?|file (?:no|number)|hospital (?:no|number))\s*[:#.]?\s*[A-Z]{0,3}\d{4,}/i],
   ['national_id_or_iqama', /\b(?:national id|iqama(?: number| no)?|id (?:number|no))\s*[:#.]?\s*\d{6,}/i],

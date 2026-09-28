@@ -269,7 +269,7 @@ const server = http.createServer(async (req, res) => {
     }
     SERVED++;
     log({ id, route: p, status: 200, who,
-          presentation: out.presentation, payer: body.payer || null,
+          presentation: out.presentation, payer: ['bupa', 'taw', 'art'].indexOf(body.payer) >= 0 ? body.payer : null,
           chars: (body.note || '').length,
           visitRules: out.payerRequirements.length,
           missing: out.stillMissing.length, ms: Date.now() - t0 });

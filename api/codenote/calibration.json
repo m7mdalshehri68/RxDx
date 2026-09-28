@@ -1,0 +1,48 @@
+{
+ "fitted_on": "gold/corpus.json · 60 notes · 75 returned codes, 73 labelled correct",
+ "method": "L2-regularised logistic regression (lambda 1) on the signals in confidence.js",
+ "weights": {
+  "intercept": 1.8957,
+  "vocab": -0.0436,
+  "abbrev": -0.8,
+  "clear": -0.0576,
+  "named": -0.3878,
+  "specific": 0.6703,
+  "clean": 1.5,
+  "symptom": 0.0596,
+  "llm": 0.7
+ },
+ "fixed_at_prior": [
+  "abbrev",
+  "clean",
+  "llm"
+ ],
+ "brier": 0.0254,
+ "reliability": [
+  {
+   "range": "0–0.8",
+   "n": 0,
+   "predicted": null,
+   "observed": null
+  },
+  {
+   "range": "0.8–0.9",
+   "n": 0,
+   "predicted": null,
+   "observed": null
+  },
+  {
+   "range": "0.9–0.95",
+   "n": 6,
+   "predicted": 0.948,
+   "observed": 0.833
+  },
+  {
+   "range": "0.95–1",
+   "n": 69,
+   "predicted": 0.975,
+   "observed": 0.986
+  }
+ ],
+ "limits": "The corpus was labelled by the author of the vocabulary and has few wrong codes to learn from, so the fitted spread is narrow. The llm weight is a prior, not a fit: no labelled note has been adjudicated yet. Refit when certified coders have reviewed a larger sample."
+}

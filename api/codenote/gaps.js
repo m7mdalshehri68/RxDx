@@ -71,8 +71,10 @@ function createGaps(table) {
      as type 2, "peptic ulcer" coded as acute */
   const ASSERTS = [
     { axis: 'type of diabetes', code: /^E1[01]/, desc: /\btype [12]\b/i, words: /\btype\s*(?:1|2|i|ii|one|two)\b|\bt[12]dm\b|\biddm\b|\bniddm\b|\bjuvenile\b|\binsulin[- ]dependent\b/i, options: ['E10', 'E11', 'E13', 'E14'] },
-    { axis: 'acuity', code: /./, desc: /^acute\b/i, words: /\bacute\b|\bsudden\b|\bacutely\b|\bhyperacute\b/i },
-    { axis: 'acuity', code: /./, desc: /^chronic\b/i, words: /\bchronic\b|\blong[- ]standing\b|\bpersistent\b|\bknown\b/i },
+    /* "Peptic ulcer, acute with perforation" states acuity; "unspecified as
+       acute or chronic" and "chronic or unspecified" do not */
+    { axis: 'acuity', code: /./, desc: /^(?!.*\bacute (?:or|and|on) chronic\b)(?!.*\bchronic or unspecified\b).*\bacute\b/i, words: /\bacute\b|\bsudden\b|\bacutely\b|\bhyperacute\b/i },
+    { axis: 'acuity', code: /./, desc: /^(?!.*\bacute (?:or|and|on) chronic\b)(?!.*\bchronic or unspecified\b).*\bchronic\b/i, words: /\bchronic\b|\blong[- ]standing\b|\bpersistent\b|\bknown\b/i },
     { axis: 'laterality', code: /./, desc: /\b(?:left|right)\b/i, words: /\b(?:left|right|lt|rt)\b/i }
   ];
   /* does the family distinguish this axis at all? (every I21 is acute; K27 is
@@ -91,7 +93,14 @@ function createGaps(table) {
       if (a.words.test(a.options ? wholeNote : contextText)) continue;
       let options;
       if (a.options) options = a.options.map(r => { const k = r + c.code.slice(3); return table.has(k) ? k + ' ' + table.desc(k) : null; }).filter(Boolean);
-      else options = table.siblings(c.code).filter(s => !table.isAsterisk(s)).sort().slice(0, 4).map(s => s + ' ' + table.desc(s));
+      else {
+        /* the members that differ from this one only on the axis asked about */
+        const AXW = /^(?:acute|chronic|subacute|unspecified|left|right|bilateral|unilateral)$/;
+        const own = new Set(table.words(d).filter(w => !AXW.test(w)));
+        const sim = s => { const w = table.words(table.desc(s)).filter(x => !AXW.test(x));
+          const inter = w.filter(x => own.has(x)).length; return inter / (new Set(w.concat(Array.from(own))).size || 1); };
+        options = table.siblings(c.code).filter(s => !table.isAsterisk(s)).sort((x, y) => sim(y) - sim(x)).slice(0, 3).map(s => s + ' ' + table.desc(s));
+      }
       options = options.filter(o => o.indexOf(c.code + ' ') !== 0);
       const listed = [c.code + ' ' + d].concat(options).slice(0, 5).sort();     /* code order, not the order that pays */
       return { axis: a.axis, quote: q,
