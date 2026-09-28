@@ -1,0 +1,12 @@
+{
+ "about": "How /v1/code-note writes the NPHIES Claim.diagnosis entries. Every value here comes from configuration, so a change in NPHIES terminology is an edit to this file, not a release. Check each value against the NPHIES implementation guide your hospital is certified on before submitting real claims.",
+ "diagnosisSystem": "http://hl7.org/fhir/sid/icd-10-am",
+ "codeFormat": "dotted",
+ "typeSystem": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+ "principalType": "principal",
+ "secondaryType": "secondary",
+ "onAdmissionSystem": "http://nphies.sa/terminology/CodeSystem/diagnosis-on-admission",
+ "onAdmission": { "inpatient": "y", "day_case": "y" },
+ "includeDisplay": true,
+ "startSequence": 1
+}
