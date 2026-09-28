@@ -15,7 +15,9 @@
   "drugs": [
    "amoxicillin",
    "clarithromycin"
-  ]
+  ],
+  "principal": "J18.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N02",
@@ -35,7 +37,9 @@
   "drugs": [
    "aspirin",
    "clopidogrel"
-  ]
+  ],
+  "principal": "I21.1",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N03",
@@ -55,7 +59,9 @@
   "drugs": [
    "metformin",
    "empagliflozin"
-  ]
+  ],
+  "principal": "E11.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N04",
@@ -72,7 +78,9 @@
    "neck stiffness",
    "weakness"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "R51",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N05",
@@ -92,7 +100,9 @@
   ],
   "drugs": [
    "tiotropium"
-  ]
+  ],
+  "principal": "J44.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N06",
@@ -112,7 +122,9 @@
   ],
   "drugs": [
    "nitrofurantoin"
-  ]
+  ],
+  "principal": "N39.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N07",
@@ -131,7 +143,9 @@
    "cauda equina",
    "sciatica"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "M54.5",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N08",
@@ -149,7 +163,9 @@
   "drugs": [
    "salbutamol",
    "prednisolone"
-  ]
+  ],
+  "principal": "J45.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N09",
@@ -166,7 +182,9 @@
    "joint swelling",
    "redness"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "M17.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N10",
@@ -186,7 +204,9 @@
   ],
   "drugs": [
    "warfarin"
-  ]
+  ],
+  "principal": "S72.01",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N11",
@@ -204,7 +224,10 @@
    "diabetes",
    "asthma"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": null,
+  "principal_status": "unreviewed",
+  "principal_note": "Routine check with no diagnosis; the corpus labels no code for it (a Z00 examination code would apply), so there is no principal to agree with."
  },
  {
   "id": "N12",
@@ -222,7 +245,9 @@
    "pregnancy",
    "ovarian"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "R10.3",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N13",
@@ -243,7 +268,9 @@
   ],
   "drugs": [
    "furosemide"
-  ]
+  ],
+  "principal": "I50.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N14",
@@ -262,7 +289,9 @@
   ],
   "drugs": [
    "sertraline"
-  ]
+  ],
+  "principal": "F32.10",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N15",
@@ -282,7 +311,10 @@
   "drugs": [
    "diclofenac",
    "tamsulosin"
-  ]
+  ],
+  "principal": "N23",
+  "principal_status": "unreviewed",
+  "principal_note": "The impression documents ureteric colic; the stone is a CT finding the physician did not restate as the diagnosis, so the documented condition is principal."
  },
  {
   "id": "N16",
@@ -300,7 +332,9 @@
    "vaginal bleeding",
    "epigastric pain"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "Z34.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N17",
@@ -319,7 +353,9 @@
    "diplopia",
    "head injury"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "S02.4",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N18",
@@ -341,7 +377,9 @@
   ],
   "drugs": [
    "ramipril"
-  ]
+  ],
+  "principal": "N18.3",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N19",
@@ -362,7 +400,9 @@
   "drugs": [
    "paracetamol",
    "amoxicillin"
-  ]
+  ],
+  "principal": "H66.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N20",
@@ -379,7 +419,9 @@
    "seizure",
    "haemorrhage"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "I63.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N21",
@@ -399,7 +441,9 @@
   "drugs": [
    "ramipril",
    "amlodipine"
-  ]
+  ],
+  "principal": "I10",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N22",
@@ -421,7 +465,9 @@
   "drugs": [
    "ibuprofen",
    "omeprazole"
-  ]
+  ],
+  "principal": "K30",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N23",
@@ -441,7 +487,9 @@
   "drugs": [
    "calcipotriol",
    "betamethasone"
-  ]
+  ],
+  "principal": "L40.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N24",
@@ -458,7 +506,9 @@
    "seizure",
    "stroke"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "E16.2",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N25",
@@ -479,7 +529,9 @@
   ],
   "drugs": [
    "ferrous sulphate"
-  ]
+  ],
+  "principal": "D50.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N26",
@@ -496,7 +548,9 @@
   ],
   "drugs": [
    "ibuprofen"
-  ]
+  ],
+  "principal": "S93.40",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N27",
@@ -513,7 +567,9 @@
    "intermenstrual bleeding",
    "pelvic pain"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "N95.1",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N28",
@@ -530,7 +586,10 @@
   "must_not_code": [],
   "drugs": [
    "ceftriaxone"
-  ]
+  ],
+  "principal": "A41.9",
+  "principal_status": "unreviewed",
+  "principal_note": "ACS 0110: sepsis with its localised infection, sepsis sequenced first."
  },
  {
   "id": "N29",
@@ -546,7 +605,9 @@
    "seizure",
    "head injury"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "F90.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N30",
@@ -565,7 +626,9 @@
   ],
   "drugs": [
    "apixaban"
-  ]
+  ],
+  "principal": "I26.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N31",
@@ -582,7 +645,9 @@
    "sinusitis",
    "facial pain"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "J30.4",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N32",
@@ -600,7 +665,9 @@
   ],
   "drugs": [
    "insulin"
-  ]
+  ],
+  "principal": "E11.11",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N33",
@@ -619,7 +686,9 @@
   ],
   "drugs": [
    "pregabalin"
-  ]
+  ],
+  "principal": "E11.40",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N34",
@@ -636,7 +705,10 @@
   "must_not_code": [],
   "drugs": [
    "co-amoxiclav"
-  ]
+  ],
+  "principal": "J18.9",
+  "principal_status": "unreviewed",
+  "principal_note": "Respiratory failure is a complication named after the pneumonia (\"with\")."
  },
  {
   "id": "N35",
@@ -655,7 +727,9 @@
   ],
   "drugs": [
    "levothyroxine"
-  ]
+  ],
+  "principal": "E03.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N36",
@@ -676,7 +750,9 @@
   "drugs": [
    "metoclopramide",
    "sumatriptan"
-  ]
+  ],
+  "principal": "G43.1",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N37",
@@ -697,7 +773,9 @@
   ],
   "drugs": [
    "aspirin"
-  ]
+  ],
+  "principal": "I70.20",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N38",
@@ -714,7 +792,9 @@
    "tension pneumothorax",
    "mediastinal shift"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "J93.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N39",
@@ -733,7 +813,9 @@
   ],
   "drugs": [
    "aciclovir"
-  ]
+  ],
+  "principal": "B02.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N40",
@@ -752,7 +834,9 @@
    "urinary tract infection",
    "bladder cancer"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "R31",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N41",
@@ -772,7 +856,9 @@
   ],
   "drugs": [
    "hydroxychloroquine"
-  ]
+  ],
+  "principal": "M32.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N42",
@@ -790,7 +876,9 @@
    "dehydration",
    "pneumonia"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "J21.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N43",
@@ -810,7 +898,9 @@
   ],
   "drugs": [
    "prednisolone"
-  ]
+  ],
+  "principal": "M35.3",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N44",
@@ -827,7 +917,9 @@
    "gallstones",
    "cholangitis"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "K85.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N45",
@@ -847,7 +939,9 @@
   ],
   "drugs": [
    "colchicine"
-  ]
+  ],
+  "principal": "M10.07",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N46",
@@ -868,7 +962,9 @@
   ],
   "drugs": [
    "tamsulosin"
-  ]
+  ],
+  "principal": "N20.1",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N47",
@@ -887,7 +983,9 @@
    "weight loss",
    "family history"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "N63",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N48",
@@ -905,7 +1003,9 @@
    "fracture",
    "stroke"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "I95.10",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N49",
@@ -924,7 +1024,9 @@
   ],
   "drugs": [
    "mesalazine"
-  ]
+  ],
+  "principal": "K51.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N50",
@@ -939,7 +1041,9 @@
    "CBD stone"
   ],
   "must_not_code": [],
-  "drugs": []
+  "drugs": [],
+  "principal": "K83.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N51",
@@ -957,7 +1061,9 @@
    "dysuria",
    "urethral discharge"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "N44",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N52",
@@ -974,7 +1080,9 @@
    "complete miscarriage",
    "fever"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "O20.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N53",
@@ -990,7 +1098,9 @@
    "pancreatitis",
    "appendicitis"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "K27.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N54",
@@ -1007,7 +1117,9 @@
    "self harm",
    "psychosis"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "F32.00",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N55",
@@ -1027,7 +1139,9 @@
   ],
   "drugs": [
    "dexamethasone"
-  ]
+  ],
+  "principal": "J05.0",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N56",
@@ -1048,7 +1162,9 @@
   ],
   "drugs": [
    "ramipril"
-  ]
+  ],
+  "principal": "I10",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N57",
@@ -1068,7 +1184,9 @@
   ],
   "drugs": [
    "aspirin"
-  ]
+  ],
+  "principal": "G45.9",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N58",
@@ -1090,7 +1208,10 @@
   "drugs": [
    "ferrous sulphate",
    "tranexamic acid"
-  ]
+  ],
+  "principal": "N93.8",
+  "principal_status": "unreviewed",
+  "principal_note": "The visit is about six months of heavy periods; the anaemia is its consequence and is named after it (\"with\")."
  },
  {
   "id": "N59",
@@ -1108,7 +1229,9 @@
    "head injury",
    "intoxication"
   ],
-  "drugs": []
+  "drugs": [],
+  "principal": "S13.4",
+  "principal_status": "unreviewed"
  },
  {
   "id": "N60",
@@ -1129,6 +1252,8 @@
   ],
   "drugs": [
    "tamsulosin"
-  ]
+  ],
+  "principal": "N40",
+  "principal_status": "unreviewed"
  }
 ]
