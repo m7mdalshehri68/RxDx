@@ -16,6 +16,16 @@
 const fs = require('fs');
 const path = require('path');
 
+/* The browser shell below replaces fetch and the timers with harmless stubs, so
+   the app script cannot schedule work or reach the network. Anything in this
+   service that genuinely needs them (the optional LLM adjudicator and its hard
+   timeout) takes the originals from here, captured before the shell exists. */
+const NATIVE = {
+  fetch: typeof global.fetch === 'function' ? global.fetch.bind(global) : null,
+  setTimeout: global.setTimeout,
+  clearTimeout: global.clearTimeout
+};
+
 const ROOT = path.join(__dirname, '..');
 const HTML = process.env.RXDX_HTML || path.join(ROOT, 'index.html');
 const DATA = path.join(ROOT, 'data');
@@ -161,6 +171,18 @@ function load() {
     + 'ICD,AGE,_stCtx,ST_NEG,ST_ATTRIB,ST_HYPO,_stImpression,_stIsSymptom,_stIsVague,'
     + '_stMeds,_vsRules,_vsSatisfies,_vsResolve,_vsPayerName,_ABBR_CASE,STRUCT_LABS,'
     + 'itcLoad,_itcCoding}});');
+
+  /* The stubbed timers were for the app script's start-up only. Node's own
+     HTTP client calls setTimeout(...).unref() on every request, and with the
+     stub still in place that call throws outside any try — which would take
+     the whole service down the first time anything used fetch. No coding
+     function the service calls schedules a timer (checked over the corpus:
+     zero calls), so the real timers go back now. fetch stays stubbed for the
+     engine; the service's own HTTP client uses NATIVE.fetch. */
+  ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'].forEach(k => {
+    const real = k === 'setTimeout' ? NATIVE.setTimeout : k === 'clearTimeout' ? NATIVE.clearTimeout : require('timers')[k];
+    put(k, real);
+  });
 
   const rx = global.__rx;
   E = {
@@ -335,6 +357,24 @@ function codeNote(text, opts) {
   };
 }
 
+/* The engine's own list, unshaped: what _stProblems returns for this text,
+   with the flags it decided (named in the impression, symptom, principal).
+   codeNote above is this list dressed for /v1/code; /v1/code-note reads it
+   directly so it can explain the engine's decisions rather than re-make them. */
+function problems(text) {
+  const rx = load().rx;
+  const clean = String(text == null ? '' : text);
+  if (clean.trim().length < 3) return [];
+  const low = ' ' + clean.toLowerCase().replace(/\s+/g, ' ') + ' ';
+  return (rx._stProblems(clean, low) || []).map(x => ({
+    code: x.code, term: x.term || '', at: x.at, hits: x.hits || 1,
+    offset: trueOffset(clean, x.term, x.at),
+    named: !!x.named, symptom: !!x.symptom, principal: x.principal !== false,
+    conf: typeof x.conf === 'number' ? x.conf : null, vague: x.vague || 0,
+    why: (x.why || []).map(p => ({ direction: p[0] === '+' ? 'up' : 'down', reason: p[1] }))
+  }));
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    THE INTERACTIVE PART
 
@@ -482,6 +522,6 @@ function askEncounter(opts) {
 }
 
 module.exports = {
-  load, codeNote, refused, sexConflict, contentVersion,
+  NATIVE, load, codeNote, problems, refused, sexConflict, contentVersion, trueOffset,
   askEncounter, listPresentations, resolveComplaint
 };
