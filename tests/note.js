@@ -4,7 +4,7 @@
 const {load,makeEnv}=require('./_harness.js');
 const {code,html}=load();const {S,reset}=makeEnv();
 eval(code+';Object.assign(global,{analyzeNote,noteProblems,_stProblems,napiOn,napiBase,napiCfg,napiShape,'+
- 'napiToggle,napiSave,napiRestore,ICD_MAP,window});');
+ 'napiToggle,napiSave,napiRestore,_napiFetch,NAPI_WAIT,ICD_MAP,window});');
 const {t,done}=runnerLocal();
 function runnerLocal(){const {runner}=require('./_harness.js');return runner();}
 
@@ -84,5 +84,17 @@ t('a service answer maps onto the local shape',()=>{reset();
 t('a service code the local table does not know is dropped, not shown blank',()=>{reset();
  return napiShape({principal:[{code:'ZZ99.9',description:'not a real code',evidence:{term:'x'}}]}).length===0
   ||'kept an unknown code';});
+
+/* a free host sleeps when idle; the doctor is not kept waiting while it wakes */
+t('coding gives the service a deadline, then codes in the browser',()=>{
+ let sig=null; const f0=global.fetch;
+ global.fetch=(u,o)=>{ sig=o&&o.signal; return new Promise(()=>{}); };
+ try{ _napiFetch('https://svc.example/v1/code',{method:'POST'},100); } finally { global.fetch=f0; }
+ return (sig&&sig.aborted===true)||'the request had no deadline';});
+t('the deadline suits a warm service and a waiting doctor',()=>
+ (NAPI_WAIT>=5000&&NAPI_WAIT<=30000)||('NAPI_WAIT is '+NAPI_WAIT));
+t('ticking the box fills in the service address',()=>{reset();
+ S('napi-on').checked=true;S('napi-url').value='';napiToggle(S('napi-on'));
+ return /^https:\/\/\S+\.onrender\.com$/.test(S('napi-url').value)||('got '+S('napi-url').value);});
 
 done();
