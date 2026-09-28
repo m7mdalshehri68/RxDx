@@ -46,7 +46,7 @@ function put(name, value) {
   catch (_) { Object.defineProperty(global, name, { value, writable: true, configurable: true }); }
 }
 
-function installShell() {
+function installShell(seed) {
   const store = Object.create(null);
   global.document = {
     getElementById: id => store[id] || (store[id] = stubElement(id)),
@@ -63,6 +63,9 @@ function installShell() {
   put('navigator', { clipboard: { writeText() {} }, onLine: false, userAgent: 'rxdx-api', language: 'en' });
   put('location', { href: '', reload() {}, origin: '' });
   const mem = Object.create(null);
+  /* The hospital's Control Centre configuration goes where the tool keeps it,
+     so the engine's own itcLoad() reads it exactly as the browser would. */
+  if (seed) for (const k in seed) mem[k] = String(seed[k]);
   const shim = {
     getItem: k => (mem[k] === undefined ? null : mem[k]),
     setItem: (k, v) => { mem[k] = String(v); },
@@ -97,6 +100,34 @@ function readIcd() {
 
 let E = null;   /* the loaded engine */
 
+/* ---------- the hospital's configuration ----------
+   RXDX_CONFIG points at the file Control Centre → Audit → Export writes
+   ({product:'RxDx', kind:'configuration', cfg, itc}). It carries the codes the
+   hospital switched off, its default codes for unqualified phrases and the
+   payer requirement sets it does not contract for. A file that is named but
+   cannot be read stops the service: running with a configuration other than
+   the one the hospital approved would answer differently from its own tool. */
+function readConfig() {
+  const file = String(process.env.RXDX_CONFIG || '').trim();
+  if (!file) return null;
+  let raw, pkg;
+  try { raw = fs.readFileSync(file, 'utf8'); pkg = JSON.parse(raw); }
+  catch (_) { throw new Error('RXDX_CONFIG is set but the file could not be read as JSON'); }
+  if (!pkg || pkg.product !== 'RxDx' || !pkg.itc || typeof pkg.itc !== 'object') {
+    throw new Error('RXDX_CONFIG is not an RxDx configuration export (product RxDx, with itc)');
+  }
+  const itc = pkg.itc;
+  return {
+    file: path.basename(file),
+    facility: String(pkg.facility || (itc.integ && itc.integ.fac) || ''),
+    exported: String(pkg.exported || ''),
+    revision: (itc.meta && itc.meta.rev) || 0,
+    sha256: require('crypto').createHash('sha256').update(raw).digest('hex').slice(0, 16),
+    seed: { rxdx_itc_v1: JSON.stringify(itc), rxdx_cfg_v1: JSON.stringify(pkg.cfg || {}) },
+    itc
+  };
+}
+
 function load() {
   if (E) return E;
   const t0 = Date.now();
@@ -118,12 +149,18 @@ function load() {
       + '\nvar IDF=[];\n' + app;
   }
 
-  installShell();
+  const config = readConfig();
+  installShell(config && config.seed);
   /* `const` inside an eval is scoped to that eval, so the exports have to be
      hoisted out in the same string. */
   (0, eval)(code + ';Object.assign(global,{__rx:{_stProblems,_stActive,_buildNoteIndexes,'
     + '_termAllowed,_wordRe,_stSentence,ICD_MAP,SYN,CONTENT_REG,PRESENTATIONS,'
-    + 'PA,cxCanon,cxAllNames,rxEncounter}});');
+    + 'PA,cxCanon,cxAllNames,rxEncounter,'
+    /* read-only helpers the /v1/code-note pipeline uses to explain the engine's
+       answer — never to reach a different one */
+    + 'ICD,AGE,_stCtx,ST_NEG,ST_ATTRIB,ST_HYPO,_stImpression,_stIsSymptom,_stIsVague,'
+    + '_stMeds,_vsRules,_vsSatisfies,_vsResolve,_vsPayerName,_ABBR_CASE,STRUCT_LABS,'
+    + 'itcLoad,_itcCoding}});');
 
   const rx = global.__rx;
   E = {
@@ -134,7 +171,9 @@ function load() {
     termCount: (() => { try { return rx._buildNoteIndexes().probTerms.length; } catch (_) { return 0; } })(),
     presentationCount: (() => { try { return Object.keys(rx.PRESENTATIONS).length; } catch (_) { return 0; } })(),
     payerRuleCount: (() => { try { return (rx.PA.req || []).length; } catch (_) { return 0; } })(),
-    contentVersion: contentVersion(rx.CONTENT_REG)
+    contentVersion: contentVersion(rx.CONTENT_REG),
+    config: config ? { file: config.file, facility: config.facility, exported: config.exported,
+                       revision: config.revision, sha256: config.sha256 } : null
   };
   return E;
 }

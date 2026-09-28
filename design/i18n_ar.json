@@ -543,6 +543,14 @@
   [
    "online service · (.+)",
    "الخدمة الإلكترونية · $1"
+  ],
+  [
+   "ICD-10-AM codes switched off (\\d+)",
+   "رموز ICD-10-AM المُعطَّلة $1"
+  ],
+  [
+   "Hospital default codes for unqualified phrases (\\d+)",
+   "الرموز الافتراضية للمستشفى للعبارات غير المحددة $1"
   ]
  ],
  "Runs in your browser — patient text is not saved or sent automatically": "تعمل داخل المتصفح — نص المريض لا يُحفظ ولا يُرسل تلقائياً",
@@ -1939,5 +1947,10 @@
  "could not reach that address — the offline engine will be used": "تعذّر الوصول إلى هذا العنوان — سيُستخدم المحرك المحلي",
  "the service could not be reached — coded here in the browser instead": "تعذّر الوصول إلى الخدمة — رُمّزت الملاحظة هنا داخل المتصفح",
  "enter the address of the service": "أدخل عنوان الخدمة",
- "the service answered, but not as expected": "ردّت الخدمة، لكن ليس بالشكل المتوقع"
+ "the service answered, but not as expected": "ردّت الخدمة، لكن ليس بالشكل المتوقع",
+ "A code switched off here is never suggested, by any screen or by the coding service, whatever the note says. Only codes in the ICD-10-AM table can be switched off.": "الرمز المُعطَّل هنا لا يُقترح أبدًا، لا في أي شاشة ولا في خدمة الترميز، مهما ورد في الملاحظة. لا يمكن تعطيل إلا الرموز الموجودة في جدول ICD-10-AM.",
+ "Switch off": "تعطيل",
+ "No code is switched off.": "لا يوجد رمز مُعطَّل.",
+ "One line each: phrase,code,note. When a note uses exactly that phrase and nothing more specific, this code is used — for example what a bare “diabetes” means at this hospital. The same negation rules apply. The coding team owns this list; openmed_tools/preferred_codes.csv is a starting set.": "سطر لكل عبارة: phrase,code,note. عندما تستخدم الملاحظة هذه العبارة بعينها دون تفصيل أدق، يُستخدم هذا الرمز — مثل ما تعنيه كلمة “diabetes” وحدها في هذا المستشفى. تنطبق قواعد النفي نفسها. فريق الترميز هو من يملك هذه القائمة، والملف openmed_tools/preferred_codes.csv مجموعة بداية.",
+ "Save defaults": "حفظ القيم الافتراضية"
 }
