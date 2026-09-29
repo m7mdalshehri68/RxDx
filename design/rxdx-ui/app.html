@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>RxDx — Product UI</title>
+<link rel="icon" href="../../icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="app.css">
+<script>
+  // theme before first paint, so dark mode never flashes light
+  (function () { try { var t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('rxui_theme');
+    var l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('rxui_lang') || 'ar';
+    if (t) document.documentElement.dataset.theme = t; document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr'; } catch (_) {} })();
+</script>
+</head>
+<body>
+<div id="app"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="screens.js"></script>
+</body>
+</html>

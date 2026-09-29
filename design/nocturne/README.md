@@ -2,7 +2,7 @@
 
 A night design system for RxDx's patient-facing clinic surfaces: a midnight ground, glass panels, neon cyan for
 actions and electric emerald for anything live. It is kept alongside the clinical theme in `design/theme.css`
-and does not change the tool.
+and does not change the tool. It is an explored concept; the product keeps the paper-and-teal RxDx identity in `design/rxdx-ui/`.
 
 ![The clinic hero, built from Nocturne](showcase.jpg)
 
@@ -16,11 +16,5 @@ Open `showcase.html` in a browser to see the hero above running live. It needs n
 | `components/` | `bundle.js` (React components on `window.Nocturne`), `bundle.css`, `index.d.ts`, React 18 in `lib/`, and per component a README and the preview the design-system page renders |
 | `icons/` | the 20-icon stroke set as SVG files |
 | `showcase.html` | the 1440 × 810 clinic hero, composed only from the system |
-
-**On the tool.** `app.css` restyles `index.html` with Nocturne. `design/apply_design.py` injects it after
-`theme.css`, and night is now the default look. The moon button still switches to the light clinical theme,
-and the choice is remembered. It is CSS only: the engine, the notes and the tests are untouched.
-
-![RxDx in Nocturne](app-preview.png)
 
 Fonts come from `design/fonts/` (IBM Plex Sans Arabic and JetBrains Mono), and the mark is the app's `icon.svg`.

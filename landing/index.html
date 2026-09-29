@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>RxDx — أكواد تستطيع الدفاع عنها</title>
+<meta name="description" content="RxDx reads the note, codes it to ICD-10-AM, shows the sentence behind every code and what the insurer will ask — before the patient leaves.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../design/rxdx-ui/tokens.css">
+<link rel="stylesheet" href="../design/rxdx-ui/components.css">
+<link rel="stylesheet" href="landing.css">
+<script>
+  (function () { try { var q = new URLSearchParams(location.search), l = q.get('lang') || localStorage.getItem('rxl_lang') || 'ar', t = q.get('theme') || localStorage.getItem('rxl_theme');
+    var r = document.documentElement; r.lang = l; r.dir = l === 'ar' ? 'rtl' : 'ltr'; if (t) r.dataset.theme = t; } catch (_) {} })();
+</script>
+</head>
+<body>
+<div class="ribbon" role="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><b>RXDX</b><span data-t="ribbon">تعمل داخل المتصفح — نص المريض لا يُحفظ ولا يُرسل تلقائياً</span></div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-tile">Rx</span><span class="brand-word"><b>RxDx</b><small>Clinical reference</small></span></a>
+    <nav aria-label="Sections">
+      <a href="#how" data-t="n_how">كيف يعمل</a><a href="#evidence" data-t="n_ev">الدليل</a><a href="#insurer" data-t="n_ins">التأمين</a><a href="#privacy" data-t="n_priv">الخصوصية</a><a href="#accuracy" data-t="n_acc">الدقة</a><a href="#api" data-t="n_api">الواجهة البرمجية</a>
+    </nav>
+    <div class="tools">
+      <button class="tbtn" id="lang" lang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z"/></svg><span data-t="langbtn">English</span></button>
+      <button class="tbtn hide-s" id="theme" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></button>
+      <a class="btn btn-primary" href="../index.html" data-t="open">افتح RxDx</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot">ICD-10-AM</span><span data-t="eyebrow">لمستشفيات المملكة · بوبا والتعاونية والراجحي تكافل</span></span>
+      <h1 data-t="h1">حوّل الملاحظة السريرية إلى <em>أكواد تستطيع الدفاع عنها.</em></h1>
+      <p class="sub" data-t="sub">يقرأ RxDx الملاحظة، ويرمّزها إلى ICD-10-AM، ويُظهر الجملة التي تقف خلف كل كود وما سيطلبه التأمين — قبل أن يغادر المريض.</p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-lg" href="../index.html"><span data-t="open">افتح RxDx</span><svg class="flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-secondary btn-lg" href="#how" data-t="how">شاهد كيف يعمل</a>
+      </div>
+      <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 19 6v5.6c0 4.3-2.9 7.6-7 9.2-4.1-1.6-7-4.9-7-9.2V6z"/><path d="m9 12.2 2.1 2.1 4-4.2"/></svg><span data-t="heronote">يعمل داخل المتصفح. بلا حساب ولا رفع.</span></p>
+
+      <div class="demo-wrap" id="how">
+        <div class="demo" id="demo" tabindex="0" aria-label="Animated demo: a note is coded with its evidence" role="img">
+          <span class="demo-hint"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><span data-t="paused">متوقف مؤقتاً</span></span>
+          <div class="demo-bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl"><b>RXDX</b><span data-t="d_title">الملاحظة ← الأكواد</span></span><span class="sp"></span><span class="eng"><i></i><span data-t="d_engine">المحرك داخل المتصفح</span></span></div>
+          <div class="demo-rib"><b>RXDX</b><span data-t="ribbon">تعمل داخل المتصفح — نص المريض لا يُحفظ ولا يُرسل تلقائياً</span></div>
+          <div class="demo-body" id="dbody">
+            <svg class="d-links" id="dlinks" aria-hidden="true"></svg>
+            <div class="d-note" id="dnote">
+              <div class="meta"><span class="clin">55</span><span data-t="d_f">أنثى</span><span data-t="d_op">عيادة</span><span class="on">Bupa</span></div>
+              <div class="d-text" id="dtext" lang="en"></div>
+              <div class="d-foot"><span class="cnt" id="dcnt">0</span><span class="sp"></span><span class="an" id="dan"><span data-t="analyze">حلّل</span><kbd>⌘↵</kbd></span></div>
+              <div class="d-rail" id="drail"><div class="trk"><div class="fl" id="dfill"></div></div><div class="lb"><span id="dstep"></span><b id="dtime">0.0 s</b></div></div>
+            </div>
+            <div class="d-res" id="dres">
+              <div class="d-empty" id="dempty" data-t="d_empty">تظهر الأكواد هنا مع الجملة التي تثبت كل كود</div>
+              <div class="d-card pr" id="c-p"><span class="lab" data-t="d_pr">التشخيص الرئيسي</span><div class="row"><span class="cd">M54.12</span><span class="bd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.2 4L19 7"/></svg><span data-t="d_conf">مؤكد</span></span></div>
+                <div class="ds" style="margin-top:6px">Radiculopathy, cervical region</div>
+                <div class="qs"><span>Assessment: cervical radiculopathy</span><span>neck pain radiating to the left arm</span><span>reduced left biceps reflex</span></div></div>
+              <div class="d-grid">
+                <div class="d-card sm" id="c-e"><span class="lab" data-t="d_add">إضافي</span><div class="row" style="margin-top:6px"><span class="cd">E11.9</span></div><div class="ds">Type 2 diabetes mellitus without complication</div></div>
+                <div class="d-card sm" id="c-i"><span class="lab" data-t="d_add">إضافي</span><div class="row" style="margin-top:6px"><span class="cd">I10</span></div><div class="ds">Essential (primary) hypertension</div></div>
+              </div>
+              <div class="d-card sm" id="c-n"><span class="lab" data-t="d_nc">لم يُرمَّز</span><div class="d-nc"><div><b>trauma</b><span data-t="r_denied">منفي</span></div><div><b>breast cancer</b><span data-t="r_family">تاريخ عائلي</span></div></div></div>
+              <div class="d-card sm" id="c-b"><span class="lab"><span class="d-pill">Bupa Arabia</span></span><div class="d-ins"><i></i><span>Physiotherapy: duration, primary cause and initial management</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="secs" id="secs">
+    <div class="spine" aria-hidden="true"><svg id="spine" preserveAspectRatio="none"><line class="base" x1="1" y1="0" x2="1" y2="100%"/><line class="run" id="spinerun" x1="1" y1="0" x2="1" y2="0"/><circle class="pulse" id="spinedot" cx="1" cy="0" r="4"/></svg></div>
+
+    <section class="s" id="evidence"><div class="wrap two">
+      <div class="reveal"><span class="s-k" data-t="k1">الدليل</span><h2 data-t="h_ev">لكل كود دليله</h2><p class="lead" data-t="l_ev">اختر كوداً فتضيء في الملاحظة الجملة التي استحقّته. لا يُرمَّز شيء بلا عبارة يمكنك الإشارة إليها.</p>
+        <ul class="points"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span data-t="p1">من الكود إلى الجملة بنقرة واحدة</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.2 4L19 7"/></svg><span data-t="p2">لماذا هذا هو التشخيص الرئيسي، في سطر واحد</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span data-t="p3">مستوى ثقة مع الإشارات التي بُني عليها</span></li></ul></div>
+      <div class="panel ex reveal" id="ex">
+        <div class="ex-note" id="exnote"></div>
+        <div class="ex-codes" role="group" aria-label="Codes"><button data-c="M54.12" aria-pressed="true"><b>M54.12</b><span>Radiculopathy, cervical</span></button><button data-c="E11.9" aria-pressed="false"><b>E11.9</b><span>Type 2 diabetes</span></button><button data-c="I10" aria-pressed="false"><b>I10</b><span>Hypertension</span></button></div>
+        <p class="ex-why" id="exwhy"></p>
+      </div>
+    </div></section>
+
+    <section class="s" id="notcoded"><div class="wrap two rev">
+      <div class="reveal"><span class="s-k" data-t="k2">الشفافية</span><h2 data-t="h_nc">ما لم نرمّزه</h2><p class="lead" data-t="l_nc">العرَض المنفي أو سرطان الأم ليس تشخيصاً للمريضة. يعرض RxDx ما استبعده ولماذا، ليراجع المرمِّز القرار بدل أن يعيده.</p>
+        <p class="lead" style="font-size:var(--fs-15)"><b class="num" style="color:var(--text)">123 / 123</b> — <span data-t="l_nc2">من النتائج المنفية أو المستبعدة بقيت خارج الترميز في العينة المعنونة.</span></p></div>
+      <div class="panel reveal nc-rows">
+        <div class="nc-row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/></svg></span><span><q>No trauma.</q><small class="clin">trauma</small></span><span class="rsn" data-t="r_denied">منفي</span></div>
+        <div class="nc-row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/></svg></span><span><q>Pulmonary embolism ruled out on CT.</q><small class="clin">pulmonary embolism</small></span><span class="rsn" data-t="r_ruled">مستبعد</span></div>
+        <div class="nc-row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M13.5 20a4 4 0 0 1 8 0"/></svg></span><span><q>Mother had breast cancer.</q><small class="clin">breast cancer</small></span><span class="rsn" data-t="r_family">تاريخ عائلي</span></div>
+        <div class="nc-row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.4M12 17h.01"/></svg></span><span><q>Possible gastritis.</q><small class="clin">gastritis</small></span><span class="rsn" data-t="r_unc">غير مؤكد</span></div>
+        <div class="nc-row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><span><q>numbness in the left thumb</q><small class="clin">→ M54.12</small></span><span class="rsn" data-t="r_int">عرَض جزء من التشخيص</span></div>
+      </div>
+    </div></section>
+
+    <section class="s" id="insurer"><div class="wrap two">
+      <div class="reveal"><span class="s-k" data-t="k3">التأمين</span><h2 data-t="h_ins">قبل أن يغادر المريض</h2><p class="lead" data-t="l_ins">اختر شركة التأمين لترى ما ستطلبه ولم تُجب عنه الملاحظة بعد. كل بند يفتح المكان الذي يُكتب فيه — ولا شيء يمنع الطبيب من الاعتماد.</p>
+        <p class="lead" style="font-size:var(--fs-15)"><b class="num" style="color:var(--text)">222</b> <span data-t="l_ins2">مجموعة متطلبات و</span> <b class="num" style="color:var(--text)">702</b> <span data-t="l_ins3">سؤالاً من بروتوكولات الشركات المنشورة.</span></p></div>
+      <div class="panel reveal">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border)"><div class="ins-tabs" id="instabs"><button data-p="bupa" aria-pressed="true"><i style="background:var(--teal)"></i>Bupa Arabia</button><button data-p="taw" aria-pressed="false"><i style="background:var(--coral)"></i>Tawuniya</button><button data-p="art" aria-pressed="false"><i style="background:var(--gold)"></i>Al Rajhi Takaful</button></div></div>
+        <div class="ins-list" id="inslist"></div><div class="ins-src" id="inssrc"></div>
+      </div>
+    </div></section>
+
+    <section class="s" id="bilingual"><div class="wrap">
+      <div class="s-h reveal"><span class="s-k" data-t="k4">اللغة</span><h2 data-t="h_bi">العربية أولاً، والإنجليزية بنقرة</h2><p class="lead" data-t="l_bi">تفتح الواجهة بالعربية من اليمين إلى اليسار. تبقى الملاحظات والأكواد وأسئلة التأمين بالإنجليزية، فلا يصل حرف عربي إلى المطالبة.</p></div>
+      <div class="dual reveal" style="margin-top:36px">
+        <div class="mini" dir="rtl" lang="ar"><div class="mini-top"><span class="t">RXDX</span>الملاحظة ← الأكواد<span class="l">English</span></div><div class="mini-b"><span class="lbl">الملاحظة السريرية</span><div class="note" dir="ltr" lang="en">Examination: <mark>reduced left biceps reflex</mark>.<br><mark>Assessment: cervical radiculopathy</mark>.</div><span class="lbl">التشخيص الرئيسي</span><div class="cc"><b>M54.12</b><span>Radiculopathy, cervical region</span></div></div></div>
+        <div class="mini" dir="ltr" lang="en"><div class="mini-top"><span class="t">RXDX</span>Note → Codes<span class="l" lang="ar">العربية</span></div><div class="mini-b"><span class="lbl">Clinical note</span><div class="note">Examination: <mark>reduced left biceps reflex</mark>.<br><mark>Assessment: cervical radiculopathy</mark>.</div><span class="lbl">Principal diagnosis</span><div class="cc"><b>M54.12</b><span>Radiculopathy, cervical region</span></div></div></div>
+      </div>
+    </div></section>
+
+    <section class="s" id="privacy"><div class="wrap two rev">
+      <div class="reveal"><span class="s-k" data-t="k5">الخصوصية</span><h2 data-t="h_pr">يعمل داخل المتصفح</h2><p class="lead" data-t="l_pr">يبقى نص المريض على الجهاز. لا حساب ولا رفع ولا اسم أو رقم ملف — العمر والجنس فقط. خدمة الترميز عبر الإنترنت اختيارية ومتوقفة افتراضياً، وتقول ذلك بوضوح ما دامت مفعّلة.</p></div>
+      <div class="reveal"><div class="device"><span class="lab" data-t="dev">هذا المتصفح</span>
+        <div class="flow"><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><b data-t="f1">الملاحظة</b><small data-t="f1s">لا تُحفظ</small></div><span class="arr"></span>
+          <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><b data-t="f2">المحرك</b><small class="clin">ICD-10-AM · 16,953</small></div><span class="arr"></span>
+          <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.2 4L19 7"/></svg><b data-t="f3">الأكواد</b><small class="clin">Copy · FHIR R4 · CSV</small></div></div></div>
+        <div class="cloud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/></svg><span data-t="cloud">خدمة الترميز عبر الإنترنت — اختيارية</span><span class="off" data-t="off">متوقفة افتراضياً</span></div></div>
+    </div></section>
+
+    <section class="s" id="accuracy"><div class="wrap">
+      <div class="s-h reveal"><span class="s-k" data-t="k6">الدقة</span><h2 data-t="h_acc">دقة مقاسة، لا مُعلنة</h2><p class="lead" data-t="l_acc">60 ملاحظة سريرية معنونة يدوياً. شغّلها بنفسك: node gold/measure.js</p></div>
+      <div class="acc reveal" style="margin-top:40px">
+        <div><div class="big"><span id="bignum">99.3</span><small>%</small></div><div class="big-l" data-t="acc_l">F1 على مستوى فئة ICD</div></div>
+        <div><div class="panel"><table class="mt"><thead><tr><th></th><th data-t="t_cat">فئة ICD</th><th data-t="t_full">الكود الكامل</th></tr></thead><tbody>
+          <tr><td data-t="t_p">الدقة (Precision)</td><td class="n">100.0%</td><td class="n">97.3%</td></tr>
+          <tr><td data-t="t_r">الاستدعاء (Recall)</td><td class="n">98.7%</td><td class="n">94.8%</td></tr>
+          <tr><td>F1</td><td class="n">99.3%</td><td class="n">96.1%</td></tr></tbody></table></div>
+          <div class="caveat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg><span data-t="caveat">دليل داخلي: كتب العناوين مؤلفُ المفردات نفسه. الخطوة التالية تدقيق مستقل من مرمِّز معتمد.</span></div></div>
+      </div>
+    </div></section>
+
+    <section class="s" id="api"><div class="wrap two">
+      <div class="reveal"><span class="s-k" data-t="k7">التكامل</span><h2 data-t="h_api">واجهة برمجية لأنظمة المستشفى</h2><p class="lead" data-t="l_api">المحرك نفسه عبر HTTP. تحمّل الخدمة الملف نفسه الذي يحمّله المتصفح، فلا يمكن أن تختلف الأداة والواجهة في جواب. ولا تخزّن نصاً سريرياً.</p>
+        <ul class="points"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.2 4L19 7"/></svg><span class="clin" style="font-family:var(--mono);font-size:13.5px">POST /v1/code</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.2 4L19 7"/></svg><span class="clin" style="font-family:var(--mono);font-size:13.5px">POST /v1/encounter</span></li></ul></div>
+      <pre class="code reveal"><span class="c"># the note in, ICD-10-AM out, with the sentence behind each code</span>
+<span class="k">POST</span> /v1/code
+{ <span class="s">"text"</span>: <span class="s">"… Assessment: cervical radiculopathy. …"</span> }
+
+{
+  <span class="s">"principal"</span>: [{
+    <span class="s">"code"</span>: <span class="s">"M54.12"</span>,
+    <span class="s">"description"</span>: <span class="s">"Radiculopathy, cervical region"</span>,
+    <span class="s">"evidence"</span>: { <span class="s">"sentence"</span>: <span class="s">"Assessment: cervical radiculopathy."</span> }
+  }],
+  <span class="s">"mentionedButNotCoded"</span>: [{
+    <span class="s">"term"</span>: <span class="s">"trauma"</span>, <span class="s">"reason"</span>: <span class="s">"the note denies or excludes this"</span>
+  }]
+}</pre>
+    </div></section>
+  </div>
+
+  <section class="final"><div class="wrap reveal">
+    <h2 data-t="h_final">رمّز الملاحظة القادمة، والدليل بجانبها.</h2>
+    <div class="ctas"><a class="btn btn-primary btn-lg" href="../index.html" data-t="open">افتح RxDx</a><a class="btn btn-secondary btn-lg" href="../design/rxdx-ui/app.html" data-t="proto">جرّب نموذج الواجهة</a></div>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><span class="brand"><span class="brand-tile" style="width:28px;height:28px;font-size:11px">Rx</span></span><span>Mohammed Alshehri</span><a href="mailto:m7md.alshehri68@gmail.com">m7md.alshehri68@gmail.com</a><a href="https://www.linkedin.com/in/mh-sh68/" rel="noopener">linkedin.com/in/mh-sh68</a><span class="sp"></span><span data-t="foot">لا يغني عن حكم المرمِّز السريري.</span></div></footer>
+
+<script src="landing.js"></script>
+</body>
+</html>
