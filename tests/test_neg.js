@@ -1,21 +1,10 @@
-const fs=require('fs');const path=require('path');
-function _rxFind(){ if(process.env.RXDX_HTML&&fs.existsSync(process.env.RXDX_HTML))return process.env.RXDX_HTML;
- for(const p of [path.join(__dirname,'..','index.html'),path.join(__dirname,'..','RxDx.html'),
-   '/sessions/busy-elegant-allen/mnt/outputs/RxDx.html']) if(fs.existsSync(p))return p;
- throw new Error('RxDx html not found. Set RXDX_HTML.'); }
-const h=fs.readFileSync(_rxFind(),'utf8');
-const m=h.indexOf('const IDF');const s=h.lastIndexOf('<script>',m)+8;const e=h.indexOf('</script>',m);const code=h.slice(s,e);
-function el(id){var o={id:id,value:'',innerHTML:'',className:'',checked:false,style:{},options:[],_attr:{},_kids:[],parentNode:{insertBefore(){}},classList:{add(){},remove(){},toggle(){},contains:()=>false},appendChild(){},addEventListener(){},focus(){},click(){},remove(){},scrollIntoView(){},getAttribute:n=>o._attr[n]||null,setAttribute:(n,v)=>{o._attr[n]=String(v);},removeAttribute(){},querySelector:()=>null,querySelectorAll:()=>[],closest:()=>null};return o;}
-var store={},sel={};function S(id){if(!store[id])store[id]=el(id);return store[id];}
-global.document={getElementById:id=>S(id),querySelectorAll:()=>[],querySelector:()=>null,createElement:t=>el(t),addEventListener(){},body:{classList:{add(){},remove(){},toggle:()=>true},appendChild(){}}};
-global.window=global;global.navigator={clipboard:{writeText(){}},onLine:true};global.location={reload(){}};
-var _ls={};global.localStorage={getItem:()=>null,setItem(){},removeItem(){},hasOwnProperty:()=>false};
-global.sessionStorage={getItem:()=>null,setItem(){},removeItem(){}};
-global.alert=()=>{};global.confirm=()=>true;global.prompt=()=>'';global.setInterval=()=>1;
-global.setTimeout=(f)=>{if(typeof f==='function'){try{f();}catch(_){}}return 1;};global.clearTimeout=()=>{};
-global.fetch=()=>Promise.reject(0);global.Blob=function(){};global.URL={createObjectURL:()=>'x',revokeObjectURL(){}};
+/* Negation, family history and the connection light. Loads the tool through
+   the shared harness, so it runs on the web build (tables in data/*.js) as
+   well as a single-file build. */
+const {load,makeEnv,runner}=require('./_harness.js');
+const {code}=load();const {S}=makeEnv();
 eval(code+'\n;Object.assign(global,{_stProblems,CXPLUS,PLANCX,rxNetPaint,rxNetCheck,_stSkipNote});');
-let P=0,F=0;const t=(n,f)=>{try{const r=f();if(r===true||r===undefined)P++;else{F++;console.log('  FAIL',n,'→',r);}}catch(err){F++;console.log('  ERR ',n,'→',err.message);}};
+const {t,done}=runner();
 const codes=(note)=>{const low=' '+note.toLowerCase().replace(/\s+/g,' ')+' ';
  return _stProblems(note,low).map(x=>x.code+' '+x.desc);};
 const has=(note,rx)=>codes(note).some(c=>rx.test(c));
@@ -45,18 +34,31 @@ t('an empty note codes nothing',()=>codes('').length===0);
 t('the junk differential layer is gone',()=>Object.keys(CXPLUS.ddx||{}).length===0&&Object.keys(CXPLUS.red||{}).length===0);
 
 // ── the connection light ──
-t('the light shows green when online',()=>{global.navigator.onLine=true;rxNetCheck();
- const e=S('rx-net');return /\bon\b/.test(e.className)&&/Online/.test(e.innerHTML);});
 t('and red when offline',()=>{global.navigator.onLine=false;rxNetCheck();
  const e=S('rx-net');return /\boff\b/.test(e.className)&&/Offline/.test(e.innerHTML);});
+/* the offline explanation lives in the light's tooltip */
 t('offline still says the tool works',()=>{global.navigator.onLine=false;rxNetCheck();
- return /everything still works/i.test(S('rx-net').innerHTML);});
-t('it reassures that data never leaves the device',()=>{global.navigator.onLine=true;rxNetCheck();
- return /never leaves this device/i.test(S('rx-net')._attr.title||S('rx-net').title||'');});
+ return /continue to work/i.test(S('rx-net').title||'');});
 t('the doctor is told what was left out',()=>{
  _stProblems('Patient denies fever.',' patient denies fever. ');
  return /Not coded, and why/.test(_stSkipNote());});
 t('nothing skipped, nothing said',()=>{
  _stProblems('Type 2 diabetes mellitus.',' type 2 diabetes mellitus. ');
  return _stSkipNote()==='';});
-console.log(P+' passed, '+F+' failed');process.exit(F?1:0);
+/* Online is no longer read from navigator.onLine, which reports a cable or a
+   radio, not the internet (it showed green while offline). The light turns
+   green only when a probe reaches the server, and that answer arrives
+   asynchronously, so these checks wait for it. */
+(async()=>{
+ const settle=()=>new Promise(r=>setImmediate(r));
+ await settle();   /* the page probes once when it loads; let that one finish first */
+ global.navigator.onLine=true;global.fetch=()=>Promise.resolve({ok:true});
+ rxNetCheck();await settle();
+ t('the light shows green when online',()=>{
+  const e=S('rx-net');return /\bon\b/.test(e.className)&&/Online/.test(e.innerHTML);});
+ t('it reassures that data never leaves the device',()=>/never leaves this device/i.test(S('rx-net').title||''));
+ global.fetch=()=>Promise.reject(0);
+ rxNetCheck();await settle();
+ t('a network cable without internet is not shown as online',()=>/\boff\b/.test(S('rx-net').className));
+ done();
+})();

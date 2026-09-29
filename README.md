@@ -56,7 +56,7 @@ by a certified coder is the next step.
 
 ## Tests
 
-614 tests in `tests/`. Run `node tests/<name>.js`.
+642 tests in `tests/`. Run `node tests/<name>.js`.
 The API adds 135 more, the labelled corpus through `/v1/code-note`, a privacy canary and a parity
 check: `cd api && npm test`.
 `design/check_language.js` drives both notes with the screen in Arabic and fails if one Arabic
@@ -115,7 +115,7 @@ Upload `hf-upload/` as a new Hugging Face model, then in RxDx open
 |---|---|
 | `index.html` | the tool |
 | `data/` | the ICD-10-AM and formulary tables, loaded by `index.html` |
-| `tests/` | 614 tests |
+| `tests/` | 642 tests |
 | `api/` | HTTP API, Docker image, OpenAPI specification |
 | `gold/` | the labelled corpus and the accuracy harness |
 | `preauth/` | the three payer protocols, parsed; `PA.json` is what the tool loads, `bupa_prereq_build.py` rebuilds Bupa's Prerequisites sets |
