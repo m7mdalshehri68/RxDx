@@ -1,0 +1,148 @@
+<!-- @dsCard group="Pages" page width=1440 height=810 subtitle="The hero, composed from the system at 16:9" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Showcase — clinic hero</title>
+<style>
+  html, body { margin: 0; background: var(--abyss); }
+  .hero { position: relative; width: 1440px; height: 810px; overflow: hidden; }
+  .nav { position: absolute; top: 28px; left: 64px; right: 64px; z-index: 5; }
+
+  /* left: the promise */
+  .copy { position: absolute; left: 80px; top: 178px; width: 600px; z-index: 4; }
+  .kicker { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); }
+  .kicker em { font: 600 11px/16px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); font-style: normal; }
+  .copy h1 { margin: 0; color: var(--ink); }
+  .copy h1 .glow { background: linear-gradient(92deg, var(--cyan) 10%, var(--emerald) 90%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 22px rgba(34, 228, 255, .35)); }
+  .copy p { margin: var(--space-6) 0 0; max-width: 500px; color: var(--ink-muted); }
+  .ctas { display: flex; gap: var(--space-3); margin-top: var(--space-10); }
+  .assure { position: absolute; left: 80px; bottom: 56px; display: flex; gap: var(--space-8); z-index: 4; }
+  .assure span { display: inline-flex; align-items: center; gap: 10px; font: 500 13px/18px var(--font-sans); color: var(--ink-muted); }
+  .assure .nc-icon { color: var(--emerald); }
+
+  /* right: the stage */
+  .radar { position: absolute; left: 670px; top: 104px; width: 660px; height: 660px; z-index: 0; pointer-events: none; }
+  .radar svg { width: 100%; height: 100%; overflow: visible; }
+  .radar .r1 { fill: none; stroke: rgba(150, 215, 255, .10); stroke-width: 1; }
+  .radar .r2 { fill: none; stroke: rgba(34, 228, 255, .28); stroke-width: 1; stroke-dasharray: 2 10; transform-origin: 330px 330px; animation: nc-spin 90s linear infinite; }
+  .radar .r3 { fill: none; stroke: rgba(34, 228, 255, .5); stroke-width: 2; stroke-dasharray: 90 1200; stroke-linecap: round; transform-origin: 330px 330px; animation: nc-spin 14s linear infinite; filter: drop-shadow(0 0 6px var(--cyan)); }
+  .radar .tick { stroke: rgba(150, 215, 255, .22); stroke-width: 1; }
+  .holo { position: absolute; left: 785px; top: 118px; z-index: 2; }
+  .hud { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .hud path { fill: none; stroke: rgba(34, 228, 255, .45); stroke-width: 1; stroke-dasharray: 3 4; }
+  .hud circle { fill: var(--abyss); stroke: var(--cyan); stroke-width: 1.5; }
+  .hud circle.e { stroke: var(--emerald); }
+  .w { position: absolute; z-index: 3; }
+  .w-heart { left: 612px; top: 196px; width: 250px; }
+  .w-spo2 { left: 1136px; top: 158px; width: 212px; display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+  .w-bp { left: 1128px; top: 432px; width: 220px; }
+  .find { margin-top: var(--space-8); width: 520px; }
+  .w-next { left: 620px; top: 530px; width: 248px; }
+  .spo2-foot { font: 500 12px/16px var(--font-sans); color: var(--ink-muted); text-align: center; }
+  .next { display: flex; align-items: center; gap: var(--space-3); }
+  .next-ic { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: var(--radius-sm); background: var(--cyan-soft); color: var(--cyan); }
+  .next-k { display: block; font: 600 10.5px/14px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
+  .next-v { display: block; margin-top: 3px; font: 600 16px/20px var(--font-sans); color: var(--ink); }
+  .next-v b { font-family: var(--font-mono); font-weight: 400; color: var(--cyan); }
+  .next-row { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-4); }
+  .slots { display: flex; gap: 6px; }
+  .slots i { font: 400 11.5px/24px var(--font-mono); font-style: normal; padding: 0 8px; border-radius: var(--radius-full); border: 1px solid var(--glass-edge); color: var(--ink-muted); }
+  .dock { position: absolute; right: 64px; bottom: 44px; display: flex; gap: var(--space-4); z-index: 4; }
+  .motes i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--cyan-bright); box-shadow: 0 0 8px 2px rgba(34, 228, 255, .6); opacity: .0; animation: mote 7s var(--ease-in-out) infinite; z-index: 2; }
+  .motes i:nth-child(3n) { background: var(--emerald); box-shadow: 0 0 8px 2px rgba(43, 245, 169, .55); }
+  @keyframes mote { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: .9; } 100% { transform: translateY(-160px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .radar .r2, .radar .r3, .motes i { animation: none; } .motes i { opacity: .5; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  var LOGO = '/_blob/23cb1de69e0555dbc47bee1e06fa6c3e';
+
+  function Radar() {
+    var ticks = [];
+    for (var i = 0; i < 72; i++) {
+      var a = i / 72 * Math.PI * 2, r1 = 318, r2 = i % 6 === 0 ? 304 : 311;
+      ticks.push(h('line', { key: i, className: 'tick', x1: 330 + Math.cos(a) * r1, y1: 330 + Math.sin(a) * r1, x2: 330 + Math.cos(a) * r2, y2: 330 + Math.sin(a) * r2 }));
+    }
+    return h('div', { className: 'radar', 'aria-hidden': true },
+      h('svg', { viewBox: '0 0 660 660' },
+        h('circle', { className: 'r1', cx: 330, cy: 330, r: 318 }),
+        h('circle', { className: 'r1', cx: 330, cy: 330, r: 240 }),
+        h('circle', { className: 'r2', cx: 330, cy: 330, r: 280 }),
+        h('circle', { className: 'r3', cx: 330, cy: 330, r: 280 }),
+        ticks));
+  }
+
+  function Hud() {
+    // callout leaders from each widget to the figure
+    return h('svg', { className: 'hud', viewBox: '0 0 1440 810', 'aria-hidden': true },
+      h('path', { d: 'M862 300H900L948 352' }), h('circle', { className: 'e', cx: 948, cy: 352, r: 4 }),
+      h('path', { d: 'M1136 250H1100L1060 300' }), h('circle', { cx: 1060, cy: 300, r: 4 }),
+      h('path', { d: 'M1128 520H1104L1080 560' }), h('circle', { cx: 1080, cy: 560, r: 4 }),
+      h('path', { d: 'M868 600H896L926 640' }), h('circle', { cx: 926, cy: 640, r: 4 }));
+  }
+
+  function Motes() {
+    var spots = [[840, 520, 0], [900, 610, 1.2], [1170, 380, 2.1], [1010, 660, 3.3], [960, 250, 4.2], [1110, 610, 5.1], [870, 420, 2.7], [1060, 470, 0.6], [1140, 700, 3.9]];
+    return h('div', { className: 'motes', 'aria-hidden': true }, spots.map(function (s, i) {
+      return h('i', { key: i, style: { left: s[0], top: s[1], animationDelay: s[2] + 's' } });
+    }));
+  }
+
+  var brand = [h('img', { key: 'i', src: LOGO, alt: '' }), h('span', { key: 't' }, 'RxDx'), h('small', { key: 's' }, 'Clinic')];
+
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('main', { className: 'hero nc-ambient' },
+      h('div', { className: 'nav' }, h(N.NavBar, {
+        brand: brand,
+        items: [{ label: 'Care', active: true }, { label: 'Specialists' }, { label: 'Telehealth' }, { label: 'Diagnostics' }, { label: 'Records' }],
+        actions: [
+          h(N.Button, { key: 's', variant: 'ghost', size: 'sm', icon: 'search', 'aria-label': 'Search' }),
+          h(N.Button, { key: 'l', variant: 'ghost', size: 'sm', icon: 'globe', lang: 'ar' }, 'عربي'),
+          h(N.Button, { key: 'b', variant: 'primary', size: 'sm' }, 'Book a visit')]
+      })),
+
+      h('section', { className: 'copy' },
+        h('div', { className: 'kicker' }, h(N.StatusPill, { status: 'live' }, 'Cardiologist on call'), h('em', null, 'Open 24/7')),
+        h('h1', { className: 'display-xl' }, 'The clinic that', h('br'), h('span', { className: 'glow' }, 'never sleeps.')),
+        h('p', { className: 'body-lg' }, 'Specialists, diagnostics and your records in one continuous space — in the clinic, or projected into your living room.'),
+        h('div', { className: 'ctas' },
+          h(N.Button, { size: 'lg', iconEnd: 'arrow-right' }, 'Book a consultation'),
+          h(N.Button, { size: 'lg', variant: 'glass', icon: 'video' }, 'Start a video visit')),
+        h(N.Field, { className: 'find', shape: 'pill', icon: 'search', placeholder: 'Search symptoms, specialists or services', 'aria-label': 'Search the clinic',
+          trailing: h('span', { className: 'nc-kbd' }, '/') })),
+
+      h('div', { className: 'assure' },
+        h('span', null, h(N.Icon, { name: 'shield-check', size: 18 }), 'Your records never leave your device'),
+        h('span', null, h(N.Icon, { name: 'globe', size: 18 }), 'Arabic and English'),
+        h('span', null, h(N.Icon, { name: 'stethoscope', size: 18 }), 'Specialists around the clock')),
+
+      h(Radar), h(Hud), h(Motes),
+      h('div', { className: 'holo' }, h(N.HoloPortrait, { size: 430, name: 'Dr. Noor Rahman', role: 'Consultant cardiologist', status: 'live', statusLabel: 'On call' })),
+
+      h(N.VitalTile, { className: 'w w-heart', pad: 'sm', label: 'Heart rate', value: 72, unit: 'bpm', icon: 'heart-pulse', accent: 'emerald', status: 'live' },
+        h(N.Waveform, { bpm: 72, height: 48 })),
+
+      h(N.GlassPanel, { className: 'w w-spo2', pad: 'sm', glow: 'cyan' },
+        h(N.RingGauge, { value: 98, unit: '%', label: 'SpO₂', size: 132 }),
+        h('div', { className: 'spo2-foot' }, 'Oxygen saturation, resting')),
+
+      h(N.VitalTile, { className: 'w w-bp', pad: 'sm', size: 'sm', label: 'Pressure', value: '118/76', unit: 'mmHg', icon: 'activity', status: 'stable', statusLabel: 'In range',
+        trend: [124, 121, 122, 119, 120, 117, 119, 118] }),
+
+      h(N.GlassPanel, { className: 'w w-next', pad: 'sm', strength: 'strong' },
+        h('div', { className: 'next' },
+          h('span', { className: 'next-ic' }, h(N.Icon, { name: 'calendar', size: 20 })),
+          h('span', null, h('span', { className: 'next-k' }, 'Next available'), h('span', { className: 'next-v' }, 'Today · ', h('b', null, '18:40')))),
+        h('div', { className: 'next-row' },
+          h('span', { className: 'slots' }, h('i', null, '19:20'), h('i', null, '20:00')),
+          h(N.Button, { size: 'sm' }, 'Reserve'))),
+
+      h('div', { className: 'dock' },
+        h(N.FloatButton, { icon: 'message', label: 'Message the care team', badge: 2 }),
+        h(N.FloatButton, { icon: 'video', label: 'Start a video visit' }),
+        h(N.FloatButton, { icon: 'heart-pulse', label: 'Share live vitals', tone: 'emerald', pulse: true }))));
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- @dsCard group="Navigation" height=236 subtitle="English, and Arabic right to left" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>NavBar</title>
+<style>
+  .col { display: flex; flex-direction: column; gap: var(--space-6); width: 100%; }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  var LOGO = '/_blob/23cb1de69e0555dbc47bee1e06fa6c3e';
+  function brand(sub) { return [h('img', { key: 'i', src: LOGO, alt: '' }), h('span', { key: 't' }, 'RxDx'), h('small', { key: 's' }, sub)]; }
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'col' },
+      h(N.NavBar, {
+        brand: brand('Clinic'),
+        items: [{ label: 'Care', active: true }, { label: 'Specialists' }, { label: 'Telehealth' }, { label: 'Records' }],
+        actions: [h(N.Button, { key: 'l', variant: 'ghost', size: 'sm', icon: 'globe' }, 'عربي'), h(N.Button, { key: 'b', variant: 'primary', size: 'sm' }, 'Book a visit')]
+      }),
+      h('div', { dir: 'rtl', lang: 'ar' },
+        h(N.NavBar, {
+          label: 'الرئيسية',
+          brand: brand('عيادة'),
+          items: [{ label: 'الرعاية', active: true }, { label: 'الأطباء' }, { label: 'الاستشارة عن بعد' }, { label: 'السجلات' }],
+          actions: [h(N.Button, { key: 'l', variant: 'ghost', size: 'sm', icon: 'globe' }, 'English'), h(N.Button, { key: 'b', variant: 'primary', size: 'sm' }, 'احجز موعدًا')]
+        }))));
+</script>
+</body>
+</html>

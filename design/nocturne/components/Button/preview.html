@@ -1,0 +1,28 @@
+<!-- @dsCard group="Actions" height=196 subtitle="primary · vital · glass · ghost" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Button</title>
+<style>
+  .col { display: flex; flex-direction: column; gap: var(--space-4); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'col' },
+      h('div', { className: 'row' },
+        h(N.Button, { variant: 'primary', size: 'lg', iconEnd: 'arrow-right' }, 'Book a consultation'),
+        h(N.Button, { variant: 'glass', size: 'lg', icon: 'video' }, 'Start a video visit')),
+      h('div', { className: 'row' },
+        h(N.Button, { variant: 'primary', icon: 'calendar' }, 'Reserve'),
+        h(N.Button, { variant: 'vital', icon: 'heart-pulse' }, 'Share vitals'),
+        h(N.Button, { variant: 'glass' }, 'Details'),
+        h(N.Button, { variant: 'ghost' }, 'Not now'),
+        h(N.Button, { variant: 'primary', size: 'sm' }, 'Confirm'),
+        h(N.Button, { variant: 'primary', disabled: true }, 'Unavailable'))));
+</script>
+</body>
+</html>

@@ -4,6 +4,7 @@ Clinical documentation, coding and pre-authorisation support for Saudi hospitals
 **Patient data never leaves the device.** The tool runs in the browser, with no upload and no account.
 
 Live: <https://m7mdalshehri68.github.io/RxDx/> · <https://rxdx-5pn.pages.dev>
+Landing page: <https://m7mdalshehri68.github.io/RxDx/landing/> · product UI prototype: <https://m7mdalshehri68.github.io/RxDx/design/rxdx-ui/app.html>
 
 ## What it does
 
@@ -117,6 +118,8 @@ Upload `hf-upload/` as a new Hugging Face model, then in RxDx open
 | `openmed_tools/` | ONNX export and offline analysis scripts |
 | `backend/` | optional FastAPI service, not needed for the site |
 | `design/` | theme, fonts, the Arabic dictionary, and `apply_design.py`, which applies them to a build |
+| `design/rxdx-ui/` | the redesigned product UI: a clickable prototype (`app.html`) and the design system (`system.html`) |
+| `landing/` | the landing page, Arabic and English, with the animated demo |
 | `deploy/` | the coding service as a Hugging Face Space, an alternative to `render.yaml` |
 
 ## Contact

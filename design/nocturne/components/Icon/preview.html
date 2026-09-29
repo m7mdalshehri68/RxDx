@@ -1,0 +1,22 @@
+<!-- @dsCard group="Foundations" height=196 subtitle="20 stroke icons, 24px grid, 1.6 stroke" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Icon</title>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: var(--space-2); width: 100%; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 4px 10px; border-radius: var(--radius-md); color: var(--cyan); }
+  .cell:nth-child(3n+2) { color: var(--emerald); }
+  .cell span { font: 400 10px/12px var(--font-mono); color: var(--ink-faint); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'grid' }, N.Icon.names.map(function (n) {
+      return h('div', { key: n, className: 'cell' }, h(N.Icon, { name: n, size: 24 }), h('span', null, n));
+    })));
+</script>
+</body>
+</html>

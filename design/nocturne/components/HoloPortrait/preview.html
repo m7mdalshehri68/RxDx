@@ -1,0 +1,18 @@
+<!-- @dsCard group="Presence" height=580 subtitle="the built-in light-form, or your own portrait via src" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HoloPortrait</title>
+<style>
+  .stage { display: flex; justify-content: center; width: 100%; }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'stage' },
+      h(N.HoloPortrait, { size: 340, name: 'Dr. Noor Rahman', role: 'Cardiology', status: 'live', statusLabel: 'On call' })));
+</script>
+</body>
+</html>

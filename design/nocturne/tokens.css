@@ -1,0 +1,87 @@
+/* Generated from tokens.json. Edit tokens.json, not this file. */
+:root, [data-theme="night"] {
+  --abyss: #030914;
+  --midnight: #071430;
+  --deep: #0b1d42;
+  --deep-raised: #15306a;
+  --glass: rgba(140, 190, 255, 0.07);
+  --glass-strong: rgba(140, 190, 255, 0.12);
+  --glass-edge: rgba(150, 215, 255, 0.18);
+  --glass-edge-strong: rgba(120, 235, 255, 0.34);
+  --sheen: rgba(255, 255, 255, 0.10);
+  --control-edge: #6d8dba;
+  --grid-line: rgba(120, 200, 255, 0.06);
+  --ink: #eef6ff;
+  --ink-muted: #b9c9e2;
+  --ink-faint: #95a9cc;
+  --cyan: #22e4ff;
+  --cyan-bright: #8ff3ff;
+  --cyan-soft: rgba(34, 228, 255, 0.12);
+  --cyan-glow: rgba(34, 228, 255, 0.55);
+  --emerald: #2bf5a9;
+  --emerald-soft: rgba(43, 245, 169, 0.12);
+  --emerald-glow: rgba(43, 245, 169, 0.5);
+  --on-accent: #02121f;
+  --amber: #ffb547;
+  --amber-soft: rgba(255, 181, 71, 0.12);
+  --alert: #ff7d95;
+  --alert-soft: rgba(255, 125, 149, 0.14);
+  --link: var(--cyan);
+  --elev-glass: 0 30px 60px -30px #000000cc, 0 12px 24px -12px #00000080, inset 0 1px 0 #ffffff14;
+  --elev-float: 0 18px 40px -12px #000000d9, 0 0 0 1px #78ebff1f;
+  --glow-cyan: 0 0 0 1px #22e4ff66, 0 8px 24px -4px #22e4ff73, 0 0 48px #22e4ff26;
+  --glow-emerald: 0 0 0 1px #2bf5a966, 0 8px 24px -4px #2bf5a966, 0 0 48px #2bf5a91f;
+  --glow-alert: 0 0 0 1px #ff7d9580, 0 0 22px #ff7d9559;
+  --focus-ring: 0 0 0 2px #030914, 0 0 0 4px #22e4ff;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+  --glass-blur: blur(24px) saturate(160%);
+  --glass-blur-sm: blur(12px) saturate(140%);
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 600ms;
+  --dur-ambient: 18s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --font-sans: "Plex Latin", "Plex Arabic", "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@font-face { font-family: 'Plex Latin'; src: url('../fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Latin'; src: url('../fonts/ibm-plex-sans-arabic-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Latin'; src: url('../fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Latin'; src: url('../fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Arabic'; src: url('../fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Arabic'; src: url('../fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Arabic'; src: url('../fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Plex Arabic'; src: url('../fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'JetBrains Mono'; src: url('../fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'JetBrains Mono'; src: url('../fonts/jetbrains-mono-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+.display-xl { font-family: var(--font-sans); font-size: 76px; line-height: 78px; font-weight: 700; letter-spacing: -0.035em; }
+.display { font-family: var(--font-sans); font-size: 52px; line-height: 58px; font-weight: 700; letter-spacing: -0.03em; }
+.headline { font-family: var(--font-sans); font-size: 34px; line-height: 42px; font-weight: 600; letter-spacing: -0.02em; }
+.title { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em; }
+.body-lg { font-family: var(--font-sans); font-size: 18px; line-height: 30px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 15px; line-height: 24px; font-weight: 400; }
+.body-ar { font-family: var(--font-sans); font-size: 16px; line-height: 30px; font-weight: 400; }
+.label { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: 0.01em; }
+.metric-xl { font-family: var(--font-mono); font-size: 52px; line-height: 52px; font-weight: 400; letter-spacing: -0.03em; }
+.metric { font-family: var(--font-mono); font-size: 28px; line-height: 32px; font-weight: 400; letter-spacing: -0.02em; }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.16em; }
+.code { font-family: var(--font-mono); font-size: 13px; line-height: 20px; font-weight: 400; }

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Inputs" height=240 subtitle="default · pill search · invalid" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Field</title>
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6) var(--space-4); width: 100%; align-items: start; }
+  .wide { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'grid' },
+      h(N.Field, { className: 'wide', shape: 'pill', icon: 'search', placeholder: 'Search symptoms, specialists or services', 'aria-label': 'Search',
+        trailing: h(N.Button, { variant: 'primary', size: 'sm' }, 'Search') }),
+      h(N.Field, { label: 'Full name', placeholder: 'As on your national ID', icon: 'user', hint: 'Used on your file and nowhere else.' }),
+      h(N.Field, { label: 'Mobile number', defaultValue: '05 12', icon: 'phone', invalid: true, hint: 'Enter the full 10-digit number.', inputMode: 'tel' })));
+</script>
+</body>
+</html>
