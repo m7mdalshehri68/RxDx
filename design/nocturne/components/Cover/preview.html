@@ -1,0 +1,57 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RxDx Nocturne</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--abyss); color: var(--ink); font-family: var(--font-sans); overflow: hidden; }
+  .cover { position: relative; width: 960px; height: 320px; overflow: hidden; }
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 320px; overflow: hidden; }
+  .art svg { display: block; width: 480px; height: 320px; }
+  .brand { fill: var(--cyan); }
+  .life { fill: var(--emerald); }
+  .slab { fill: var(--deep-raised); }
+  .light { fill: var(--cyan-bright); }
+  .blk { rx: var(--radius-lg); }
+  .slab-r { rx: var(--radius-xl); }
+  .ring { fill: none; stroke: var(--cyan); stroke-width: 2; }
+  .ring.soft { stroke: var(--glass-edge-strong); }
+  .words { position: absolute; left: var(--space-12); bottom: var(--space-6); max-width: 440px; }
+  .name { margin: 0; font-size: 88px; line-height: .95; font-weight: 700; letter-spacing: -.035em; color: var(--ink); }
+  .tag { margin: var(--space-3) 0 0 4px; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      cyan 144×224 (the action colour, largest) · deep-raised 320×216 bled off the top and right (the night surface) · emerald capsule 224×104 (the life colour) · cyan-bright disc 72 (the floating button) — about 37% of 960×320
+  arrangement one tall cyan slab beside a stack: the night slab above, the emerald capsule and the disc below, bottoms on one line space-6 above the edge, space-4 gutters
+  pattern     "a literal motif": the hologram's projector rings, as quarter arcs at a space-12 pitch rising from the night slab's lower corner, alternating cyan and glass-edge-strong, clipped to the slab
+  scales      gutters space-4; ring pitch space-12; slab corners radius-lg (cyan) and radius-xl (night); capsule and disc rx = half the short side (the radius-full pills of Button and FloatButton)
+-->
+<defs><clipPath id="slabclip"><rect x="160" y="-40" width="360" height="216" rx="32"/></clipPath></defs>
+<rect class="brand blk" x="0" y="72" width="144" height="224" rx="24"/>
+<rect class="slab slab-r" x="160" y="-40" width="360" height="216" rx="32"/>
+<g clip-path="url(#slabclip)">
+  <path class="ring" d="M160 128A48 48 0 0 1 208 176"/>
+  <path class="ring soft" d="M160 80A96 96 0 0 1 256 176"/>
+  <path class="ring" d="M160 32A144 144 0 0 1 304 176"/>
+  <path class="ring soft" d="M160 -16A192 192 0 0 1 352 176"/>
+  <path class="ring" d="M160 -64A240 240 0 0 1 400 176"/>
+  <path class="ring soft" d="M160 -112A288 288 0 0 1 448 176"/>
+</g>
+<rect class="life" x="160" y="192" width="224" height="104" rx="52"/>
+<circle class="light" cx="436" cy="260" r="36"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">RxDx<br>Nocturne</h1>
+<p class="tag">The clinic that never sleeps.</p>
+</div>
+</div>
+</body>
+</html>

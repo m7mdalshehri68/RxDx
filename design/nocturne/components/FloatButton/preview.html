@@ -1,0 +1,21 @@
+<!-- @dsCard group="Actions" height=150 subtitle="cyan · emerald · alert, with tooltip" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>FloatButton</title>
+<style>
+  .dock { display: flex; align-items: center; gap: var(--space-6); padding-inline-start: 150px; }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'dock' },
+      h(N.FloatButton, { icon: 'video', label: 'Start a video visit', className: 'is-tip-open' }),
+      h(N.FloatButton, { icon: 'message', label: 'Message the care team', badge: 2 }),
+      h(N.FloatButton, { icon: 'heart-pulse', label: 'Share live vitals', tone: 'emerald', pulse: true }),
+      h(N.FloatButton, { icon: 'phone', label: 'Emergency line', tone: 'alert' })));
+</script>
+</body>
+</html>

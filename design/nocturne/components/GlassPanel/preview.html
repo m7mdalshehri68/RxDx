@@ -1,0 +1,30 @@
+<!-- @dsCard group="Foundations" height=260 subtitle="default · strong · glow cyan · glow emerald" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>GlassPanel</title>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); width: 100%; position: relative; }
+  .orb { position: absolute; width: 200px; height: 200px; border-radius: 50%; left: 30%; top: -24px; background: radial-gradient(circle, rgba(34, 228, 255, .55), rgba(34, 228, 255, 0) 70%); filter: blur(4px); }
+  .orb.e { left: 62%; top: 10px; background: radial-gradient(circle, rgba(43, 245, 169, .45), rgba(43, 245, 169, 0) 70%); }
+  .t { margin: 0 0 6px; font: 600 16px/22px var(--font-sans); letter-spacing: -.01em; }
+  .d { margin: 0; font: 400 13.5px/21px var(--font-sans); color: var(--ink-muted); }
+  .k { display: block; margin-bottom: 14px; font: 600 10.5px/14px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  function card(props, key, title, body) {
+    return h(N.GlassPanel, props, h('span', { className: 'k' }, key), h('p', { className: 't' }, title), h('p', { className: 'd' }, body));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'grid' },
+      h('span', { className: 'orb', 'aria-hidden': true }), h('span', { className: 'orb e', 'aria-hidden': true }),
+      card({}, 'default', 'Cardiology', 'Consultations, echo and stress testing, on site or projected.'),
+      card({ strength: 'strong' }, 'strong', 'Your records', 'Stored on your device. Shared only when you say so.'),
+      card({ glow: 'cyan' }, 'glow cyan', 'Next available', 'Today at 18:40 with the on-call cardiologist.'),
+      card({ glow: 'emerald' }, 'glow emerald', 'Monitoring live', 'Readings stream to your care team while you sleep.')));
+</script>
+</body>
+</html>

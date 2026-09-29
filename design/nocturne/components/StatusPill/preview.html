@@ -1,0 +1,31 @@
+<!-- @dsCard group="Status" height=120 subtitle="each status has a word and a glyph" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>StatusPill</title>
+<style>
+  .col { display: flex; flex-direction: column; gap: var(--space-3); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+</style>
+</head>
+<body>
+<div id="root" class="nc-ambient nc-preview"></div>
+<script>
+  var N = window.Nocturne, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'col' },
+      h('div', { className: 'row' },
+        h(N.StatusPill, { status: 'live' }, 'On call now'),
+        h(N.StatusPill, { status: 'stable' }, 'In range'),
+        h(N.StatusPill, { status: 'watch' }, 'Rising'),
+        h(N.StatusPill, { status: 'critical' }, 'Critical'),
+        h(N.StatusPill, { status: 'offline' }, 'Device offline'),
+        h(N.StatusPill, { status: 'info' }, 'Results ready')),
+      h('div', { className: 'row' },
+        h(N.StatusPill, { status: 'live', size: 'sm' }),
+        h(N.StatusPill, { status: 'stable', size: 'sm' }),
+        h(N.StatusPill, { status: 'watch', size: 'sm' }),
+        h(N.StatusPill, { status: 'critical', size: 'sm' }),
+        h(N.StatusPill, { status: 'offline', size: 'sm' }))));
+</script>
+</body>
+</html>
