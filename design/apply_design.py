@@ -76,6 +76,10 @@ GATE_TOP = ('<div class="rxg-top">' + LANG_BTN +
             '<button class="rxt-btn" onclick="rxTheme()" title="Theme">' + MOON + '</button></div>')
 
 
+NIGHT = ('<script id="rx-night">(function(){var d=true;try{d=localStorage.getItem(\'rx_theme\')!==\'light\';}catch(_){}'
+         'if(d)document.body.classList.add(\'rxdark\');})();</script>')
+
+
 def apply(path):
     p = pathlib.Path(path)
     h = p.read_text(encoding='utf-8')
@@ -84,6 +88,11 @@ def apply(path):
     h = re.sub(r'<style id="rx-fonts">[\s\S]*?</style>\n?', '', h)
     h = re.sub(r'<style id="rx-theme">[\s\S]*?</style>\n?', '', h)
     h = re.sub(r'<script id="rx-i18n">[\s\S]*?</script>\n?', '', h)
+    h = re.sub(r'<style id="rx-nocturne">[\s\S]*?</style>\n?', '', h)
+    h = re.sub(r'<script id="rx-night">[\s\S]*?</script>\n?', '', h)
+
+    # 1b. Nocturne is the default: night unless the user has chosen light
+    h = h.replace('<body>', '<body>\n' + NIGHT, 1)
 
     # 2. the existing style blocks speak in start/end instead of left/right
     app_at = h.find('const IDF')
@@ -104,8 +113,10 @@ def apply(path):
 
     # 4. fonts, theme and language, after every other style block and before the app
     theme = (HERE / 'theme.css').read_text(encoding='utf-8')
+    night = (HERE / 'nocturne' / 'app.css').read_text(encoding='utf-8')
     inject = ('<style id="rx-fonts">' + font_css() + '</style>\n'
               '<style id="rx-theme">' + theme + '</style>\n'
+              '<style id="rx-nocturne">' + night + '</style>\n'
               '<script id="rx-i18n">' + i18n_js() + '</script>\n')
     p.write_text(head + inject + tail, encoding='utf-8')
     print('%-60s %9d bytes' % (p.name, p.stat().st_size))

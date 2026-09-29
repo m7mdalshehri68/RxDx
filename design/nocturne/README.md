@@ -17,4 +17,10 @@ Open `showcase.html` in a browser to see the hero above running live. It needs n
 | `icons/` | the 20-icon stroke set as SVG files |
 | `showcase.html` | the 1440 × 810 clinic hero, composed only from the system |
 
+**On the tool.** `app.css` restyles `index.html` with Nocturne. `design/apply_design.py` injects it after
+`theme.css`, and night is now the default look. The moon button still switches to the light clinical theme,
+and the choice is remembered. It is CSS only: the engine, the notes and the tests are untouched.
+
+![RxDx in Nocturne](app-preview.png)
+
 Fonts come from `design/fonts/` (IBM Plex Sans Arabic and JetBrains Mono), and the mark is the app's `icon.svg`.
