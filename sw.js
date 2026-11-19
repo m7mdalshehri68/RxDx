@@ -6,7 +6,7 @@
    so a release reaches a returning visitor on their next load instead of the one
    after. The cache is what keeps the tool working when the network does not
    answer: offline, or slower than a few seconds. */
-const CACHE = 'rxdx-v15';
+const CACHE = 'rxdx-v16';
 const SHELL = ['./', './index.html', './manifest.json', './icon.svg'];
 const PATIENCE_MS = 4000;
 
@@ -30,6 +30,9 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
   /* the connectivity probe must reach the network or it proves nothing */
   if (url.searchParams.has('rxnet')) return;
+  /* so must a service's health check: the coding service and the AI gateway
+     answer it with their current state, which a cached copy would freeze */
+  if (url.origin !== location.origin && /\/health$/.test(url.pathname)) return;
   /* model weights are large and immutable, and other origins serve fixed
      library versions: cache first, forever */
   const isModel = /\.(onnx|onnx_data)$|tokenizer\.json$/.test(url.pathname);

@@ -85,7 +85,9 @@ not 1,548 medicines — so the service starts in about 150 ms and holds ~130 MB.
 ## What it stores
 
 **Nothing.** Clinical text lives in memory for the life of one request. It is never
-written to disk, never logged, never forwarded. The access log line is:
+written to disk and never logged. It is forwarded only when `RXDX_AI_GATEWAY` is set:
+then a copy with the identifiers removed goes to the RxDx AI gateway for Claude to read
+(see "Coding with Claude" below). The access log line is:
 
 ```json
 {"t":"2026-08-27T00:14:02.881Z","id":"9f2c…","route":"/v1/code","status":200,
@@ -165,6 +167,29 @@ docker run -d --restart=always -p 8080:8080 \
 | `RXDX_MAX_BATCH` | `200` | Most notes in one batch call. |
 | `RXDX_PUBLIC_DEMO` | `1` | `1` makes `/docs` warn against real patient text. |
 | `RXDX_HTML` | `../index.html` | Which build the engine loads. |
+| `RXDX_AI_GATEWAY` | *(unset)* | Address of the RxDx AI gateway. When set, `/v1/code` codes with Claude by default. |
+| `RXDX_AI_KEY` | *(unset)* | The `SERVER_KEY` set on the gateway. |
+| `RXDX_AI_DEFAULT` | `1` | `0` keeps the dictionary engine as the default; callers can still send `"coder":"ai"`. |
+| `RXDX_AI_WAIT` | `25000` | Milliseconds to wait for the gateway before falling back to the dictionary engine. |
+
+---
+
+## Coding with Claude
+
+With `RXDX_AI_GATEWAY` set, `POST /v1/code` sends a copy of the note, with ID and Iqama numbers,
+file numbers, phone numbers, emails, dates, Arabic text and names written after a title or a name
+field removed, to the
+RxDx AI gateway (`../gateway/worker.js`), which asks Claude to read it. Claude's answer is
+then checked by the same functions the browser uses: every code must exist in the ICD-10-AM
+table, the words it quotes must be in the note, and the negation layer runs on each quote.
+An ICD-10-CM code is moved to the ICD-10-AM code its title names, or sent back for a coder.
+
+The answer carries `"coder": "claude"` and three extra lists: `needsCoder` (suggestions that
+failed a check, with the closest ICD-10-AM candidates), `alsoFoundByWordList` (what the
+dictionary engine found that Claude did not address) and `mentionedButNotCoded` (denied,
+uncertain, past or family findings). If the gateway cannot be reached the dictionary engine
+answers, with `"coder": "dictionary"` and a warning. Send `"coder": "dictionary"` to skip
+Claude for one call. `/v1/code/batch` always uses the dictionary engine.
 
 ---
 

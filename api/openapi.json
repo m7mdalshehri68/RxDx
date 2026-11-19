@@ -4,7 +4,7 @@
     "title": "RxDx Coding API",
     "version": "1.0.0",
     "summary": "Turns clinical free text into ICD-10-AM codes, with the evidence for each one.",
-    "description": "Every code comes back with the phrase that earned it, the sentence it sits in, a confidence figure and the reasons behind that figure. The service also returns what the note mentions but the engine deliberately refused to code, so a reviewer can see that a denied diagnosis was read and set aside rather than missed.\n\nThis API runs the same engine as the RxDx browser tool — literally the same script file, not a re-implementation — so the two can never give different answers. A parity test fails the build if they ever do.\n\nMeasured on a 60-note hand-labelled corpus: precision 100.0%, recall 98.7%, F1 99.3% at 3-character ICD category; 97.3%, 94.8% and 96.1% at full code. Negation: 123 of 123 traps held.\n\nPRIVACY. Clinical text is held in memory for the life of one request. It is never written to disk, never logged and never forwarded. The access log records a request id, a character count, how many codes came back and how long it took. If the deployment you are calling is the public demonstration instance, do not send real patient text to it — the note still crosses the public internet to reach the server.",
+    "description": "Every code comes back with the phrase that earned it, the sentence it sits in, a confidence figure and the reasons behind that figure. The service also returns what the note mentions but the engine deliberately refused to code, so a reviewer can see that a denied diagnosis was read and set aside rather than missed.\n\nThis API runs the same engine as the RxDx browser tool — literally the same script file, not a re-implementation — so the two can never give different answers. A parity test fails the build if they ever do.\n\nMeasured on a 60-note hand-labelled corpus: precision 100.0%, recall 98.7%, F1 99.3% at 3-character ICD category; 97.3%, 94.8% and 96.1% at full code. Negation: 123 of 123 traps held.\n\nPRIVACY. Clinical text is held in memory for the life of one request. It is never written to disk and never logged. It is forwarded only when this deployment has an AI gateway: then a copy with ID and Iqama numbers, file numbers, phone numbers, emails, dates, Arabic text and names written after a title or a name field removed goes to the RxDx AI gateway for Claude to read. The access log records a request id, a character count, how many codes came back and how long it took. If the deployment you are calling is the public demonstration instance, do not send real patient text to it — the note still crosses the public internet to reach the server.",
     "contact": { "name": "Mohammed Alshehri", "email": "m7md.alshehri68@gmail.com", "url": "https://www.linkedin.com/in/mh-sh68/" }
   },
   "servers": [{ "url": "/", "description": "this deployment" }],
@@ -209,7 +209,10 @@
         "properties": {
           "text": { "type": "string", "description": "The clinical note, in English. Free text — headings, bullets and dictation all work." },
           "sex": { "type": "string", "enum": ["male", "female"], "description": "Optional. Used only to flag a code that the ICD table marks as restricted to the other sex. A conflict is reported, never silently dropped: the note may be right and this field wrong." },
-          "explainRefusals": { "type": "boolean", "default": true, "description": "Set false to skip the mentionedButNotCoded scan when speed matters more than the audit trail." }
+          "explainRefusals": { "type": "boolean", "default": true, "description": "Set false to skip the mentionedButNotCoded scan when speed matters more than the audit trail." },
+          "coder": { "type": "string", "enum": ["ai", "dictionary"], "description": "Which engine codes the note. When this deployment has an AI gateway, Claude reads a copy with the identifiers removed and every code is checked against ICD-10-AM; that is the default. Send dictionary to use the word-list engine only." },
+          "age": { "type": "integer", "description": "Optional, years. Context for the AI coder." },
+          "encounter": { "type": "string", "enum": ["outpatient", "inpatient", "emergency"], "description": "Optional. Context for the AI coder." }
         }
       },
       "CodeResponse": {
@@ -217,6 +220,8 @@
         "properties": {
           "requestId": { "type": "string" },
           "engine": { "type": "string", "example": "rxdx/1.0.0" },
+          "coder": { "type": "string", "enum": ["claude", "dictionary"], "description": "Which engine produced this answer. dictionary also when the AI gateway could not be reached; a warning then says so." },
+          "model": { "type": "string", "description": "Coder claude only. The model that read the note." },
           "contentVersion": { "type": "string" },
           "principal": { "type": "array", "items": { "$ref": "#/components/schemas/Coded" }, "description": "Diagnoses the note establishes." },
           "supporting": { "type": "array", "items": { "$ref": "#/components/schemas/Coded" }, "description": "Findings and symptoms that support the picture without being the reason for the encounter." },
@@ -233,6 +238,14 @@
             }
           },
           "warnings": { "type": "array", "items": { "type": "object", "properties": { "severity": { "type": "string", "enum": ["error", "note"] }, "code": { "type": "string" }, "message": { "type": "string" } } } },
+          "needsCoder": {
+            "type": "array",
+            "description": "Coder claude only. Suggestions that did not pass the checks: not an ICD-10-AM code (notam), no code given (nocode), quoted words not in the note (quote), or a finding the note may deny (engine). Each carries the closest ICD-10-AM candidates.",
+            "items": { "type": "object", "properties": { "term": { "type": "string" }, "suggested": { "type": "string", "nullable": true }, "reason": { "type": "string", "enum": ["notam", "nocode", "quote", "engine"] }, "alternatives": { "type": "array", "items": { "type": "object", "properties": { "code": { "type": "string" }, "description": { "type": "string" } } } } } }
+          },
+          "alsoFoundByWordList": { "type": "array", "description": "Coder claude only. Conditions the word-list engine found that Claude did not address.", "items": { "type": "object", "properties": { "code": { "type": "string" }, "description": { "type": "string" }, "term": { "type": "string" } } } },
+          "identifiersRemoved": { "type": "integer", "description": "Coder claude only. Identifiers removed before the note left the service." },
+          "usage": { "type": "object", "description": "Coder claude only. Token counts reported by the model, for cost tracking." },
           "ms": { "type": "number", "description": "Engine time for this note, in milliseconds." }
         }
       },
@@ -246,7 +259,11 @@
           "evidence": { "type": "object", "properties": { "term": { "type": "string" }, "offset": { "type": "integer" }, "sentence": { "type": "string" } } },
           "mentions": { "type": "integer" },
           "moreSpecificAvailable": { "type": "integer", "description": "How many more specific codes exist in this family. Above zero means a better code is available if the note said more." },
-          "sexRule": { "type": "string", "nullable": true }
+          "sexRule": { "type": "string", "nullable": true },
+          "role": { "type": "string", "enum": ["principal", "secondary", "external_cause", "place", "activity"], "description": "Coder claude only." },
+          "checks": { "type": "array", "items": { "type": "string", "enum": ["checked", "fixed", "meaning", "sex", "pdx"] }, "description": "Coder claude only. checked: passed every check. fixed: moved to the ICD-10-AM code its title names. meaning: the ICD-10-AM title differs from what was read. sex: sex rule. pdx: not accepted as principal, moved down." },
+          "adjustedFrom": { "type": "string", "nullable": true, "description": "Coder claude only. The code Claude suggested before it was moved to ICD-10-AM." },
+          "alternatives": { "type": "array", "items": { "type": "object", "properties": { "code": { "type": "string" }, "description": { "type": "string" } } }, "description": "Coder claude only. Other ICD-10-AM codes to consider when a check fired." }
         }
       },
       "Error": {

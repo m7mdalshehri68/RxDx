@@ -6,8 +6,9 @@
    supply chain, starts in under a second, and fits in one readable file.
 
    WHAT THIS SERVICE STORES: nothing. Clinical text is held in memory for the
-   life of one request and is never written to disk, never logged, and never
-   sent anywhere. The access log records a request id, a character count, how
+   life of one request and is never written to disk and never logged. It is
+   sent nowhere unless RXDX_AI_GATEWAY is set; then a copy with the identifiers
+   removed goes to the RxDx AI gateway for Claude to read. The access log records a request id, a character count, how
    many codes came back and how long it took — never the text itself. That is
    enforced below, not promised in a README.
    ══════════════════════════════════════════════════════════════════════ */
@@ -17,6 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const engine = require('./engine.js');
+const https = require('https');
 
 const PORT = Number(process.env.PORT || 8080);
 const API_KEY = String(process.env.RXDX_API_KEY || '').trim();
@@ -26,6 +28,39 @@ const MAX_BATCH = Number(process.env.RXDX_MAX_BATCH || 200);
 const RATE_N = Number(process.env.RXDX_RATE_LIMIT || 120);              /* requests */
 const RATE_WINDOW = Number(process.env.RXDX_RATE_WINDOW || 60) * 1000;  /* per minute */
 const PUBLIC_DEMO = String(process.env.RXDX_PUBLIC_DEMO || '1') === '1';
+/* Coding with Claude through the RxDx AI gateway (gateway/worker.js). Off
+   unless an address is set; on by default for /v1/code once it is. */
+const AI_GATEWAY = String(process.env.RXDX_AI_GATEWAY || '').trim().replace(/\/+$/, '');
+const AI_KEY = String(process.env.RXDX_AI_KEY || '').trim();
+const AI_DEFAULT = String(process.env.RXDX_AI_DEFAULT || '1') === '1';
+const AI_WAIT = Number(process.env.RXDX_AI_WAIT || 25000);
+
+/* Node's own http client, not fetch: the engine shell that loads the page
+   script replaces the timers fetch relies on. */
+function askGateway(payload) {
+  return new Promise((resolve, reject) => {
+    let u;
+    try { u = new URL(AI_GATEWAY + '/code'); } catch (e) { return reject(e); }
+    const body = JSON.stringify(payload);
+    const req = (u.protocol === 'https:' ? https : http).request(u, {
+      method: 'POST',
+      headers: Object.assign({ 'content-type': 'application/json', 'content-length': Buffer.byteLength(body) },
+        AI_KEY ? { 'x-rxdx-server-key': AI_KEY } : {})
+    }, res => {
+      let data = '';
+      res.setEncoding('utf8');
+      res.on('data', d => { data += d; });
+      res.on('end', () => {
+        let j = null; try { j = JSON.parse(data); } catch (_) {}
+        if (res.statusCode !== 200 || !j || !j.ok) return reject(new Error('gateway answered ' + res.statusCode + (j && j.error ? ' (' + j.error + ')' : '')));
+        resolve(j);
+      });
+    });
+    req.setTimeout(AI_WAIT, () => req.destroy(new Error('gateway timed out')));
+    req.on('error', reject);
+    req.end(body);
+  });
+}
 
 const STARTED = Date.now();
 const VERSION = '1.0.0';
@@ -142,7 +177,8 @@ const server = http.createServer(async (req, res) => {
       requestsServed: SERVED,
       storesClinicalText: false,
       publicDemo: PUBLIC_DEMO,
-      authRequired: !!API_KEY
+      authRequired: !!API_KEY,
+      aiGateway: !!AI_GATEWAY
     });
   }
   if (p === '/v1/version') {
@@ -231,16 +267,25 @@ const server = http.createServer(async (req, res) => {
     if (typeof body.text !== 'string') {
       return fail(req, res, 400, 'missing_text', 'Send {"text": "the clinical note"}.');
     }
-    let out;
-    try { out = engine.codeNote(body.text, { sex: body.sex, explainRefusals: body.explainRefusals }); }
-    catch (e) {
-      log({ id, route: p, status: 500, who, chars: body.text.length, err: e.message });
-      return fail(req, res, 500, 'engine_error', 'The coding engine failed on this request.', { requestId: id });
+    let out = null, aiFailed = null;
+    const wantAI = !!AI_GATEWAY && body.coder !== 'dictionary' && (body.coder === 'ai' || AI_DEFAULT);
+    if (wantAI && body.text.trim().length >= 3) {
+      try { out = await engine.codeNoteAI(body.text, { sex: body.sex, age: body.age, encounter: body.encounter }, askGateway); }
+      catch (e) { aiFailed = e.message; }
+    }
+    if (!out) {
+      try { out = engine.codeNote(body.text, { sex: body.sex, explainRefusals: body.explainRefusals }); }
+      catch (e) {
+        log({ id, route: p, status: 500, who, chars: body.text.length, err: e.message });
+        return fail(req, res, 500, 'engine_error', 'The coding engine failed on this request.', { requestId: id });
+      }
+      out = Object.assign({ coder: 'dictionary' }, out);
+      if (aiFailed) out.warnings.push({ severity: 'note', message: 'the AI gateway could not be reached; coded with the dictionary engine' });
     }
     SERVED++;
-    log({ id, route: p, status: 200, who, chars: body.text.length,
+    log({ id, route: p, status: 200, who, chars: body.text.length, coder: out.coder,
           principal: out.principal.length, supporting: out.supporting.length,
-          refused: out.mentionedButNotCoded.length, ms: Date.now() - t0 });
+          refused: out.mentionedButNotCoded.length, aiError: aiFailed ? 'unreachable' : undefined, ms: Date.now() - t0 });
     return send(req, res, 200, Object.assign({ requestId: id, engine: 'rxdx/' + VERSION }, out));
   }
 

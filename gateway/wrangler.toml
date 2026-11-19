@@ -1,0 +1,23 @@
+# RxDx AI gateway. Deploy with:  npx wrangler deploy   (from this folder)
+# Then add the key once:          npx wrangler secret put ANTHROPIC_API_KEY
+# Optional, for the coding API:   npx wrangler secret put SERVER_KEY
+name = "rxdx-ai"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+ALLOW_ORIGINS = "https://m7mdalshehri68.github.io,https://rxdx-5pn.pages.dev,null"
+MODEL = "claude-haiku-5-5"
+EFFORT = "low"
+MAX_CHARS = "8000"
+RATE_PER_MIN = "20"
+
+# Shared across the Worker's instances in a Cloudflare location. Without it the
+# Worker falls back to a per-instance limit of RATE_PER_MIN.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60

@@ -123,7 +123,7 @@ function load() {
      hoisted out in the same string. */
   (0, eval)(code + ';Object.assign(global,{__rx:{_stProblems,_stActive,_buildNoteIndexes,'
     + '_termAllowed,_wordRe,_stSentence,ICD_MAP,SYN,CONTENT_REG,PRESENTATIONS,'
-    + 'PA,cxCanon,cxAllNames,rxEncounter}});');
+    + 'PA,cxCanon,cxAllNames,rxEncounter,aicDeid,aicValidate,aicCrossCheck}});');
 
   const rx = global.__rx;
   E = {
@@ -442,7 +442,62 @@ function askEncounter(opts) {
   return out;
 }
 
+/* ═════════════════════════════════════════════════════════════════════
+   CODING WITH CLAUDE
+
+   The same checks the browser runs, called from the same script: identifiers
+   are removed before the note leaves this process, and every code Claude
+   suggests is checked against the ICD-10-AM table, against the words of the
+   note, and against the negation layer before it is returned. `ask` is the
+   call to the RxDx AI gateway; it is passed in so the tests can stand in for it.
+   ═════════════════════════════════════════════════════════════════════ */
+async function codeNoteAI(text, opts, ask) {
+  const t0 = process.hrtime.bigint();
+  const rx = load().rx;
+  const clean = String(text == null ? '' : text);
+  opts = opts || {};
+  const sex = opts.sex === 'male' || opts.sex === 'female' ? opts.sex : null;
+  const d = rx.aicDeid(clean);
+  const answer = await ask({ note: d.text, sex: sex || undefined, age: opts.age, encounter: opts.encounter });
+  const sent = typeof answer.sentText === 'string' && answer.sentText ? answer.sentText : d.text;
+  const res = rx.aicCrossCheck(sent, rx.aicValidate(sent, answer.items, { sex }));
+  const warnings = [];
+
+  const shape = x => {
+    const w = sexConflict(x.code, sex);
+    if (w) warnings.push(Object.assign({ code: x.code }, w));
+    return {
+      code: x.code,
+      description: (x.rec && x.rec.ascii_desc) || '',
+      role: x.role,
+      evidence: { term: x.term || '', offset: x.at >= 0 ? x.at : null, sentence: x.at >= 0 ? sentenceAt(rx, sent, x.at) : '' },
+      checks: x.flags.length ? x.flags : ['checked'],
+      adjustedFrom: x.from || null,
+      alternatives: (x.alts || []).map(a => ({ code: a.code, description: a.desc })),
+      sexRule: w ? w.message : null
+    };
+  };
+
+  return {
+    coder: 'claude',
+    model: answer.model || null,
+    principal: res.coded.filter(x => x.role === 'principal').map(shape),
+    supporting: res.coded.filter(x => x.role !== 'principal').map(shape),
+    needsCoder: res.review.map(x => ({
+      term: x.term, suggested: x.code || null, reason: x.why,
+      alternatives: (x.alts || []).map(a => ({ code: a.code, description: a.desc }))
+    })),
+    alsoFoundByWordList: (res.wordList || []).map(x => ({ code: x.code, description: (x.rec && x.rec.ascii_desc) || '', term: x.term })),
+    mentionedButNotCoded: res.refused.map(x => ({ term: x.term, status: x.status, reason: x.why, code: x.code || null })),
+    warnings,
+    identifiersRemoved: d.removed + (answer.deidRemoved || 0),
+    usage: answer.usage || null,
+    contentVersion: load().contentVersion,
+    ms: Math.round(Number(process.hrtime.bigint() - t0) / 1e4) / 100
+  };
+}
+
 module.exports = {
-  load, codeNote, refused, sexConflict, contentVersion,
+  load, codeNote, codeNoteAI, refused, sexConflict, contentVersion,
   askEncounter, listPresentations, resolveComplaint
 };

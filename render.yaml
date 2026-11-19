@@ -33,3 +33,10 @@ services:
       # open demonstration instance.
       - key: RXDX_API_KEY
         sync: false
+      # Coding with Claude: the address of the RxDx AI gateway (gateway/worker.js)
+      # and the SERVER_KEY set on it. Leave both unset to code with the
+      # dictionary engine only.
+      - key: RXDX_AI_GATEWAY
+        sync: false
+      - key: RXDX_AI_KEY
+        sync: false
