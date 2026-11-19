@@ -1,7 +1,10 @@
 # RxDx
 
 Clinical documentation, coding and pre-authorisation support for Saudi hospitals.
-**Patient data never leaves the device.** The tool runs in the browser, with no upload and no account.
+The tool runs in the browser, with no account. Coding with Claude reads a copy of the note after the
+browser removes ID and Iqama numbers, file numbers, phone numbers, emails, dates, Arabic text and any
+name written after a title or a name field; a patient's name typed into the note itself is not caught.
+Switch Claude off and nothing leaves the device at all.
 
 Live: <https://m7mdalshehri68.github.io/RxDx/> · <https://rxdx-5pn.pages.dev>
 Landing page: <https://m7mdalshehri68.github.io/RxDx/landing/> · product UI prototype: <https://m7mdalshehri68.github.io/RxDx/design/rxdx-ui/app.html>
@@ -13,9 +16,17 @@ lists what the insurer will require that nothing written so far answers, and eac
 once it is written — in its own field or anywhere else in the encounter. Tapping an item opens
 the field that answers it. Nothing on the list stops the doctor finalising.
 
-**After the note is written.** The note is coded to ICD-10-AM. Every code carries the phrase
-and the sentence that earned it. Diagnoses the note denies ("no myocardial infarction") are
-listed as refused, not coded.
+**Two layouts of one note.** The doctor fills the builder once. Generate lays the note out as SOAP
+and as SOCRATES, and the doctor copies whichever suits the patient. The SOAP layout only moves and
+joins what was entered: the history becomes a paragraph, the examination is grouped by system, and
+an empty field leaves no trace. Under the note, every medicine in the plan is checked against the CHI
+formulary: listed or not, whether its listed indications match the diagnosis, and whether the
+insurer requires a request for it.
+
+**After the note is written.** Claude reads the note and RxDx checks every code it suggests
+against the ICD-10-AM table before it is shown. Every code carries the phrase that earned it.
+Diagnoses the note denies ("no myocardial infarction") are listed as refused, not coded. Without
+a network, or with Claude switched off, the word-list engine codes the note in the browser.
 
 **For management.** A Payer protocols screen puts the three insurers side by side: which services need a
 request, the deadlines and rules that refuse requests for non-clinical reasons, the documentation each payer
@@ -55,12 +66,36 @@ nothing Arabic can reach a claim.
 written by the author of the vocabulary, so this is internal evidence. An independent audit
 by a certified coder is the next step.
 
+## Coding with Claude
+
+The word list knows 870 of the 16,953 codes, so a fractured radius or a colon cancer with liver
+secondaries came back with nothing, and a diabetic with three complications came back with one.
+Claude now reads the note; RxDx still decides what is shown:
+
+1. Identifiers are removed in the browser before anything is sent.
+2. The note goes to the RxDx AI gateway (`gateway/worker.js`, a Cloudflare Worker that holds the
+   Anthropic key) and Claude Haiku 5.5 returns each condition with the words it was read from
+   and an ICD-10-AM code.
+3. Every code must exist in the ICD-10-AM table. An ICD-10-CM code or a bare category is moved to
+   the ICD-10-AM code its title names, or sent to the coder with the closest candidates.
+4. The quoted words must be in the note, and the negation layer runs on each quote.
+5. The word list runs alongside; anything it finds that Claude did not address is shown.
+6. If the gateway cannot be reached, the word list codes the note.
+
+The doctor agrees once per device before the first note is sent. Cost at Claude Haiku 5.5 prices
+(US$0.10 per million input tokens, US$0.50 per million output tokens) is roughly US$1 to US$3 per
+1,000 notes. `node gold/measure_ai.js <gateway>` measures it on the labelled corpus and prints the
+cost. Deployment: `gateway/README.md`.
+
 ## Tests
 
-605 tests in `tests/`. Run `node tests/<name>.js`.
-The API adds 66 more and a parity check: `cd api && npm test`.
+687 tests in `tests/`. Run `node tests/<name>.js`.
+The API adds 80 more and a parity check: `cd api && npm test`.
+The gateway adds 101: `node gateway/test.js`.
 `design/check_language.js` drives both notes with the screen in Arabic and fails if one Arabic
 character reaches a note, a field value or copied codes.
+`design/check_soap.js` fills every field of all 98 complaints with a marker, generates, and fails
+if either layout loses a marker, prints an empty label or invents a value.
 
 ## API
 
@@ -111,9 +146,10 @@ Upload `hf-upload/` as a new Hugging Face model, then in RxDx open
 |---|---|
 | `index.html` | the tool |
 | `data/` | the ICD-10-AM and formulary tables, loaded by `index.html` |
-| `tests/` | 605 tests |
+| `tests/` | 647 tests |
 | `api/` | HTTP API, Docker image, OpenAPI specification |
-| `gold/` | the labelled corpus and the accuracy harness |
+| `gateway/` | the AI gateway: a Cloudflare Worker that holds the Anthropic key and asks Claude to read a de-identified note |
+| `gold/` | the labelled corpus, the accuracy harness, and `measure_ai.js` for coding with Claude |
 | `preauth/` | the three payer protocols, parsed; `PA.json` is what the tool loads, `bupa_prereq_build.py` rebuilds Bupa's Prerequisites sets |
 | `openmed_tools/` | ONNX export and offline analysis scripts |
 | `backend/` | optional FastAPI service, not needed for the site |

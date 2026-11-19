@@ -1,0 +1,13 @@
+{
+  "name": "rxdx-ai-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker that holds the Anthropic key and asks Claude to read a de-identified note for RxDx.",
+  "main": "worker.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Mohammed Alshehri <m7md.alshehri68@gmail.com>",
+  "license": "UNLICENSED"
+}

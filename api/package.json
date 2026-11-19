@@ -7,7 +7,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "start": "node server.js",
-    "test": "node test/api.js && node test/encounter.js && node test/parity.js"
+    "test": "node test/api.js && node test/encounter.js && node test/parity.js && node test/ai.js"
   },
   "dependencies": {},
   "author": "Mohammed Alshehri <m7md.alshehri68@gmail.com>",
